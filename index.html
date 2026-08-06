@@ -1,0 +1,1397 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>James Alejandro Portfolio</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- ================= CSS ================= -->
+    <link rel="stylesheet" href="css/animate.min.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/jquery.fullPage.css">
+    <link rel="stylesheet" href="css/style.css">
+    <!-- ================= PAGE THEME ================= -->
+    <style>
+        /*
+        ==========================================
+        GLOBAL SECTION BACKGROUND
+        ==========================================
+        */
+        #home {
+            background:
+                linear-gradient(135deg,
+                    #020617,
+                    #0f172a,
+                    #1e1b4b);
+        }
+
+        #work {
+            background:
+                linear-gradient(180deg,
+                    #020617,
+                    #111827);
+        }
+
+        #about {
+            background:
+                linear-gradient(180deg,
+                    #020617,
+                    #1e1b4b);
+        }
+
+        #portfolio {
+            background:
+                linear-gradient(135deg,
+                    #020617,
+                    #0f172a,
+                    #1e293b);
+        }
+
+        #contact {
+            background:
+                linear-gradient(180deg,
+                    #0f172a,
+                    #1e293b);
+        }
+
+        .section {
+            color: #e5e7eb;
+        }
+
+        /*
+        ==========================================
+        GLASS CONTAINER
+        ==========================================
+        */
+        .glass-card {
+            background:
+                rgba(15,
+                    23,
+                    42,
+                    .75);
+            backdrop-filter:
+                blur(12px);
+            border:
+                1px solid rgba(148,
+                    163,
+                    184,
+                    .15);
+            border-radius: 20px;
+            box-shadow:
+                0 20px 50px rgba(0,
+                    0,
+                    0,
+                    .25);
+        }
+
+        /*
+        ==========================================
+        BUTTON STYLE
+        ==========================================
+        */
+        .btn-primary {
+            background:
+                linear-gradient(135deg,
+                    #6366f1,
+                    #818cf8);
+            border: none;
+            color: white !important;
+            box-shadow:
+                0 10px 25px rgba(99,
+                    102,
+                    241,
+                    .3);
+        }
+
+        .btn-primary:hover {
+            background:
+                linear-gradient(135deg,
+                    #4f46e5,
+                    #6366f1);
+            transform:
+                translateY(-3px);
+        }
+
+        .btn-default {
+            background:
+                rgba(255,
+                    255,
+                    255,
+                    .08);
+            border:
+                1px solid rgba(255,
+                    255,
+                    255,
+                    .25);
+            color: white !important;
+        }
+
+        .btn-default:hover {
+            background: white;
+            color: #111827 !important;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="fullpage">
+        <!-- ==================================================
+                        HOME SECTION
+================================================== -->
+        <div id="home" class="section">
+            <div class="container">
+                <div class="row home-layout">
+                    <!-- ================= PROFILE ================= -->
+                    <div class="col-lg-5 col-md-6 col-sm-12 wow fadeInLeft" data-wow-delay="0.4s">
+                        <div class="glass-card home-profile">
+                            <div class="profile-img-wrapper">
+                                <img src="assets/profile.jpg" alt="James Alejandro Sumardin" class="profile-img">
+                            </div>
+                            <h3 class="profile-title">
+                                James Alejandro Sumardin
+                            </h3>
+                            <p class="profile-subtitle">
+                                Web Developer
+                            </p>
+                            <div class="home-social">
+                                <a href="https://github.com/jamesalejandros" class="fa fa-github" target="_blank">
+                                </a>
+                                <a href="https://www.linkedin.com/in/jamesalejandrosumardin/" class="fa fa-linkedin"
+                                    target="_blank">
+                                </a>
+                                <a href="https://www.instagram.com/jamesalejandros/" class="fa fa-instagram"
+                                    target="_blank">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- ================= INTRO ================= -->
+                    <div class="col-lg-7 col-md-6 col-sm-12 wow fadeInRight" data-wow-delay="0.6s">
+                        <div class="glass-card home-content">
+                            <span class="section-label">
+                                PORTFOLIO
+                            </span>
+                            <h1 class="home-name">
+                                James Alejandro Sumardin
+                            </h1>
+                            <h2 class="rotate">
+                                INFORMATICS STUDENT,
+                                WEB DEVELOPER,
+                                UI/UX ENTHUSIAST
+                            </h2>
+                            <p class="home-description">
+                                Passionate about programming,
+                                especially web development and system design.
+                                Focused on building modern,
+                                efficient, and user-friendly applications.
+                            </p>
+                            <div class="home-buttons">
+                                <a href="#portfolio" class="btn btn-default smoothScroll">
+                                    <i class="fa fa-folder-open"></i>
+                                    &nbsp;See My Projects
+                                </a>
+                                <a href="assets/cv.pdf" class="btn btn-primary download-btn" target="blank"
+                                    download="James_Alejandro_CV.pdf">
+                                    <i class="fa fa-download"></i>
+                                    &nbsp;Download CV
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <!-- ================= PORTFOLIO SECTION ================= -->
+    <!-- ================= PORTFOLIO ================= -->
+    <section id="portfolio" class="section portfolio-section">
+
+        <div class="container">
+
+            <!-- ================= HEADER ================= -->
+            <div class="section-header wow fadeInUp">
+
+                <span class="section-tag">
+                    MY WORK
+                </span>
+
+                <h2>
+                    PORTFOLIO
+                </h2>
+
+                <p>
+                    Collection of software development projects,
+                    web applications, and programming implementations.
+                </p>
+
+            </div>
+
+
+
+            <!-- ================= FEATURED PROJECT ================= -->
+            <div class="portfolio-featured wow fadeInUp" data-wow-delay="0.2s">
+
+
+                <div class="portfolio-card featured-card">
+
+
+                    <div class="portfolio-image">
+
+                        <img src="assets/projects/gratia/1.png" alt="Gratia Industrial Processing Website">
+
+                        <div class="portfolio-gradient"></div>
+
+                    </div>
+
+
+
+                    <div class="portfolio-content">
+
+
+                        <h3>
+                            Gratia Industrial Processing Platform
+                        </h3>
+
+
+                        <p>
+                            A full-stack industrial company website developed
+                            using Laravel framework for Gratia Corp, an Indonesian
+                            industrial processing machine manufacturer.
+
+                            The platform presents industrial solutions,
+                            machine product information, and company profiles
+                            while implementing backend functionality including
+                            authentication system, product management CRUD,
+                            database integration, and SMTP email communication.
+                        </p>
+
+
+
+                        <div class="portfolio-tech">
+
+                            <span>
+                                Laravel
+                            </span>
+
+                            <span>
+                                PHP
+                            </span>
+
+                            <span>
+                                MySQL
+                            </span>
+
+                            <span>
+                                Bootstrap
+                            </span>
+
+                            <span>
+                                SMTP Mail
+                            </span>
+
+                            <span>
+                                CRUD System
+                            </span>
+
+                        </div>
+
+
+
+                        <button class="btn btn-primary" onclick="openProjectModal(
+'Gratia Industrial Processing Platform',
+
+'Full-stack Laravel based industrial company website developed for Gratia Corp. The platform focuses on presenting industrial processing solutions including grinding, dispersing, and mixing machines. Implemented backend features include authentication system, product CRUD management, database integration, and SMTP email communication for business inquiries.',
+
+'assets/projects/gratia/1.png',
+
+[
+'assets/projects/gratia/1.png',
+'assets/projects/gratia/2.png',
+'assets/projects/gratia/3.png'
+],
+
+[
+'Laravel',
+'PHP',
+'MySQL',
+'Bootstrap',
+'Authentication',
+'CRUD System',
+'SMTP Email',
+'Responsive Web'
+]
+)">
+
+                            View Project
+
+                        </button>
+
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+
+
+
+
+            <!-- ================= PROJECT CAROUSEL ================= -->
+
+            <div class="project-carousel wow fadeInUp" data-wow-delay="0.4s">
+
+
+                <button class="project-arrow project-prev">
+
+                    <i class="fa fa-chevron-left"></i>
+
+                </button>
+
+
+
+                <div class="project-slider-wrapper">
+
+                    <div class="project-slider">
+
+
+
+                        <!-- ================= SOFTWARE ================= -->
+
+                        <article class="project-card-slider">
+
+
+                            <div class="project-image">
+
+                                <img src="assets/projects/software/1.png" alt="Laravel ERP Management System">
+
+                            </div>
+
+
+
+                            <div class="project-body">
+
+
+                                <h4>
+                                    Laravel ERP Management System
+                                </h4>
+
+
+                                <p>
+                                    A modular ERP-style management system built with Laravel.
+                                    This project implements structured CRUD operations,
+                                    relational database management, authentication,
+                                    dashboard system, and business workflow management
+                                    within an integrated application architecture.
+                                </p>
+
+
+
+                                <div class="project-tags">
+
+                                    <span>
+                                        Laravel
+                                    </span>
+
+                                    <span>
+                                        PHP
+                                    </span>
+
+                                    <span>
+                                        MySQL
+                                    </span>
+
+                                    <span>
+                                        ERP System
+                                    </span>
+
+                                </div>
+
+
+
+                                <button class="btn btn-default" onclick="openProjectModal(
+
+'Laravel ERP Management System',
+
+'An ERP-style Laravel application designed to manage software licensing and organizational data through an integrated modular system. The application implements authentication, dashboard management, master-detail data architecture, CRUD operations without unnecessary page transitions, database relationships, and export functionality. Built using Laravel MVC architecture with Vite asset management and modern frontend implementation.',
+
+'assets/projects/software/1.png',
+
+[
+
+'assets/projects/software/1.png',
+
+'assets/projects/software/2.png',
+
+'assets/projects/software/3.png',
+
+'assets/projects/software/4.png',
+
+'assets/projects/software/5.png',
+
+'assets/projects/software/6.png'
+
+],
+
+[
+
+'Laravel',
+
+'PHP',
+
+'MySQL',
+
+'Blade Template',
+
+'Vite',
+
+'Authentication',
+
+'CRUD System',
+
+'ERP Module',
+
+'Database Relationship',
+
+'Export System'
+
+]
+
+)">
+
+
+                                    Detail
+
+
+                                </button>
+
+
+                            </div>
+
+
+                        </article>
+
+
+
+
+                        <!-- ================= FILAMENT ================= -->
+
+
+                        <article class="project-card-slider">
+
+
+                            <div class="project-image">
+
+                                <img src="assets/projects/filament/1.png" alt="Filament IT Asset Management System">
+
+                            </div>
+
+
+
+                            <div class="project-body">
+
+
+                                <h4>
+                                    Filament IT Asset Management ERP
+                                </h4>
+
+
+                                <p>
+                                    Enterprise IT Asset Management system built
+                                    with Laravel Filament framework featuring
+                                    centralized asset control, software licensing,
+                                    service tracking, transaction management,
+                                    and interactive dashboard analytics.
+                                </p>
+
+
+
+                                <div class="project-tags">
+
+
+                                    <span>
+                                        Laravel
+                                    </span>
+
+
+                                    <span>
+                                        Filament
+                                    </span>
+
+
+                                    <span>
+                                        PHP
+                                    </span>
+
+
+                                    <span>
+                                        MySQL
+                                    </span>
+
+
+                                    <span>
+                                        Livewire
+                                    </span>
+
+
+                                    <span>
+                                        ERP System
+                                    </span>
+
+
+                                </div>
+
+
+
+                                <button class="btn btn-default" onclick="openProjectModal(
+'Filament IT Asset Management ERP',
+'Enterprise IT Asset Management ERP system developed using Laravel Filament. The system provides centralized management for assets, employees, departments, locations, vendors, software licenses, asset movements, maintenance services, reporting, and dashboard analytics.',
+'assets/projects/filament/1.png',
+[
+'assets/projects/filament/1.png',
+'assets/projects/filament/2.png',
+'assets/projects/filament/3.png'
+],
+[
+'Laravel',
+'Filament PHP',
+'Livewire',
+'MySQL',
+'ERP',
+'IT Asset Management',
+'Dashboard Analytics',
+'CRUD Management'
+]
+)">
+
+                                    Detail
+
+                                </button>
+
+
+                            </div>
+
+
+                        </article>
+
+
+
+
+
+
+
+                        <!-- ================= DUNIA ANAK DAN BAPAK ================= -->
+
+
+                        <article class="project-card-slider">
+
+
+                            <div class="project-image">
+
+                                <img src="assets/projects/featured-project.png" alt="Dunia Anak dan Bapak Ecommerce">
+
+                            </div>
+
+
+
+                            <div class="project-body">
+
+
+                                <h4>
+                                    Dunia Anak dan Bapak E-Commerce Platform
+                                </h4>
+
+
+                                <p>
+                                    Laravel based e-commerce website developed with
+                                    product management features, CRUD functionality,
+                                    and structured backend system for managing online
+                                    store operations. Payment gateway integration is
+                                    not implemented yet.
+                                </p>
+
+
+
+                                <div class="project-tags">
+
+
+                                    <span>
+                                        Laravel
+                                    </span>
+
+
+                                    <span>
+                                        PHP
+                                    </span>
+
+
+                                    <span>
+                                        MySQL
+                                    </span>
+
+
+                                    <span>
+                                        CRUD System
+                                    </span>
+
+
+                                    <span>
+                                        E-Commerce
+                                    </span>
+
+
+                                </div>
+
+
+
+                                <button class="btn btn-default" onclick="openProjectModal(
+'Dunia Anak dan Bapak E-Commerce Platform',
+'Laravel based e-commerce platform featuring product management, CRUD operations, database integration, and backend administration system. The platform is designed to support online store workflows, while payment gateway integration has not been implemented yet.',
+'assets/projects/featured-project.png',
+[
+'assets/projects/fp1.png',
+'assets/projects/fp2.png',
+'assets/projects/fp3.png'
+],
+[
+'Laravel',
+'PHP',
+'MySQL',
+'CRUD',
+'E-Commerce',
+'Backend System'
+]
+)">
+
+                                    Detail
+
+                                </button>
+
+
+                            </div>
+
+
+                        </article>
+
+
+
+
+
+
+
+                        <article class="project-card-slider">
+
+
+                            <div class="project-image">
+
+                                <img src="assets/projects/p1.png" alt="Speech Recognition System">
+
+                            </div>
+
+
+
+                            <div class="project-body">
+
+
+                                <h4>
+                                    Automated Speech Recognition System
+                                </h4>
+
+
+                                <p>
+                                    Artificial intelligence based speech recognition
+                                    application designed to convert voice input
+                                    into text using machine learning and speech
+                                    recognition technology.
+                                </p>
+
+
+
+                                <div class="project-tags">
+
+
+                                    <span>
+                                        Python
+                                    </span>
+
+
+                                    <span>
+                                        Artificial Intelligence
+                                    </span>
+
+
+                                    <span>
+                                        Whisper
+                                    </span>
+
+
+                                    <span>
+                                        Speech Recognition
+                                    </span>
+
+
+                                </div>
+
+
+
+                                <button class="btn btn-default" onclick="openProjectModal(
+'Automated Speech Recognition System',
+'AI based speech recognition application developed using Python and Whisper technology for converting audio input into accurate text transcription.',
+'assets/projects/p1.png',
+[
+'assets/projects/p1.png',
+'assets/projects/p1-1.png',
+'assets/projects/p1-2.png'
+],
+[
+'Python',
+'Artificial Intelligence',
+'Whisper',
+'Speech Recognition',
+'Machine Learning'
+]
+)">
+
+                                    Detail
+
+                                </button>
+
+
+                            </div>
+
+
+                        </article>
+
+
+
+
+                    </div>
+
+
+                </div>
+
+
+
+                <button class="project-arrow project-next">
+
+                    <i class="fa fa-chevron-right"></i>
+
+                </button>
+
+
+            </div>
+
+
+        </div>
+
+
+    </section>
+    <!-- ================= END PORTFOLIO ================= -->
+    <!-- ================= WHAT I DO ================= -->
+    <section id="work" class="section work-section">
+
+        <div class="container">
+
+            <div class="section-header wow fadeInUp">
+
+                <span class="section-tag">
+                    SERVICES
+                </span>
+
+                <h2>
+                    WHAT I DO
+                </h2>
+
+                <p>
+                    Informatics graduate specializing in web development
+                    with strong programming knowledge across frontend,
+                    backend, database systems, and software engineering.
+                </p>
+
+            </div>
+
+
+            <div class="service-grid">
+
+
+                <!-- FRONTEND -->
+                <div class="service-card wow fadeInUp">
+
+                    <div class="service-icon">
+                        <i class="fa fa-code"></i>
+                    </div>
+
+
+                    <h3>
+                        Frontend Development
+                    </h3>
+
+
+                    <p>
+                        Developing modern and responsive web interfaces
+                        using HTML, CSS, JavaScript, and modern frontend
+                        technologies. Focused on creating fast,
+                        interactive, and user-friendly web experiences.
+                    </p>
+
+                </div>
+
+
+
+                <!-- BACKEND -->
+                <div class="service-card wow fadeInUp" data-wow-delay="0.2s">
+
+                    <div class="service-icon">
+                        <i class="fa fa-server"></i>
+                    </div>
+
+
+                    <h3>
+                        Backend Development
+                    </h3>
+
+
+                    <p>
+                        Building reliable application systems using
+                        PHP, Laravel, API integration, authentication,
+                        server-side logic, and database management
+                        to create scalable web applications.
+                    </p>
+
+                </div>
+
+
+
+
+                <!-- PYTHON -->
+                <div class="service-card wow fadeInUp" data-wow-delay="0.4s">
+
+                    <div class="service-icon">
+                        <i class="fa fa-terminal"></i>
+                    </div>
+
+
+                    <h3>
+                        Python Programming
+                    </h3>
+
+
+                    <p>
+                        Utilizing Python for automation, data processing,
+                        scripting, and problem solving. Experienced in
+                        developing efficient solutions through programming
+                        logic and computational approaches.
+                    </p>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </section>
+    <!-- ================= ABOUT ================= -->
+    <section id="about" class="section about-section">
+        <div class="container">
+            <div class="about-box wow fadeInUp">
+                <div class="about-content">
+                    <div class="about-text">
+                        <span class="section-tag">
+                            PROFILE
+                        </span>
+
+                        <h2>
+                            ABOUT ME
+                        </h2>
+
+                        <h4>
+                            Informatics Graduate & Full Stack Web Developer
+                        </h4>
+
+                        <p>
+                            Informatics graduate from Universitas Kristen Krida Wacana
+                            with a strong foundation in software engineering,
+                            programming logic, and computer systems.
+                        </p>
+
+                        <p>
+                            Specialized in web development, focusing on building
+                            modern, scalable, and responsive applications using
+                            frontend and backend technologies. Experienced in
+                            developing user interfaces, server-side systems,
+                            database integration, and API development.
+                        </p>
+
+                        <p>
+                            Beyond web development, I have broad programming knowledge
+                            across various technologies, including Python development,
+                            software engineering concepts, database management,
+                            and system architecture. Passionate about creating
+                            efficient solutions with clean code and reliable systems.
+                        </p>
+                    </div>
+
+
+                    <div class="skill-area">
+
+                        <div class="skill-item">
+                            <div class="skill-title">
+                                <span>
+                                    Frontend Development
+                                </span>
+                                <b>
+                                    92%
+                                </b>
+                            </div>
+                            <div class="skill-progress">
+                                <div style="width:92%;"></div>
+                            </div>
+                        </div>
+
+
+                        <div class="skill-item">
+                            <div class="skill-title">
+                                <span>
+                                    Backend Development
+                                </span>
+                                <b>
+                                    90%
+                                </b>
+                            </div>
+                            <div class="skill-progress">
+                                <div style="width:90%;"></div>
+                            </div>
+                        </div>
+
+
+                        <div class="skill-item">
+                            <div class="skill-title">
+                                <span>
+                                    Database & System Design
+                                </span>
+                                <b>
+                                    88%
+                                </b>
+                            </div>
+                            <div class="skill-progress">
+                                <div style="width:88%;"></div>
+                            </div>
+                        </div>
+
+
+                        <div class="skill-item">
+                            <div class="skill-title">
+                                <span>
+                                    Python Programming
+                                </span>
+                                <b>
+                                    85%
+                                </b>
+                            </div>
+                            <div class="skill-progress">
+                                <div style="width:85%;"></div>
+                            </div>
+                        </div>
+
+
+                        <div class="skill-item">
+                            <div class="skill-title">
+                                <span>
+                                    Programming & Software Engineering
+                                </span>
+                                <b>
+                                    93%
+                                </b>
+                            </div>
+                            <div class="skill-progress">
+                                <div style="width:93%;"></div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ================= CONTACT ================= -->
+    <section id="contact" class="section contact-section">
+        <div class="container">
+
+            <div class="section-header wow fadeInUp">
+                <span class="section-tag">
+                    GET IN TOUCH
+                </span>
+
+                <h2>
+                    CONTACT ME
+                </h2>
+
+                <p>
+                    Feel free to contact me for collaboration,
+                    project discussion, or opportunities.
+                </p>
+            </div>
+
+
+            <div class="contact-wrapper wow fadeInUp">
+
+                <div class="contact-info">
+
+                    <div class="contact-item">
+                        <i class="fa fa-phone"></i>
+                        <div>
+                            <h4>
+                                Phone
+                            </h4>
+                            <p>
+                                +62 896-5235-0936
+                            </p>
+                        </div>
+                    </div>
+
+
+                    <div class="contact-item">
+                        <i class="fa fa-envelope"></i>
+                        <div>
+                            <h4>
+                                Email
+                            </h4>
+                            <p>
+                                jamesalejandrox07@gmail.com
+                            </p>
+                        </div>
+                    </div>
+
+
+                    <div class="contact-item">
+                        <i class="fa fa-map-marker"></i>
+                        <div>
+                            <h4>
+                                Location
+                            </h4>
+                            <p>
+                                Jakarta Metropolitan Area
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+                <div class="contact-form-box">
+
+                    <form id="contactForm" onsubmit="sendEmail(event)">
+
+                        <input type="text" id="name" class="form-control" placeholder="Your Name" required>
+
+
+                        <input type="email" id="email" class="form-control" placeholder="Your Email" required>
+
+
+                        <textarea id="message" rows="6" class="form-control" placeholder="Your Message"
+                            required></textarea>
+
+
+                        <button type="submit" id="submitBtn" class="btn btn-primary">
+                            SEND MESSAGE
+                        </button>
+
+                    </form>
+
+
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+    <!-- ================= FOOTER ================= -->
+    <footer class="footer-section">
+        <div class="container">
+            <div class="footer-content wow fadeInUp">
+                <h3>
+                    James Alejandro Sumardin
+                </h3>
+                <p>
+                    Web Developer | Informatics Student |
+                    UI/UX Enthusiast
+                </p>
+                <ul class="social-icon">
+                    <li>
+                        <a href="https://instagram.com/jamesalejandros" class="fa fa-instagram" target="_blank">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/jamesalejandros" class="fa fa-github" target="_blank">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://linkedin.com/in/jamesalejandrosumardin" class="fa fa-linkedin" target="_blank">
+                        </a>
+                    </li>
+                </ul>
+                <hr>
+                <p>
+                    © 2026 James Alejandro Sumardin.
+                    All Rights Reserved.
+                </p>
+            </div>
+        </div>
+    </footer>
+    </div>
+    <!-- END FULLPAGE -->
+    <!-- ================= PROJECT MODAL ================= -->
+    <div id="projectModal" class="project-modal">
+        <div class="project-modal-content">
+            <span class="modal-close">
+                &times;
+            </span>
+            <div class="project-gallery">
+                <img id="mainImage" src="assets/projects/featured-project.png" class="main-preview">
+                <div class="thumbnail-container">
+                    <!-- <button class="thumb-arrow prev-thumb">
+                        &#10094;
+                    </button> -->
+                    <div class="thumbnail-row">
+                        <img class="thumb active" src="assets/projects/featured-project.png">
+                        <img class="thumb" src="assets/projects/fp1.png">
+                        <img class="thumb" src="assets/projects/fp2.png">
+                    </div>
+                    <!-- <button class="thumb-arrow next-thumb">
+                        &#10095;
+                    </button> -->
+                </div>
+            </div>
+            <div class="project-info">
+                <h2 id="modalTitle">
+                    Project Title
+                </h2>
+                <p id="modalDescription">
+                    Project description.
+                </p>
+                <div id="projectTags" class="project-tags">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ================= JAVASCRIPT ================= -->
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.fullPage.js"></script>
+    <script src="js/smoothscroll.js"></script>
+    <script src="js/wow.min.js"></script>
+    <script src="js/jquery.simple-text-rotator.js"></script>
+    <script src="js/custom.js"></script>
+    <script src="js/script.js"></script>
+    <!-- ================= INIT ================= -->
+    <script>
+        /* ==========================================================
+           INITIALIZATION
+        ========================================================== */
+        $(document).ready(function () {
+            /*
+            ==========================
+            WOW ANIMATION
+            ==========================
+            */
+            if (typeof WOW !== "undefined") {
+                new WOW().init();
+            }
+            /*
+            ==========================
+            TEXT ROTATOR
+            ==========================
+            */
+            if ($(".rotate").length) {
+                $(".rotate").textrotator();
+            }
+            /*
+            ==========================
+            PORTFOLIO PROJECT SLIDER
+            ==========================
+            */
+            const slider = document.querySelector(".project-slider");
+            const nextButton =
+                document.querySelector(".project-next");
+            const prevButton =
+                document.querySelector(".project-prev");
+            if (
+                slider &&
+                nextButton &&
+                prevButton
+            ) {
+                /*
+                Menghitung jarak geser
+                berdasarkan ukuran card
+                */
+                function getScrollAmount() {
+                    const card =
+                        document.querySelector(
+                            ".project-card-slider"
+                        );
+                    if (card) {
+                        return card.offsetWidth + 30;
+                    }
+                    return 350;
+                }
+                /*
+                BUTTON NEXT
+                */
+                nextButton.addEventListener(
+                    "click",
+                    function () {
+                        slider.scrollBy({
+                            left:
+                                getScrollAmount(),
+                            behavior:
+                                "smooth"
+                        });
+                    }
+                );
+                /*
+                BUTTON PREVIOUS
+                */
+                prevButton.addEventListener(
+                    "click",
+                    function () {
+                        slider.scrollBy({
+                            left:
+                                -getScrollAmount(),
+                            behavior:
+                                "smooth"
+                        });
+                    }
+                );
+            }
+        });
+    </script>
+    <!-- ================= CONTACT EMAIL ================= -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script>
+        function sendEmail(event) {
+
+            event.preventDefault();
+
+
+            let name = document.getElementById("name").value;
+            let email = document.getElementById("email").value;
+            let message = document.getElementById("message").value;
+
+
+            let subject = "Website Contact Message From " + name;
+
+
+            let body = `
+Hello James,
+
+You received a new message from your portfolio website.
+
+--------------------------------
+
+Name:
+${name}
+
+Email:
+${email}
+
+Message:
+${message}
+
+--------------------------------
+
+Thank you.
+${name}
+    `;
+
+
+            let gmailURL =
+                "https://mail.google.com/mail/?view=cm&fs=1" +
+                "&to=jamesalejandrox07@gmail.com" +
+                "&su=" + encodeURIComponent(subject) +
+                "&body=" + encodeURIComponent(body);
+
+
+            window.open(gmailURL, "_blank");
+
+        }
+    </script>
+    <script>
+        /* ==========================================================
+           EMAIL JS CONFIGURATION
+        ========================================================== */
+        emailjs.init({
+            publicKey:
+                "8jgKR1bJjCIYWh84r"
+        });
+        document
+            .getElementById("contactForm")
+            .addEventListener(
+                "submit",
+                function (e) {
+                    e.preventDefault();
+                    const submitBtn =
+                        document.getElementById("submitBtn");
+                    submitBtn.value =
+                        "SENDING...";
+                    submitBtn.disabled =
+                        true;
+                    const params = {
+                        name:
+                            document
+                                .getElementById("name")
+                                .value,
+                        email:
+                            document
+                                .getElementById("email")
+                                .value,
+                        message:
+                            document
+                                .getElementById("message")
+                                .value
+                    };
+                    emailjs.send(
+                        "service_v7h2asg",
+                        "template_yup0xwd",
+                        params
+                    )
+                        .then(function () {
+                            document
+                                .getElementById("successMessage")
+                                .style.display =
+                                "block";
+                            document
+                                .getElementById("errorMessage")
+                                .style.display =
+                                "none";
+                            document
+                                .getElementById("contactForm")
+                                .reset();
+                        })
+                        .catch(function () {
+                            document
+                                .getElementById("errorMessage")
+                                .style.display =
+                                "block";
+                            document
+                                .getElementById("successMessage")
+                                .style.display =
+                                "none";
+                        })
+                        .finally(function () {
+                            submitBtn.value =
+                                "SEND MESSAGE";
+                            submitBtn.disabled =
+                                false;
+                        });
+                });
+    </script>
+</body>
+
+</html>
