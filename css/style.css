@@ -261,14 +261,210 @@ h5 {
     padding: 20px;
     text-align: center;
 }
+/* ==========================================================
+   HOME TEXT ROTATOR
+   ========================================================== */
 
-/* ROTATOR */
-.rotate {
-    font-size: 28px;
-    font-weight: 800;
+/* Wrapper rotator */
+.home-rotator {
+    display: block;
+    width: 100%;
+
+    margin: 0 auto;
+
+    /* Jarak atas dan bawah */
+    padding: 20px 0;
+
     text-align: center;
-    color: #f8fafc;
-    margin: 35px 0;
+}
+
+
+/* Rotating element */
+.home-rotator .rotate {
+    display: inline-block;
+
+    position: relative;
+
+    margin: 0 auto;
+    padding: 0;
+
+    text-align: center;
+
+    -webkit-transform-style: preserve-3d;
+    -moz-transform-style: preserve-3d;
+    -ms-transform-style: preserve-3d;
+    -o-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+
+    -webkit-transform: rotateX(0) rotateY(0) rotateZ(0);
+    -moz-transform: rotateX(0) rotateY(0) rotateZ(0);
+    -ms-transform: rotateX(0) rotateY(0) rotateZ(0);
+    -o-transform: rotateX(0) rotateY(0) rotateZ(0);
+    transform: rotateX(0) rotateY(0) rotateZ(0);
+
+    -webkit-transition: 0.5s;
+    -moz-transition: 0.5s;
+    -ms-transition: 0.5s;
+    -o-transition: 0.5s;
+    transition: 0.5s;
+
+    -webkit-transform-origin: 50% 50%;
+    -moz-transform-origin: 50% 50%;
+    -ms-transform-origin: 50% 50%;
+    -o-transform-origin: 50% 50%;
+    transform-origin: 50% 50%;
+}
+
+
+/* Flip */
+.home-rotator .rotate.flip {
+    position: relative;
+}
+
+
+/* Front & Back */
+.home-rotator .rotate .front,
+.home-rotator .rotate .back {
+    left: 0;
+    top: 0;
+
+    text-align: center;
+
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    -ms-backface-visibility: hidden;
+    -o-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
+
+
+/* Front */
+.home-rotator .rotate .front {
+    position: absolute;
+
+    display: inline-block;
+
+    white-space: nowrap;
+
+    -webkit-transform: translate3d(0, 0, 1px);
+    -moz-transform: translate3d(0, 0, 1px);
+    -ms-transform: translate3d(0, 0, 1px);
+    -o-transform: translate3d(0, 0, 1px);
+    transform: translate3d(0, 0, 1px);
+}
+
+
+/* Front layer */
+.home-rotator .rotate.flip .front {
+    z-index: 1;
+}
+
+
+/* Back */
+.home-rotator .rotate .back {
+    display: block;
+
+    opacity: 0;
+
+    white-space: nowrap;
+}
+
+
+/* Spin */
+.home-rotator .rotate.spin {
+    -webkit-transform: rotate(360deg) scale(0);
+    -moz-transform: rotate(360deg) scale(0);
+    -ms-transform: rotate(360deg) scale(0);
+    -o-transform: rotate(360deg) scale(0);
+    transform: rotate(360deg) scale(0);
+}
+
+
+/* Flip */
+.home-rotator .rotate.flip .back {
+    z-index: 2;
+
+    display: block;
+
+    opacity: 1;
+
+    -webkit-transform: rotateY(180deg) translate3d(0, 0, 0);
+    -moz-transform: rotateY(180deg) translate3d(0, 0, 0);
+    -ms-transform: rotateY(180deg) translate3d(0, 0, 0);
+    -o-transform: rotateY(180deg) translate3d(0, 0, 0);
+    transform: rotateY(180deg) translate3d(0, 0, 0);
+}
+
+
+/* Flip Up */
+.home-rotator .rotate.flip.up .back {
+    -webkit-transform: rotateX(180deg) translate3d(0, 0, 0);
+    -moz-transform: rotateX(180deg) translate3d(0, 0, 0);
+    -ms-transform: rotateX(180deg) translate3d(0, 0, 0);
+    -o-transform: rotateX(180deg) translate3d(0, 0, 0);
+    transform: rotateX(180deg) translate3d(0, 0, 0);
+}
+
+
+/* Cube Front */
+.home-rotator .rotate.flip.cube .front {
+    -webkit-transform: translate3d(0, 0, 100px) scale(0.85);
+    -moz-transform: translate3d(0, 0, 100px) scale(0.85);
+    -ms-transform: translate3d(0, 0, 100px) scale(0.85);
+    -o-transform: translate3d(0, 0, 100px) scale(0.85);
+    transform: translate3d(0, 0, 100px) scale(0.85);
+}
+
+
+/* Cube Back */
+.home-rotator .rotate.flip.cube .back {
+    -webkit-transform: rotateY(180deg) translate3d(0, 0, 100px) scale(0.85);
+    -moz-transform: rotateY(180deg) translate3d(0, 0, 100px) scale(0.85);
+    -ms-transform: rotateY(180deg) translate3d(0, 0, 100px) scale(0.85);
+    -o-transform: rotateY(180deg) translate3d(0, 0, 100px) scale(0.85);
+    transform: rotateY(180deg) translate3d(0, 0, 100px) scale(0.85);
+}
+
+
+/* Cube Up */
+.home-rotator .rotate.flip.cube.up .back {
+    -webkit-transform: rotateX(180deg) translate3d(0, 0, 100px) scale(0.85);
+    -moz-transform: rotateX(180deg) translate3d(0, 0, 100px) scale(0.85);
+    -ms-transform: rotateX(180deg) translate3d(0, 0, 100px) scale(0.85);
+    -o-transform: rotateX(180deg) translate3d(0, 0, 100px) scale(0.85);
+    transform: rotateX(180deg) translate3d(0, 0, 100px) scale(0.85);
+}
+
+
+/* ==========================================================
+   HOME CONTENT CENTER
+   ========================================================== */
+
+.home-content {
+    text-align: center;
+}
+
+
+/* Pastikan semua elemen utama center */
+.home-content .section-label {
+    display: block;
+    width: 100%;
+    text-align: center;
+}
+
+.home-content .home-name {
+    width: 100%;
+    text-align: center;
+}
+
+.home-content .home-description {
+    width: 100%;
+    text-align: center;
+}
+
+.home-content .home-buttons {
+    width: 100%;
+    text-align: center;
 }
 
 /* DESCRIPTION */
