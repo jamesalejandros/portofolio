@@ -2485,3 +2485,117 @@ textarea.form-control {
         padding: 20px 15px;
     }
 }
+
+/* ================= PROJECT BUTTONS ================= */
+
+.portfolio-buttons,
+.project-buttons {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+}
+
+
+/* Live Demo berada di paling kanan */
+
+.portfolio-buttons .btn:last-child,
+.project-buttons .btn:last-child {
+    margin-left: auto;
+}
+
+/* Jarak antara icon dan text Visit Website */
+.btn i {
+    margin-right: 8px;
+}
+
+/* =========================================================
+   PROJECT BUTTONS - FIX DESKTOP
+   ========================================================= */
+
+.portfolio-buttons,
+.project-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 12px;
+    width: auto;
+}
+
+
+/* Jangan dorong tombol terakhir sampai ujung card */
+
+.portfolio-buttons .btn:last-child,
+.project-buttons .btn:last-child {
+    margin-left: 0;
+}
+
+
+/* Ukuran tombol dibuat compact */
+
+.portfolio-buttons .btn,
+.project-buttons .btn {
+    width: auto;
+    flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 9px 16px;
+
+    font-size: 13px;
+    line-height: 1.2;
+
+    white-space: nowrap;
+}
+
+
+/* Jarak icon dengan tulisan */
+
+.portfolio-buttons .btn i,
+.project-buttons .btn i {
+    margin-right: 7px;
+}
+
+
+/* Khusus Visit Website */
+
+.visit-website-btn {
+    width: auto !important;
+    flex: 0 0 auto !important;
+
+    padding: 9px 15px !important;
+
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+
+    gap: 7px;
+
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 576px) {
+
+    .portfolio-buttons,
+    .project-buttons {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+
+    .portfolio-buttons .btn,
+    .project-buttons .btn,
+    .visit-website-btn {
+        flex: 0 0 auto !important;
+        width: auto !important;
+    }
+
+}
