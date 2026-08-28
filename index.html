@@ -2095,6 +2095,116 @@ ${name}
                         });
                 });
     </script>
+
+    <!-- =====================================================
+     FLOATING NAVIGATION
+     ===================================================== -->
+
+<div
+    class="floating-nav"
+    id="floating-nav"
+>
+
+    <!-- Navigation Menu -->
+
+    <div
+        class="floating-nav-menu"
+        id="floating-nav-menu"
+        aria-hidden="true"
+    >
+
+        <a
+            href="./index.html"
+            class="floating-nav-item"
+            data-page="home"
+        >
+
+            <span class="floating-nav-item-icon">
+                <svg
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                >
+                    <path
+                        d="M3 10.5L12 3l9 7.5"
+                    />
+
+                    <path
+                        d="M5.5 9.5V21h13V9.5"
+                    />
+                </svg>
+            </span>
+
+            <span class="floating-nav-item-label">
+                HOME
+            </span>
+
+        </a>
+
+
+        <a
+            href="./project.html"
+            class="floating-nav-item"
+            data-page="projects"
+        >
+
+            <span class="floating-nav-item-icon">
+                <svg
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                >
+                    <rect
+                        x="3"
+                        y="4"
+                        width="18"
+                        height="16"
+                        rx="2"
+                    />
+
+                    <path
+                        d="M3 9h18"
+                    />
+
+                    <path
+                        d="M8 13h8"
+                    />
+
+                    <path
+                        d="M8 16h5"
+                    />
+                </svg>
+            </span>
+
+            <span class="floating-nav-item-label">
+                PROJECTS
+            </span>
+
+        </a>
+
+    </div>
+
+
+    <!-- Floating Action Button -->
+
+    <button
+        class="floating-nav-trigger"
+        id="floating-nav-trigger"
+        type="button"
+        aria-label="Open navigation"
+        aria-expanded="false"
+        aria-controls="floating-nav-menu"
+    >
+
+        <span class="floating-nav-trigger-icon">
+
+            <span></span>
+            <span></span>
+
+        </span>
+
+    </button>
+
+</div>
+
 </body>
 
 </html>

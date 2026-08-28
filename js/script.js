@@ -655,3 +655,412 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 });
+
+/* =========================================================
+   FLOATING NAVIGATION
+   ========================================================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    () => {
+
+        const floatingNav =
+            document.getElementById(
+                "floating-nav"
+            );
+
+
+        const trigger =
+            document.getElementById(
+                "floating-nav-trigger"
+            );
+
+
+        const menu =
+            document.getElementById(
+                "floating-nav-menu"
+            );
+
+
+        if (
+            !floatingNav ||
+            !trigger ||
+            !menu
+        ) {
+
+            return;
+
+        }
+
+
+        const items =
+            Array.from(
+                menu.querySelectorAll(
+                    ".floating-nav-item"
+                )
+            );
+
+
+        const prefersReducedMotion =
+            window.matchMedia(
+                "(prefers-reduced-motion: reduce)"
+            ).matches;
+
+
+        /* =================================================
+           DETECT CURRENT PAGE
+           ================================================= */
+
+        const currentPath =
+            window.location.pathname
+                .split("/")
+                .pop()
+                .toLowerCase();
+
+
+        let currentPage;
+
+
+        if (
+            currentPath === "" ||
+            currentPath === "index.html"
+        ) {
+
+            currentPage =
+                "home";
+
+        } else if (
+            currentPath === "project.html"
+        ) {
+
+            currentPage =
+                "projects";
+
+        }
+
+
+        /* =================================================
+           ACTIVE PAGE
+           ================================================= */
+
+        items.forEach(
+            item => {
+
+                const page =
+                    item.dataset.page;
+
+
+                if (
+                    page === currentPage
+                ) {
+
+                    item.classList.add(
+                        "is-active"
+                    );
+
+                    item.setAttribute(
+                        "aria-current",
+                        "page"
+                    );
+
+                }
+
+            }
+        );
+
+
+        /* =================================================
+           GSAP AVAILABLE?
+           ================================================= */
+
+        const hasGSAP =
+            typeof gsap !== "undefined";
+
+
+        /* =================================================
+           OPEN MENU
+           ================================================= */
+
+        function openMenu() {
+
+            floatingNav.classList.add(
+                "is-open"
+            );
+
+
+            trigger.setAttribute(
+                "aria-expanded",
+                "true"
+            );
+
+
+            trigger.setAttribute(
+                "aria-label",
+                "Close navigation"
+            );
+
+
+            menu.setAttribute(
+                "aria-hidden",
+                "false"
+            );
+
+
+            /* ---------------------------------------------
+               ANIMATION
+               --------------------------------------------- */
+
+            if (
+                hasGSAP &&
+                !prefersReducedMotion
+            ) {
+
+                gsap.killTweensOf(
+                    items
+                );
+
+
+                gsap.to(
+                    items,
+                    {
+
+                        opacity: 1,
+
+                        y: 0,
+
+                        scale: 1,
+
+                        duration: 0.35,
+
+                        stagger: 0.055,
+
+                        ease:
+                            "power3.out"
+
+                    }
+                );
+
+            } else {
+
+                items.forEach(
+                    item => {
+
+                        item.style.opacity =
+                            "1";
+
+                        item.style.transform =
+                            "translateY(0) scale(1)";
+
+                    }
+                );
+
+            }
+
+        }
+
+
+        /* =================================================
+           CLOSE MENU
+           ================================================= */
+
+        function closeMenu() {
+
+            floatingNav.classList.remove(
+                "is-open"
+            );
+
+
+            trigger.setAttribute(
+                "aria-expanded",
+                "false"
+            );
+
+
+            trigger.setAttribute(
+                "aria-label",
+                "Open navigation"
+            );
+
+
+            menu.setAttribute(
+                "aria-hidden",
+                "true"
+            );
+
+
+            /* ---------------------------------------------
+               ANIMATION
+               --------------------------------------------- */
+
+            if (
+                hasGSAP &&
+                !prefersReducedMotion
+            ) {
+
+                gsap.killTweensOf(
+                    items
+                );
+
+
+                gsap.to(
+                    items,
+                    {
+
+                        opacity: 0,
+
+                        y: 12,
+
+                        scale: 0.96,
+
+                        duration: 0.22,
+
+                        stagger: 0.035,
+
+                        ease:
+                            "power2.in"
+
+                    }
+                );
+
+            } else {
+
+                items.forEach(
+                    item => {
+
+                        item.style.opacity =
+                            "0";
+
+                        item.style.transform =
+                            "translateY(12px) scale(0.96)";
+
+                    }
+                );
+
+            }
+
+        }
+
+
+        /* =================================================
+           TOGGLE
+           ================================================= */
+
+        trigger.addEventListener(
+            "click",
+            event => {
+
+                event.stopPropagation();
+
+
+                if (
+                    floatingNav.classList.contains(
+                        "is-open"
+                    )
+                ) {
+
+                    closeMenu();
+
+                } else {
+
+                    openMenu();
+
+                }
+
+            }
+        );
+
+
+        /* =================================================
+           NAVIGATION CLICK
+           ================================================= */
+
+        items.forEach(
+            item => {
+
+                item.addEventListener(
+                    "click",
+                    () => {
+
+                        /*
+                         * Jangan mencegah default link.
+                         *
+                         * Browser akan langsung menuju:
+                         *
+                         * ./index.html
+                         * ./project.html
+                         */
+
+                        closeMenu();
+
+                    }
+                );
+
+            }
+        );
+
+
+        /* =================================================
+           CLICK OUTSIDE
+           ================================================= */
+
+        document.addEventListener(
+            "click",
+            event => {
+
+                if (
+                    !floatingNav.contains(
+                        event.target
+                    )
+                ) {
+
+                    closeMenu();
+
+                }
+
+            }
+        );
+
+
+        /* =================================================
+           ESC
+           ================================================= */
+
+        document.addEventListener(
+            "keydown",
+            event => {
+
+                if (
+                    event.key === "Escape" &&
+                    floatingNav.classList.contains(
+                        "is-open"
+                    )
+                ) {
+
+                    event.preventDefault();
+
+                    closeMenu();
+
+                    trigger.focus();
+
+                }
+
+            }
+        );
+
+
+        /* =================================================
+           INITIAL STATE
+           ================================================= */
+
+        items.forEach(
+            item => {
+
+                item.style.opacity =
+                    "0";
+
+            }
+        );
+
+    }
+);
+
