@@ -1,109 +1,89 @@
 /* =========================================================
-   PORTFOLIO PROJECTS — GSAP SCROLLYTELLING + PROJECT MODAL
-   =========================================================
-
-   FEATURES
-   ---------------------------------------------------------
-   1. GSAP ScrollTrigger portfolio scrollytelling
-   2. Card deck / stacked screenshots
-   3. Sequential card peel animation
-   4. Reverse animation when scrolling upward
-   5. Project counter synchronization
-   6. Progress bar synchronization
-   7. Dot navigation
-   8. Project detail modal
-   9. Project image gallery
-   10. Thumbnail navigation
-   11. Previous / next gallery buttons
-   12. Keyboard navigation
-   13. ESC closes modal
-   14. Arrow keys navigate gallery when modal is open
-   15. Body scroll locking while modal is open
-   16. Reduced-motion support
-   17. Responsive handling
-   18. Modal backdrop click-to-close
-   19. Automatic thumbnail active state
-   20. Dynamic technology / feature tags
-   21. Stable reverse-scroll state
+   PORTFOLIO PROJECTS
+   GSAP SCROLLYTELLING + PROJECT MODAL + SEARCH + NAV
    ========================================================= */
 
-
 gsap.registerPlugin(ScrollTrigger);
+
+
+/* =========================================================
+   GLOBAL HELPERS
+   ========================================================= */
+
+const portfolioReducedMotion =
+    window.matchMedia(
+        "(prefers-reduced-motion: reduce)"
+    ).matches;
 
 
 /* =========================================================
    DOM READY
    ========================================================= */
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener("DOMContentLoaded", () => {
 
-    const prefersReducedMotion =
-        window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    initPortfolio();
+
+});
 
 
-    /* =====================================================
-       SCROLLYTELLING DOM
-       ===================================================== */
+/* =========================================================
+   MAIN PORTFOLIO INITIALIZATION
+   ========================================================= */
+
+function initPortfolio() {
 
     const section =
-        document.getElementById('portfolio-scrollytelling');
+        document.getElementById(
+            "portfolio-scrollytelling"
+        );
 
     const deck =
-        document.getElementById('card-deck');
+        document.getElementById(
+            "card-deck"
+        );
 
     const counter =
-        document.getElementById('project-counter');
+        document.getElementById(
+            "project-counter"
+        );
 
     const progressFill =
-        document.getElementById('stack-progress');
+        document.getElementById(
+            "stack-progress"
+        );
 
     const dots =
-        gsap.utils.toArray('.dot-nav-item');
+        gsap.utils.toArray(
+            ".dot-nav-item"
+        );
 
     const cards =
-        gsap.utils.toArray('.project-card-frame');
+        gsap.utils.toArray(
+            ".project-card-frame"
+        );
 
     const infoCards =
-        gsap.utils.toArray('.info-card');
-
-
-    /* =====================================================
-       BASIC VALIDATION
-       ===================================================== */
-
-    if (!section || !deck || !cards.length || !infoCards.length) {
-
-        console.warn(
-            'Portfolio scrollytelling: required elements were not found.'
-        );
-
-        /*
-         * Modal tetap diinisialisasi walaupun scrollytelling
-         * tidak ditemukan.
-         */
-        initProjectModal(prefersReducedMotion);
-
-        return;
-    }
-
-
-    /* =====================================================
-       TOTAL PROJECTS
-       ===================================================== */
-
-    const TOTAL =
-        Math.min(
-            cards.length,
-            infoCards.length
+        gsap.utils.toArray(
+            ".info-card"
         );
 
 
     /* =====================================================
-       INTRO ANIMATION
+       MODAL HARUS SELALU DIINITIALISASI
+       ===================================================== */
+
+    initProjectModal(
+        portfolioReducedMotion
+    );
+
+
+    /* =====================================================
+       INTRO
        ===================================================== */
 
     initIntroAnimation(
-        prefersReducedMotion
+        portfolioReducedMotion
     );
 
 
@@ -111,49 +91,100 @@ document.addEventListener('DOMContentLoaded', () => {
        SCROLLYTELLING
        ===================================================== */
 
-    initScrollytelling({
+    if (
+        section &&
+        deck &&
+        cards.length &&
+        infoCards.length
+    ) {
 
-        section,
-        deck,
-        counter,
-        progressFill,
-        dots,
-        cards,
-        infoCards,
-        TOTAL,
-        prefersReducedMotion
+        const TOTAL =
+            Math.min(
+                cards.length,
+                infoCards.length
+            );
 
-    });
+
+        initScrollytelling({
+
+            section,
+            deck,
+            counter,
+            progressFill,
+            dots,
+            cards,
+            infoCards,
+            TOTAL,
+            prefersReducedMotion:
+                portfolioReducedMotion
+
+        });
+
+    } else {
+
+        console.warn(
+            "Portfolio scrollytelling: required elements were not found."
+        );
+
+    }
 
 
     /* =====================================================
-       PROJECT MODAL
+       SEARCH
        ===================================================== */
 
-    initProjectModal(
-        prefersReducedMotion
-    );
+    initProjectSearch();
 
 
     /* =====================================================
-       GLOBAL RESIZE HANDLER
+       FLOATING NAVIGATION
+       ===================================================== */
+
+    initFloatingNavigation();
+
+
+    /* =====================================================
+       RESPONSIVE INFO CARD
+       ===================================================== */
+
+    initResponsiveInfoCards();
+
+
+    /* =====================================================
+       MOBILE SCROLL SAFETY
+       ===================================================== */
+
+    initMobileScrollSafety();
+
+
+    /* =====================================================
+       GLOBAL RESIZE
        ===================================================== */
 
     let resizeTimer;
 
-    window.addEventListener('resize', () => {
+    window.addEventListener(
+        "resize",
+        () => {
 
-        clearTimeout(resizeTimer);
+            clearTimeout(
+                resizeTimer
+            );
 
-        resizeTimer = setTimeout(() => {
+            resizeTimer =
+                setTimeout(
+                    () => {
 
-            ScrollTrigger.refresh();
+                        ScrollTrigger.refresh();
 
-        }, 150);
+                    },
+                    150
+                );
 
-    });
+        }
+    );
 
-});
+}
 
 
 /* =========================================================
@@ -166,7 +197,7 @@ function initIntroAnimation(
 
     const intro =
         document.querySelector(
-            '.project-intro-content'
+            ".project-intro-content"
         );
 
     if (!intro) {
@@ -176,28 +207,24 @@ function initIntroAnimation(
 
     const label =
         intro.querySelector(
-            '.project-intro-label'
+            ".project-intro-label"
         );
 
     const title =
         intro.querySelector(
-            '.project-intro-title'
+            ".project-intro-title"
         );
 
     const description =
         intro.querySelector(
-            '.project-intro-description'
+            ".project-intro-description"
         );
 
     const indicator =
         intro.querySelector(
-            '.project-scroll-indicator'
+            ".project-scroll-indicator"
         );
 
-
-    /* =====================================================
-       REDUCED MOTION
-       ===================================================== */
 
     if (prefersReducedMotion) {
 
@@ -209,17 +236,13 @@ function initIntroAnimation(
                 indicator
             ],
             {
-                clearProps: 'all'
+                clearProps: "all"
             }
         );
 
         return;
     }
 
-
-    /* =====================================================
-       INITIAL STATE
-       ===================================================== */
 
     gsap.set(
         [
@@ -235,74 +258,69 @@ function initIntroAnimation(
     );
 
 
-    /* =====================================================
-       INTRO TIMELINE
-       ===================================================== */
-
-    const introTimeline =
+    const timeline =
         gsap.timeline({
             defaults: {
-                ease: 'power3.out'
+                ease: "power3.out"
             }
         });
 
 
-    introTimeline
+    timeline
 
-        .to(label, {
+        .to(
+            label,
+            {
+                opacity: 1,
+                y: 0,
+                duration: 0.6
+            }
+        )
 
-            opacity: 1,
-            y: 0,
-            duration: 0.6
+        .to(
+            title,
+            {
+                opacity: 1,
+                y: 0,
+                duration: 0.8
+            },
+            "-=0.35"
+        )
 
-        })
+        .to(
+            description,
+            {
+                opacity: 1,
+                y: 0,
+                duration: 0.7
+            },
+            "-=0.45"
+        )
 
-        .to(title, {
+        .to(
+            indicator,
+            {
+                opacity: 1,
+                y: 0,
+                duration: 0.6
+            },
+            "-=0.35"
+        );
 
-            opacity: 1,
-            y: 0,
-            duration: 0.8
-
-        }, '-=0.35')
-
-        .to(description, {
-
-            opacity: 1,
-            y: 0,
-            duration: 0.7
-
-        }, '-=0.45')
-
-        .to(indicator, {
-
-            opacity: 1,
-            y: 0,
-            duration: 0.6
-
-        }, '-=0.35');
-
-
-    /* =====================================================
-       SCROLL INDICATOR FLOAT
-       ===================================================== */
 
     if (indicator) {
 
-        gsap.to(indicator, {
-
-            y: 6,
-
-            duration: 1.2,
-
-            repeat: -1,
-
-            yoyo: true,
-
-            ease: 'sine.inOut',
-
-            delay: 1
-
-        });
+        gsap.to(
+            indicator,
+            {
+                y: 6,
+                duration: 1.2,
+                repeat: -1,
+                yoyo: true,
+                ease: "sine.inOut",
+                delay: 1
+            }
+        );
 
     }
 
@@ -310,7 +328,7 @@ function initIntroAnimation(
 
 
 /* =========================================================
-   SCROLLYTELLING INITIALIZATION
+   SCROLLYTELLING
    ========================================================= */
 
 function initScrollytelling({
@@ -327,93 +345,90 @@ function initScrollytelling({
 
 }) {
 
+    if (TOTAL <= 0) {
+        return;
+    }
+
 
     /* =====================================================
-       REDUCED MOTION MODE
+       REDUCED MOTION
        ===================================================== */
 
     if (prefersReducedMotion) {
 
-        /* -------------------------------------------------
-           RESET ALL CARDS
-           ------------------------------------------------- */
-
-        gsap.set(cards, {
-
-            x: 0,
-            y: 0,
-            rotate: 0,
-            scale: 1,
-            opacity: 1,
-            zIndex: 1
-
-        });
+        gsap.set(
+            cards,
+            {
+                x: 0,
+                y: 0,
+                rotate: 0,
+                scale: 1,
+                opacity: 1,
+                visibility: "visible",
+                zIndex: 1
+            }
+        );
 
 
-        /* -------------------------------------------------
-           RESET ALL INFO CARDS
-           ------------------------------------------------- */
+        infoCards.forEach(
+            (card, index) => {
 
-        gsap.set(infoCards, {
+                gsap.set(
+                    card,
+                    {
+                        opacity:
+                            index === 0
+                                ? 1
+                                : 0,
 
-            opacity: 0,
-            y: 0,
-            visibility: 'hidden',
-            pointerEvents: 'none'
+                        y: 0,
 
-        });
+                        visibility:
+                            "visible",
 
-
-        /* -------------------------------------------------
-           FIRST INFO CARD
-           ------------------------------------------------- */
-
-        gsap.set(infoCards[0], {
-
-            opacity: 1,
-            y: 0,
-            visibility: 'visible',
-            pointerEvents: 'auto'
-
-        });
+                        pointerEvents:
+                            index === 0
+                                ? "auto"
+                                : "none"
+                    }
+                );
 
 
-        /* -------------------------------------------------
-           COUNTER
-           ------------------------------------------------- */
+                card.classList.toggle(
+                    "is-active",
+                    index === 0
+                );
+
+            }
+        );
+
 
         if (counter) {
-
-            counter.textContent =
-                '01';
-
+            counter.textContent = "01";
         }
 
-
-        /* -------------------------------------------------
-           PROGRESS
-           ------------------------------------------------- */
 
         if (progressFill) {
-
-            progressFill.style.width =
-                '0%';
-
+            progressFill.style.width = "0%";
         }
 
 
-        /* -------------------------------------------------
-           DOTS
-           ------------------------------------------------- */
+        dots.forEach(
+            (dot, index) => {
 
-        dots.forEach((dot, index) => {
+                dot.classList.toggle(
+                    "is-active",
+                    index === 0
+                );
 
-            dot.classList.toggle(
-                'is-active',
-                index === 0
-            );
+            }
+        );
 
-        });
+
+        syncActiveInfoCard(
+            0,
+            infoCards
+        );
 
 
         return;
@@ -421,8 +436,7 @@ function initScrollytelling({
 
 
     /* =====================================================
-       IMPORTANT:
-       KILL OLD INLINE GSAP PROPERTIES
+       CLEAN OLD GSAP STATE
        ===================================================== */
 
     gsap.killTweensOf([
@@ -433,104 +447,103 @@ function initScrollytelling({
 
 
     /* =====================================================
-       ESTABLISH RESTING FAN DECK
+       INITIAL CARD DECK
        ===================================================== */
 
-    cards.forEach((card, index) => {
+    cards.forEach(
+        (card, index) => {
 
-        if (index === 0) {
+            if (index === 0) {
 
-            gsap.set(card, {
+                gsap.set(
+                    card,
+                    {
+                        x: 0,
+                        y: 0,
+                        rotate: 0,
+                        scale: 1,
+                        opacity: 1,
+                        visibility: "visible",
+                        zIndex: 70
+                    }
+                );
 
-                x: 0,
-                y: 0,
-                rotate: 0,
-                scale: 1,
-                opacity: 1,
-                visibility: 'visible',
-                zIndex: 70
+            } else {
 
-            });
+                gsap.set(
+                    card,
+                    {
+                        x: 0,
 
-        } else {
+                        y:
+                            8 +
+                            index * 6,
 
-            gsap.set(card, {
+                        rotate:
+                            (index % 2 === 0
+                                ? 1
+                                : -1) *
+                            (4 + index * 1.6),
 
-                x: 0,
+                        scale:
+                            1 -
+                            index * 0.018,
 
-                y:
-                    8 +
-                    index * 6,
+                        opacity: 1,
 
-                rotate:
-                    (index % 2 === 0 ? 1 : -1)
-                    *
-                    (4 + index * 1.6),
+                        visibility:
+                            "visible",
 
-                scale:
-                    1 -
-                    index * 0.018,
+                        zIndex:
+                            70 -
+                            index
+                    }
+                );
 
-                opacity: 1,
-
-                visibility: 'visible',
-
-                zIndex:
-                    70 -
-                    index
-
-            });
+            }
 
         }
-
-    });
+    );
 
 
     /* =====================================================
-       RESET INFO CARDS
-       
-       IMPORTANT FIX:
-       Jangan menggunakan autoAlpha untuk info card
-       transition karena autoAlpha mengubah visibility.
-       
-       Saat timeline di-reverse, visibility yang sudah
-       terlanjur hidden dapat menyebabkan text sebelumnya
-       tidak muncul lagi.
+       INITIAL INFO CARDS
        ===================================================== */
 
-    infoCards.forEach((card, index) => {
+    infoCards.forEach(
+        (card, index) => {
 
-        gsap.set(card, {
+            gsap.set(
+                card,
+                {
+                    opacity:
+                        index === 0
+                            ? 1
+                            : 0,
 
-            opacity:
+                    y:
+                        index === 0
+                            ? 0
+                            : 16,
+
+                    visibility:
+                        "visible",
+
+                    pointerEvents:
+                        index === 0
+                            ? "auto"
+                            : "none"
+                }
+            );
+
+
+            card.classList.toggle(
+                "is-active",
                 index === 0
-                    ? 1
-                    : 0,
+            );
 
-            y:
-                index === 0
-                    ? 0
-                    : 16,
-
-            visibility:
-                index === 0
-                    ? 'visible'
-                    : 'visible',
-
-            pointerEvents:
-                index === 0
-                    ? 'auto'
-                    : 'none'
-
-        });
-
-
-        card.classList.toggle(
-            'is-active',
-            index === 0
-        );
-
-    });
+        }
+    );
 
 
     /* =====================================================
@@ -540,11 +553,15 @@ function initScrollytelling({
     const timeline =
         gsap.timeline({
 
+            defaults: {
+                ease: "power2.inOut"
+            },
+
             scrollTrigger: {
 
                 trigger: section,
 
-                start: 'top top',
+                start: "top top",
 
                 end:
                     `+=${TOTAL * 90}%`,
@@ -560,10 +577,6 @@ function initScrollytelling({
                 invalidateOnRefresh: true,
 
 
-                /* -----------------------------------------
-                   SCROLL UPDATE
-                   ----------------------------------------- */
-
                 onUpdate: self => {
 
                     const progress =
@@ -571,7 +584,7 @@ function initScrollytelling({
 
 
                     /* -------------------------------------
-                       PROGRESS BAR
+                       PROGRESS
                        ------------------------------------- */
 
                     if (progressFill) {
@@ -588,27 +601,22 @@ function initScrollytelling({
 
 
                     /* -------------------------------------
-                       ACTIVE PROJECT
+                       ACTIVE INDEX
                        ------------------------------------- */
 
                     const activeIndex =
-                        Math.min(
-
-                            TOTAL - 1,
-
-                            Math.max(
-
-                                0,
-
-                                Math.round(
-                                    progress
-                                    *
-                                    (TOTAL - 1)
+                        TOTAL <= 1
+                            ? 0
+                            : Math.min(
+                                TOTAL - 1,
+                                Math.max(
+                                    0,
+                                    Math.round(
+                                        progress *
+                                        (TOTAL - 1)
+                                    )
                                 )
-
-                            )
-
-                        );
+                            );
 
 
                     /* -------------------------------------
@@ -620,39 +628,41 @@ function initScrollytelling({
                         counter.textContent =
                             String(
                                 activeIndex + 1
-                            ).padStart(2, '0');
+                            ).padStart(
+                                2,
+                                "0"
+                            );
 
                     }
 
 
                     /* -------------------------------------
-                       DOT NAVIGATION
+                       DOTS
                        ------------------------------------- */
 
                     dots.forEach(
                         (dot, index) => {
 
                             dot.classList.toggle(
-
-                                'is-active',
-
-                                index ===
-                                activeIndex
-
+                                "is-active",
+                                index === activeIndex
                             );
 
                         }
                     );
 
+
+                    /* -------------------------------------
+                       IMPORTANT:
+                       SYNC ACTIVE INFO CARD
+                       ------------------------------------- */
+
+                    syncActiveInfoCard(
+                        activeIndex,
+                        infoCards
+                    );
+
                 }
-
-            },
-
-
-            defaults: {
-
-                ease:
-                    'power2.inOut'
 
             }
 
@@ -660,7 +670,7 @@ function initScrollytelling({
 
 
     /* =====================================================
-       FIRST PROJECT HOLD
+       INITIAL HOLD
        ===================================================== */
 
     timeline.to(
@@ -694,19 +704,11 @@ function initScrollytelling({
             infoCards[index + 1];
 
 
-        /* =================================================
-           ALTERNATING EXIT DIRECTION
-           ================================================= */
-
         const exitDirection =
             index % 2 === 0
                 ? 1
                 : -1;
 
-
-        /* =================================================
-           TIMELINE POSITION
-           ================================================= */
 
         const position =
             index + 0.2;
@@ -717,35 +719,25 @@ function initScrollytelling({
            ================================================= */
 
         timeline.to(
-
             outgoing,
-
             {
-
                 x:
                     exitDirection *
                     480,
 
-                y:
-                    -60,
+                y: -60,
 
                 rotate:
                     exitDirection *
                     22,
 
-                scale:
-                    0.82,
+                scale: 0.82,
 
-                opacity:
-                    0,
+                opacity: 0,
 
-                duration:
-                    0.7
-
+                duration: 0.7
             },
-
             position
-
         );
 
 
@@ -754,39 +746,25 @@ function initScrollytelling({
            ================================================= */
 
         timeline.to(
-
             incoming,
-
             {
+                x: 0,
 
-                x:
-                    0,
+                y: 0,
 
-                y:
-                    0,
+                rotate: 0,
 
-                rotate:
-                    0,
+                scale: 1,
 
-                scale:
-                    1,
+                opacity: 1,
 
-                opacity:
-                    1,
+                visibility: "visible",
 
-                visibility:
-                    'visible',
+                zIndex: 70,
 
-                zIndex:
-                    70,
-
-                duration:
-                    0.7
-
+                duration: 0.7
             },
-
             position
-
         );
 
 
@@ -795,107 +773,69 @@ function initScrollytelling({
            ================================================= */
 
         timeline.to(
-
             deck,
-
             {
+                scale: 1.035,
 
-                scale:
-                    1.035,
+                duration: 0.32,
 
-                duration:
-                    0.32,
-
-                ease:
-                    'sine.out'
-
+                ease: "sine.out"
             },
-
             position
-
         );
 
 
         timeline.to(
-
             deck,
-
             {
+                scale: 1,
 
-                scale:
-                    1,
+                duration: 0.38,
 
-                duration:
-                    0.38,
-
-                ease:
-                    'sine.in'
-
+                ease: "sine.in"
             },
-
             position + 0.32
-
         );
 
 
         /* =================================================
            OUTGOING INFO
-           
-           IMPORTANT FIX:
-           Tidak memakai autoAlpha.
-           Tidak mengubah visibility menjadi hidden.
-           
-           Jadi ketika timeline reverse:
-           
-           opacity 0
-               ↓
-           opacity 1
-           
-           text selalu bisa muncul kembali.
            ================================================= */
 
         timeline.to(
-
             outgoingInfo,
-
             {
+                opacity: 0,
 
-                opacity:
-                    0,
+                y: -14,
 
-                y:
-                    -14,
+                pointerEvents: "none",
 
-                pointerEvents:
-                    'none',
-
-                duration:
-                    0.35,
+                duration: 0.35,
 
                 onStart: () => {
 
-                    outgoingInfo
-                        .classList
-                        .remove(
-                            'is-active'
-                        );
+                    outgoingInfo.classList.remove(
+                        "is-active"
+                    );
+
+                    outgoingInfo.style.pointerEvents =
+                        "none";
 
                 },
 
                 onReverseComplete: () => {
 
-                    outgoingInfo
-                        .classList
-                        .add(
-                            'is-active'
-                        );
+                    outgoingInfo.classList.add(
+                        "is-active"
+                    );
+
+                    outgoingInfo.style.pointerEvents =
+                        "auto";
 
                 }
-
             },
-
             position
-
         );
 
 
@@ -904,54 +844,46 @@ function initScrollytelling({
            ================================================= */
 
         timeline.to(
-
             incomingInfo,
-
             {
+                opacity: 1,
 
-                opacity:
-                    1,
+                y: 0,
 
-                y:
-                    0,
+                pointerEvents: "auto",
 
-                pointerEvents:
-                    'auto',
-
-                duration:
-                    0.4,
+                duration: 0.4,
 
                 onStart: () => {
 
-                    incomingInfo
-                        .classList
-                        .add(
-                            'is-active'
-                        );
+                    incomingInfo.classList.add(
+                        "is-active"
+                    );
+
+                    incomingInfo.style.pointerEvents =
+                        "auto";
 
                 },
 
                 onReverseComplete: () => {
 
-                    incomingInfo
-                        .classList
-                        .remove(
-                            'is-active'
-                        );
+                    incomingInfo.classList.remove(
+                        "is-active"
+                    );
+
+                    incomingInfo.style.pointerEvents =
+                        "none";
 
                 }
-
             },
-
             position + 0.25
-
         );
 
     }
 
 
     /* =====================================================
-       FINAL PROJECT HOLD
+       FINAL HOLD
        ===================================================== */
 
     timeline.to(
@@ -961,79 +893,144 @@ function initScrollytelling({
         }
     );
 
+
     /* =====================================================
-   EXPOSE TIMELINE FOR PROJECT SEARCH
-   ===================================================== */
+       EXPOSE TIMELINE
+       ===================================================== */
 
-    window.portfolioScrollTimeline = timeline;
-
+    window.portfolioScrollTimeline =
+        timeline;
 
 
     /* =====================================================
        DOT NAVIGATION
        ===================================================== */
 
-    dots.forEach((dot, index) => {
+    dots.forEach(
+        (dot, index) => {
 
-        dot.style.cursor =
-            'pointer';
-
-
-        dot.addEventListener(
-            'click',
-            () => {
-
-                const scrollTrigger =
-                    timeline.scrollTrigger;
+            dot.style.cursor =
+                "pointer";
 
 
-                if (!scrollTrigger) {
-                    return;
+            dot.addEventListener(
+                "click",
+                () => {
+
+                    const st =
+                        timeline.scrollTrigger;
+
+
+                    if (!st) {
+                        return;
+                    }
+
+
+                    const targetProgress =
+                        TOTAL <= 1
+                            ? 0
+                            : index /
+                              (TOTAL - 1);
+
+
+                    const targetScroll =
+                        st.start +
+                        targetProgress *
+                        (
+                            st.end -
+                            st.start
+                        );
+
+
+                    window.scrollTo({
+
+                        top:
+                            targetScroll,
+
+                        behavior:
+                            prefersReducedMotion
+                                ? "auto"
+                                : "smooth"
+
+                    });
+
                 }
+            );
 
-
-                const targetProgress =
-                    index /
-                    (TOTAL - 1);
-
-
-                const scrollTarget =
-                    scrollTrigger.start
-                    +
-                    targetProgress
-                    *
-                    (
-                        scrollTrigger.end
-                        -
-                        scrollTrigger.start
-                    );
-
-
-                window.scrollTo({
-
-                    top:
-                        scrollTarget,
-
-                    behavior:
-                        prefersReducedMotion
-                            ? 'auto'
-                            : 'smooth'
-
-                });
-
-            }
-        );
-
-    });
+        }
+    );
 
 
     /* =====================================================
-       KEYBOARD NAVIGATION
+       KEYBOARD
        ===================================================== */
 
     initKeyboardNavigation(
         timeline,
         TOTAL
+    );
+
+}
+
+
+/* =========================================================
+   ACTIVE INFO CARD SYNCHRONIZATION
+   ========================================================= */
+
+function syncActiveInfoCard(
+    activeIndex,
+    infoCards
+) {
+
+    infoCards.forEach(
+        (card, index) => {
+
+            const isActive =
+                index === activeIndex;
+
+
+            card.classList.toggle(
+                "is-active",
+                isActive
+            );
+
+
+            /*
+             * SANGAT PENTING:
+             *
+             * Hanya card aktif yang boleh
+             * menerima pointer/click.
+             *
+             * Ini memperbaiki masalah:
+             * tombol project A terlihat,
+             * tetapi yang menerima click adalah
+             * tombol project B.
+             */
+
+            card.style.pointerEvents =
+                isActive
+                    ? "auto"
+                    : "none";
+
+
+            const buttons =
+                card.querySelectorAll(
+                    ".info-link, .info-detail-button, button, a"
+                );
+
+
+            buttons.forEach(
+                button => {
+
+                    button.style.pointerEvents =
+                        isActive
+                            ? "auto"
+                            : "none";
+
+                }
+            );
+
+        }
     );
 
 }
@@ -1049,23 +1046,19 @@ function initKeyboardNavigation(
 ) {
 
     document.addEventListener(
-        'keydown',
+        "keydown",
         event => {
-
-            /* ---------------------------------------------
-               DO NOT INTERFERE WITH MODAL
-               --------------------------------------------- */
 
             const modal =
                 document.getElementById(
-                    'project-modal'
+                    "project-modal"
                 );
 
 
             if (
                 modal &&
                 modal.classList.contains(
-                    'is-open'
+                    "is-open"
                 )
             ) {
 
@@ -1074,17 +1067,12 @@ function initKeyboardNavigation(
             }
 
 
-            /* ---------------------------------------------
-               ARROW DOWN
-               --------------------------------------------- */
-
             if (
-                event.key === 'ArrowDown' ||
-                event.key === 'PageDown'
+                event.key === "ArrowDown" ||
+                event.key === "PageDown"
             ) {
 
                 event.preventDefault();
-
 
                 moveToProject(
                     timeline,
@@ -1095,17 +1083,12 @@ function initKeyboardNavigation(
             }
 
 
-            /* ---------------------------------------------
-               ARROW UP
-               --------------------------------------------- */
-
             if (
-                event.key === 'ArrowUp' ||
-                event.key === 'PageUp'
+                event.key === "ArrowUp" ||
+                event.key === "PageUp"
             ) {
 
                 event.preventDefault();
-
 
                 moveToProject(
                     timeline,
@@ -1131,58 +1114,45 @@ function moveToProject(
     TOTAL
 ) {
 
-    const scrollTrigger =
+    const st =
         timeline.scrollTrigger;
 
 
-    if (!scrollTrigger) {
+    if (!st) {
         return;
     }
 
 
-    const currentProgress =
-        scrollTrigger.progress;
-
-
-    let currentIndex =
+    const currentIndex =
         Math.round(
-            currentProgress
-            *
+            st.progress *
             (TOTAL - 1)
         );
 
 
-    currentIndex +=
-        direction;
-
-
-    currentIndex =
+    const targetIndex =
         Math.max(
-
             0,
-
             Math.min(
                 TOTAL - 1,
-                currentIndex
+                currentIndex + direction
             )
-
         );
 
 
     const targetProgress =
-        currentIndex /
-        (TOTAL - 1);
+        TOTAL <= 1
+            ? 0
+            : targetIndex /
+              (TOTAL - 1);
 
 
     const targetScroll =
-        scrollTrigger.start
-        +
-        targetProgress
-        *
+        st.start +
+        targetProgress *
         (
-            scrollTrigger.end
-            -
-            scrollTrigger.start
+            st.end -
+            st.start
         );
 
 
@@ -1192,7 +1162,9 @@ function moveToProject(
             targetScroll,
 
         behavior:
-            'smooth'
+            portfolioReducedMotion
+                ? "auto"
+                : "smooth"
 
     });
 
@@ -1209,7 +1181,7 @@ function initProjectModal(
 
     const modal =
         document.getElementById(
-            'project-modal'
+            "project-modal"
         );
 
 
@@ -1219,89 +1191,82 @@ function initProjectModal(
 
 
     /* =====================================================
-       MODAL ELEMENTS
+       ELEMENTS
        ===================================================== */
 
     const backdrop =
         modal.querySelector(
-            '.project-modal-backdrop'
+            ".project-modal-backdrop"
         );
 
+    const content =
+        modal.querySelector(
+            ".project-modal-content"
+        );
 
     const closeButton =
         document.getElementById(
-            'modal-close'
+            "modal-close"
         );
-
 
     const closeBottom =
         document.getElementById(
-            'modal-close-bottom'
+            "modal-close-bottom"
         );
-
 
     const mainImage =
         document.getElementById(
-            'modal-main-image'
+            "modal-main-image"
         );
-
 
     const thumbnailRow =
         document.getElementById(
-            'thumbnail-row'
+            "thumbnail-row"
         );
-
 
     const galleryPrev =
         document.getElementById(
-            'gallery-prev'
+            "gallery-prev"
         );
-
 
     const galleryNext =
         document.getElementById(
-            'gallery-next'
+            "gallery-next"
         );
-
 
     const galleryCurrent =
         document.getElementById(
-            'gallery-current'
+            "gallery-current"
         );
-
 
     const galleryTotal =
         document.getElementById(
-            'gallery-total'
+            "gallery-total"
         );
-
 
     const modalTitle =
         document.getElementById(
-            'modal-project-title'
+            "modal-project-title"
         );
-
 
     const modalSecondaryTitle =
         document.getElementById(
-            'modal-project-title-secondary'
+            "modal-project-title-secondary"
         );
-
 
     const modalDescription =
         document.getElementById(
-            'modal-project-description'
+            "modal-project-description"
         );
-
 
     const modalTags =
         document.getElementById(
-            'modal-project-tags'
+            "modal-project-tags"
         );
 
 
     /* =====================================================
-       STATE
+       MODAL STATE
        ===================================================== */
 
     let currentImages = [];
@@ -1310,40 +1275,7 @@ function initProjectModal(
 
     let isModalOpen = false;
 
-
-    /* =====================================================
-       OPEN PROJECT BUTTONS
-       ===================================================== */
-
-    const detailButtons =
-        document.querySelectorAll(
-            '.info-detail-button'
-        );
-
-
-    detailButtons.forEach(
-        button => {
-
-            button.addEventListener(
-                'click',
-                event => {
-
-                    /*
-                     * HTML kamu boleh tetap memakai:
-                     *
-                     * onclick="openProjectModal(...)"
-                     *
-                     * Jadi kita tidak mengubah
-                     * inline onclick tersebut.
-                     */
-
-                    event.stopPropagation();
-
-                }
-            );
-
-        }
-    );
+    let lastFocusedElement = null;
 
 
     /* =====================================================
@@ -1352,34 +1284,25 @@ function initProjectModal(
 
     window.openProjectModal =
         function (
-
             title,
             description,
             mainImagePath,
             images,
             technologies
-
         ) {
 
-
             /* ---------------------------------------------
-               VALIDATE DATA
+               NORMALIZE DATA
                --------------------------------------------- */
 
-            if (!title) {
-
-                title =
-                    'Project';
-
-            }
+            title =
+                title ||
+                "Project";
 
 
-            if (!description) {
-
-                description =
-                    '';
-
-            }
+            description =
+                description ||
+                "";
 
 
             if (
@@ -1396,25 +1319,45 @@ function initProjectModal(
 
 
             if (
-                !Array.isArray(technologies)
+                !Array.isArray(
+                    technologies
+                )
             ) {
 
-                technologies =
-                    [];
+                technologies = [];
 
             }
 
 
             /* ---------------------------------------------
-               SAVE STATE
+               IMPORTANT:
+               COPY ARRAY AGAR PROJECT SEBELUMNYA
+               TIDAK MEMENGARUHI PROJECT BARU
                --------------------------------------------- */
 
             currentImages =
-                images.slice();
+                images
+                    .filter(
+                        image =>
+                            typeof image ===
+                            "string" &&
+                            image.trim() !== ""
+                    )
+                    .map(
+                        image =>
+                            image.trim()
+                    );
 
 
-            currentImageIndex =
-                0;
+            currentImageIndex = 0;
+
+
+            /* ---------------------------------------------
+               SAVE FOCUS
+               --------------------------------------------- */
+
+            lastFocusedElement =
+                document.activeElement;
 
 
             /* ---------------------------------------------
@@ -1450,90 +1393,80 @@ function initProjectModal(
 
 
             /* ---------------------------------------------
-               UPDATE TECHNOLOGY TAGS
+               UPDATE TAGS
                --------------------------------------------- */
 
             renderModalTags(
-
                 modalTags,
-
                 technologies
-
             );
 
 
             /* ---------------------------------------------
-               UPDATE GALLERY
+               RENDER GALLERY
                --------------------------------------------- */
 
             renderGallery(
-
                 thumbnailRow,
-
                 currentImages,
-
                 currentImageIndex
-
             );
 
+
+            /* ---------------------------------------------
+               UPDATE MAIN IMAGE
+               --------------------------------------------- */
 
             updateGalleryImage(
-
                 mainImage,
-
                 galleryCurrent,
-
                 galleryTotal,
-
                 currentImages,
-
                 currentImageIndex,
-
                 prefersReducedMotion
-
             );
 
 
             /* ---------------------------------------------
-               OPEN MODAL
+               UPDATE BUTTON STATES
                --------------------------------------------- */
 
-            openModal(
-
-                modal,
-
-                prefersReducedMotion
-
+            updateGalleryControls(
+                galleryPrev,
+                galleryNext,
+                currentImages.length
             );
 
 
-            isModalOpen =
-                true;
-
-
             /* ---------------------------------------------
-               ACCESSIBILITY
+               OPEN
                --------------------------------------------- */
+
+            isModalOpen = true;
+
 
             modal.setAttribute(
-
-                'aria-hidden',
-
-                'false'
-
+                "aria-hidden",
+                "false"
             );
 
 
             document.body.classList.add(
-                'modal-open'
+                "modal-open"
+            );
+
+
+            openModal(
+                modal,
+                prefersReducedMotion
             );
 
 
             /* ---------------------------------------------
-               FOCUS CLOSE BUTTON
+               FOCUS
                --------------------------------------------- */
 
-            setTimeout(
+            window.setTimeout(
                 () => {
 
                     if (closeButton) {
@@ -1543,14 +1476,16 @@ function initProjectModal(
                     }
 
                 },
-                100
+                prefersReducedMotion
+                    ? 0
+                    : 100
             );
 
         };
 
 
     /* =====================================================
-       CLOSE MODAL
+       CLOSE
        ===================================================== */
 
     function closeProjectModal() {
@@ -1560,33 +1495,52 @@ function initProjectModal(
         }
 
 
-        closeModal(
-
-            modal,
-
-            prefersReducedMotion
-
-        );
-
-
-        isModalOpen =
-            false;
+        isModalOpen = false;
 
 
         modal.setAttribute(
-
-            'aria-hidden',
-
-            'true'
-
+            "aria-hidden",
+            "true"
         );
 
 
         document.body.classList.remove(
-
-            'modal-open'
-
+            "modal-open"
         );
+
+
+        closeModal(
+            modal,
+            prefersReducedMotion
+        );
+
+
+        if (
+            lastFocusedElement &&
+            typeof lastFocusedElement.focus ===
+                "function"
+        ) {
+
+            window.setTimeout(
+                () => {
+
+                    try {
+
+                        lastFocusedElement.focus();
+
+                    } catch (error) {
+
+                        /* Ignore focus errors */
+
+                    }
+
+                },
+                prefersReducedMotion
+                    ? 0
+                    : 300
+            );
+
+        }
 
     }
 
@@ -1598,11 +1552,16 @@ function initProjectModal(
     if (closeButton) {
 
         closeButton.addEventListener(
+            "click",
+            event => {
 
-            'click',
+                event.preventDefault();
 
-            closeProjectModal
+                event.stopPropagation();
 
+                closeProjectModal();
+
+            }
         );
 
     }
@@ -1611,118 +1570,121 @@ function initProjectModal(
     if (closeBottom) {
 
         closeBottom.addEventListener(
+            "click",
+            event => {
 
-            'click',
+                event.preventDefault();
 
-            closeProjectModal
+                event.stopPropagation();
 
+                closeProjectModal();
+
+            }
         );
 
     }
 
 
     /* =====================================================
-       BACKDROP CLICK
+       BACKDROP
        ===================================================== */
 
     if (backdrop) {
 
         backdrop.addEventListener(
+            "click",
+            event => {
 
-            'click',
+                if (
+                    event.target ===
+                    backdrop
+                ) {
 
-            closeProjectModal
+                    closeProjectModal();
 
+                }
+
+            }
         );
 
     }
 
 
     /* =====================================================
-       GALLERY PREVIOUS
+       PREVIOUS
        ===================================================== */
 
     if (galleryPrev) {
 
         galleryPrev.addEventListener(
+            "click",
+            event => {
 
-            'click',
+                event.preventDefault();
 
-            () => {
+                event.stopPropagation();
 
                 changeGalleryImage(
-
                     -1,
-
                     mainImage,
-
                     galleryCurrent,
-
                     galleryTotal,
-
                     thumbnailRow,
-
+                    galleryPrev,
+                    galleryNext,
                     prefersReducedMotion
-
                 );
 
             }
-
         );
 
     }
 
 
     /* =====================================================
-       GALLERY NEXT
+       NEXT
        ===================================================== */
 
     if (galleryNext) {
 
         galleryNext.addEventListener(
+            "click",
+            event => {
 
-            'click',
+                event.preventDefault();
 
-            () => {
+                event.stopPropagation();
 
                 changeGalleryImage(
-
                     1,
-
                     mainImage,
-
                     galleryCurrent,
-
                     galleryTotal,
-
                     thumbnailRow,
-
+                    galleryPrev,
+                    galleryNext,
                     prefersReducedMotion
-
                 );
 
             }
-
         );
 
     }
 
 
     /* =====================================================
-       THUMBNAIL EVENTS
+       THUMBNAILS
        ===================================================== */
 
     if (thumbnailRow) {
 
         thumbnailRow.addEventListener(
-
-            'click',
-
+            "click",
             event => {
 
                 const thumbnail =
                     event.target.closest(
-                        '[data-gallery-index]'
+                        "[data-gallery-index]"
                     );
 
 
@@ -1739,11 +1701,8 @@ function initProjectModal(
 
 
                 if (
-
                     Number.isNaN(index) ||
-
                     !currentImages[index]
-
                 ) {
 
                     return;
@@ -1756,45 +1715,45 @@ function initProjectModal(
 
 
                 updateGalleryImage(
-
                     mainImage,
-
                     galleryCurrent,
-
                     galleryTotal,
-
                     currentImages,
-
                     currentImageIndex,
-
                     prefersReducedMotion
-
                 );
 
 
                 updateThumbnailState(
-
                     thumbnailRow,
-
                     currentImageIndex
+                );
 
+
+                updateGalleryControls(
+                    galleryPrev,
+                    galleryNext,
+                    currentImages.length
+                );
+
+
+                scrollThumbnailIntoView(
+                    thumbnailRow,
+                    currentImageIndex
                 );
 
             }
-
         );
 
     }
 
 
     /* =====================================================
-       KEYBOARD MODAL CONTROLS
+       KEYBOARD
        ===================================================== */
 
     document.addEventListener(
-
-        'keydown',
-
+        "keydown",
         event => {
 
             if (!isModalOpen) {
@@ -1807,7 +1766,7 @@ function initProjectModal(
                --------------------------------------------- */
 
             if (
-                event.key === 'Escape'
+                event.key === "Escape"
             ) {
 
                 event.preventDefault();
@@ -1824,25 +1783,20 @@ function initProjectModal(
                --------------------------------------------- */
 
             if (
-                event.key === 'ArrowLeft'
+                event.key === "ArrowLeft"
             ) {
 
                 event.preventDefault();
 
                 changeGalleryImage(
-
                     -1,
-
                     mainImage,
-
                     galleryCurrent,
-
                     galleryTotal,
-
                     thumbnailRow,
-
+                    galleryPrev,
+                    galleryNext,
                     prefersReducedMotion
-
                 );
 
                 return;
@@ -1855,60 +1809,44 @@ function initProjectModal(
                --------------------------------------------- */
 
             if (
-                event.key === 'ArrowRight'
+                event.key === "ArrowRight"
             ) {
 
                 event.preventDefault();
 
                 changeGalleryImage(
-
                     1,
-
                     mainImage,
-
                     galleryCurrent,
-
                     galleryTotal,
-
                     thumbnailRow,
-
+                    galleryPrev,
+                    galleryNext,
                     prefersReducedMotion
-
                 );
 
             }
 
         }
-
     );
 
 
     /* =====================================================
-       PREVENT MODAL SCROLL PROPAGATION
+       STOP WHEEL PROPAGATION
        ===================================================== */
 
-    const modalContent =
-        modal.querySelector(
-            '.project-modal-content'
-        );
+    if (content) {
 
-
-    if (modalContent) {
-
-        modalContent.addEventListener(
-
-            'wheel',
-
+        content.addEventListener(
+            "wheel",
             event => {
 
                 event.stopPropagation();
 
             },
-
             {
                 passive: true
             }
-
         );
 
     }
@@ -1917,7 +1855,7 @@ function initProjectModal(
 
 
 /* =========================================================
-   RENDER MODAL TAGS
+   MODAL TAGS
    ========================================================= */
 
 function renderModalTags(
@@ -1930,25 +1868,36 @@ function renderModalTags(
     }
 
 
-    container.innerHTML =
-        '';
+    container.innerHTML = "";
 
 
     technologies.forEach(
         technology => {
 
+            if (
+                technology === null ||
+                technology === undefined
+            ) {
+
+                return;
+
+            }
+
+
             const tag =
                 document.createElement(
-                    'span'
+                    "span"
                 );
 
 
             tag.className =
-                'modal-tech-tag';
+                "modal-tech-tag";
 
 
             tag.textContent =
-                technology;
+                String(
+                    technology
+                );
 
 
             container.appendChild(
@@ -1976,8 +1925,7 @@ function renderGallery(
     }
 
 
-    container.innerHTML =
-        '';
+    container.innerHTML = "";
 
 
     images.forEach(
@@ -1985,28 +1933,33 @@ function renderGallery(
 
             const button =
                 document.createElement(
-                    'button'
+                    "button"
                 );
 
 
             button.type =
-                'button';
+                "button";
 
 
             button.className =
-                'gallery-thumbnail';
+                "gallery-thumbnail";
 
 
             button.dataset.galleryIndex =
-                index;
+                String(index);
 
 
             button.setAttribute(
-
-                'aria-label',
-
+                "aria-label",
                 `View image ${index + 1}`
+            );
 
+
+            button.setAttribute(
+                "aria-current",
+                index === activeIndex
+                    ? "true"
+                    : "false"
             );
 
 
@@ -2015,7 +1968,7 @@ function renderGallery(
             ) {
 
                 button.classList.add(
-                    'is-active'
+                    "is-active"
                 );
 
             }
@@ -2023,7 +1976,7 @@ function renderGallery(
 
             const img =
                 document.createElement(
-                    'img'
+                    "img"
                 );
 
 
@@ -2037,16 +1990,20 @@ function renderGallery(
 
             img.loading =
                 index === 0
-                    ? 'eager'
-                    : 'lazy';
+                    ? "eager"
+                    : "lazy";
+
+
+            img.decoding =
+                "async";
 
 
             img.addEventListener(
-                'error',
+                "error",
                 () => {
 
                     button.classList.add(
-                        'is-error'
+                        "is-error"
                     );
 
                 }
@@ -2075,26 +2032,30 @@ function renderGallery(
 function updateGalleryImage(
 
     mainImage,
-
     currentElement,
-
     totalElement,
-
     images,
-
     index,
-
     prefersReducedMotion
 
 ) {
 
     if (
         !mainImage ||
-        !images.length
+        !images.length ||
+        !images[index]
     ) {
 
-        return;
+        if (currentElement) {
+            currentElement.textContent = "0";
+        }
 
+        if (totalElement) {
+            totalElement.textContent =
+                String(images.length);
+        }
+
+        return;
     }
 
 
@@ -2102,91 +2063,14 @@ function updateGalleryImage(
         images[index];
 
 
-    if (!imagePath) {
-        return;
-    }
-
-
-    /* =====================================================
-       IMAGE TRANSITION
-       ===================================================== */
-
-    if (
-        !prefersReducedMotion &&
-        mainImage.src &&
-        mainImage.src !==
-            window.location.href
-    ) {
-
-        gsap.killTweensOf(
-            mainImage
-        );
-
-
-        gsap.to(
-
-            mainImage,
-
-            {
-
-                opacity: 0,
-
-                duration: 0.12,
-
-                ease: 'power1.out',
-
-                onComplete: () => {
-
-                    mainImage.src =
-                        imagePath;
-
-
-                    gsap.to(
-
-                        mainImage,
-
-                        {
-
-                            opacity: 1,
-
-                            duration: 0.25,
-
-                            ease: 'power2.out'
-
-                        }
-
-                    );
-
-                }
-
-            }
-
-        );
-
-    } else {
-
-        mainImage.src =
-            imagePath;
-
-    }
-
-
-    /* =====================================================
-       ALT
-       ===================================================== */
-
     mainImage.alt =
         `Project preview ${index + 1}`;
 
 
-    /* =====================================================
-       COUNTER
-       ===================================================== */
-
     if (currentElement) {
 
         currentElement.textContent =
-            index + 1;
+            String(index + 1);
 
     }
 
@@ -2194,9 +2078,91 @@ function updateGalleryImage(
     if (totalElement) {
 
         totalElement.textContent =
-            images.length;
+            String(images.length);
 
     }
+
+
+    /* =====================================================
+       CANCEL OLD IMAGE ANIMATION
+       ===================================================== */
+
+    gsap.killTweensOf(
+        mainImage
+    );
+
+
+    /* =====================================================
+       IMAGE CHANGE
+       ===================================================== */
+
+    if (
+        prefersReducedMotion
+    ) {
+
+        mainImage.src =
+            imagePath;
+
+        return;
+
+    }
+
+
+    const currentSrc =
+        mainImage.getAttribute(
+            "src"
+        );
+
+
+    if (
+        !currentSrc ||
+        currentSrc === imagePath
+    ) {
+
+        mainImage.src =
+            imagePath;
+
+        gsap.set(
+            mainImage,
+            {
+                opacity: 1
+            }
+        );
+
+        return;
+
+    }
+
+
+    gsap.to(
+        mainImage,
+        {
+            opacity: 0,
+
+            duration: 0.12,
+
+            ease: "power1.out",
+
+            onComplete: () => {
+
+                mainImage.src =
+                    imagePath;
+
+
+                gsap.to(
+                    mainImage,
+                    {
+                        opacity: 1,
+
+                        duration: 0.25,
+
+                        ease: "power2.out"
+                    }
+                );
+
+            }
+        }
+    );
 
 }
 
@@ -2210,29 +2176,27 @@ function changeGalleryImage(
     direction,
 
     mainImage,
-
     currentElement,
-
     totalElement,
-
     thumbnailRow,
-
+    galleryPrev,
+    galleryNext,
     prefersReducedMotion
 
 ) {
 
-    if (!currentImages.length) {
+    if (
+        !currentImages.length
+    ) {
+
         return;
+
     }
 
 
     currentImageIndex +=
         direction;
 
-
-    /* -----------------------------------------------------
-       LOOP TO LAST
-       ----------------------------------------------------- */
 
     if (
         currentImageIndex < 0
@@ -2244,80 +2208,100 @@ function changeGalleryImage(
     }
 
 
-    /* -----------------------------------------------------
-       LOOP TO FIRST
-       ----------------------------------------------------- */
-
     if (
         currentImageIndex >=
         currentImages.length
     ) {
 
-        currentImageIndex =
-            0;
+        currentImageIndex = 0;
 
     }
 
 
-    /* -----------------------------------------------------
-       UPDATE IMAGE
-       ----------------------------------------------------- */
-
     updateGalleryImage(
-
         mainImage,
-
         currentElement,
-
         totalElement,
-
         currentImages,
-
         currentImageIndex,
-
         prefersReducedMotion
-
     );
 
-
-    /* -----------------------------------------------------
-       UPDATE THUMBNAILS
-       ----------------------------------------------------- */
 
     updateThumbnailState(
-
         thumbnailRow,
-
         currentImageIndex
-
     );
 
 
-    /* -----------------------------------------------------
-       KEEP ACTIVE THUMBNAIL VISIBLE
-       ----------------------------------------------------- */
+    updateGalleryControls(
+        galleryPrev,
+        galleryNext,
+        currentImages.length
+    );
+
 
     scrollThumbnailIntoView(
-
         thumbnailRow,
-
         currentImageIndex
-
     );
 
 }
 
 
 /* =========================================================
-   UPDATE THUMBNAIL STATE
+   GALLERY CONTROL STATE
+   ========================================================= */
+
+function updateGalleryControls(
+    previousButton,
+    nextButton,
+    total
+) {
+
+    const disabled =
+        total <= 1;
+
+
+    if (previousButton) {
+
+        previousButton.disabled =
+            disabled;
+
+        previousButton.setAttribute(
+            "aria-disabled",
+            disabled
+                ? "true"
+                : "false"
+        );
+
+    }
+
+
+    if (nextButton) {
+
+        nextButton.disabled =
+            disabled;
+
+        nextButton.setAttribute(
+            "aria-disabled",
+            disabled
+                ? "true"
+                : "false"
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   THUMBNAIL ACTIVE STATE
    ========================================================= */
 
 function updateThumbnailState(
-
     container,
-
     activeIndex
-
 ) {
 
     if (!container) {
@@ -2327,9 +2311,7 @@ function updateThumbnailState(
 
     const thumbnails =
         container.querySelectorAll(
-
-            '[data-gallery-index]'
-
+            "[data-gallery-index]"
         );
 
 
@@ -2343,12 +2325,21 @@ function updateThumbnailState(
                 );
 
 
+            const active =
+                index === activeIndex;
+
+
             thumbnail.classList.toggle(
+                "is-active",
+                active
+            );
 
-                'is-active',
 
-                index === activeIndex
-
+            thumbnail.setAttribute(
+                "aria-current",
+                active
+                    ? "true"
+                    : "false"
             );
 
         }
@@ -2358,15 +2349,12 @@ function updateThumbnailState(
 
 
 /* =========================================================
-   SCROLL ACTIVE THUMBNAIL INTO VIEW
+   SCROLL ACTIVE THUMBNAIL
    ========================================================= */
 
 function scrollThumbnailIntoView(
-
     container,
-
     index
-
 ) {
 
     if (!container) {
@@ -2376,9 +2364,7 @@ function scrollThumbnailIntoView(
 
     const thumbnail =
         container.querySelector(
-
             `[data-gallery-index="${index}"]`
-
         );
 
 
@@ -2390,13 +2376,15 @@ function scrollThumbnailIntoView(
     thumbnail.scrollIntoView({
 
         behavior:
-            'smooth',
+            portfolioReducedMotion
+                ? "auto"
+                : "smooth",
 
         block:
-            'nearest',
+            "nearest",
 
         inline:
-            'center'
+            "center"
 
     });
 
@@ -2404,32 +2392,26 @@ function scrollThumbnailIntoView(
 
 
 /* =========================================================
-   OPEN MODAL ANIMATION
+   OPEN MODAL
    ========================================================= */
 
 function openModal(
-
     modal,
-
     prefersReducedMotion
-
 ) {
 
     modal.classList.add(
-        'is-open'
+        "is-open"
     );
 
 
     if (prefersReducedMotion) {
 
         gsap.set(
-
             modal,
-
             {
                 opacity: 1
             }
-
         );
 
         return;
@@ -2439,9 +2421,7 @@ function openModal(
 
     const content =
         modal.querySelector(
-
-            '.project-modal-content'
-
+            ".project-modal-content"
         );
 
 
@@ -2452,53 +2432,48 @@ function openModal(
 
 
     gsap.set(
-
         modal,
-
         {
             opacity: 0
         }
-
     );
 
 
-    gsap.set(
+    if (content) {
 
-        content,
-
-        {
-            opacity: 0,
-            y: 30,
-            scale: 0.97
-        }
-
-    );
-
-
-    gsap.timeline()
-
-        .to(
-
-            modal,
-
-            {
-
-                opacity: 1,
-
-                duration: 0.2,
-
-                ease: 'power2.out'
-
-            }
-
-        )
-
-        .to(
-
+        gsap.set(
             content,
-
             {
+                opacity: 0,
+                y: 30,
+                scale: 0.97
+            }
+        );
 
+    }
+
+
+    const timeline =
+        gsap.timeline();
+
+
+    timeline.to(
+        modal,
+        {
+            opacity: 1,
+
+            duration: 0.2,
+
+            ease: "power2.out"
+        }
+    );
+
+
+    if (content) {
+
+        timeline.to(
+            content,
+            {
                 opacity: 1,
 
                 y: 0,
@@ -2507,42 +2482,56 @@ function openModal(
 
                 duration: 0.45,
 
-                ease: 'power3.out'
-
+                ease: "power3.out"
             },
-
-            '-=0.08'
-
+            "-=0.08"
         );
+
+    }
 
 }
 
 
 /* =========================================================
-   CLOSE MODAL ANIMATION
+   CLOSE MODAL
    ========================================================= */
 
 function closeModal(
-
     modal,
-
     prefersReducedMotion
-
 ) {
 
     const content =
         modal.querySelector(
-
-            '.project-modal-content'
-
+            ".project-modal-content"
         );
 
 
     if (prefersReducedMotion) {
 
         modal.classList.remove(
-            'is-open'
+            "is-open"
         );
+
+        gsap.set(
+            modal,
+            {
+                clearProps:
+                    "opacity"
+            }
+        );
+
+        if (content) {
+
+            gsap.set(
+                content,
+                {
+                    clearProps:
+                        "opacity,transform"
+                }
+            );
+
+        }
 
         return;
 
@@ -2555,48 +2544,47 @@ function closeModal(
     ]);
 
 
-    gsap.timeline({
+    const timeline =
+        gsap.timeline({
 
-        onComplete: () => {
+            onComplete: () => {
 
-            modal.classList.remove(
-                'is-open'
-            );
+                modal.classList.remove(
+                    "is-open"
+                );
 
 
-            gsap.set(
+                gsap.set(
+                    modal,
+                    {
+                        clearProps:
+                            "opacity"
+                    }
+                );
 
-                modal,
 
-                {
-                    clearProps:
-                        'opacity'
+                if (content) {
+
+                    gsap.set(
+                        content,
+                        {
+                            clearProps:
+                                "opacity,transform"
+                        }
+                    );
+
                 }
 
-            );
+            }
+
+        });
 
 
-            gsap.set(
+    if (content) {
 
-                content,
-
-                {
-                    clearProps:
-                        'opacity,transform'
-                }
-
-            );
-
-        }
-
-    })
-
-        .to(
-
+        timeline.to(
             content,
-
             {
-
                 opacity: 0,
 
                 y: 20,
@@ -2605,41 +2593,34 @@ function closeModal(
 
                 duration: 0.25,
 
-                ease: 'power2.in'
-
+                ease: "power2.in"
             }
-
-        )
-
-        .to(
-
-            modal,
-
-            {
-
-                opacity: 0,
-
-                duration: 0.2,
-
-                ease: 'power1.in'
-
-            },
-
-            '-=0.1'
-
         );
+
+    }
+
+
+    timeline.to(
+        modal,
+        {
+            opacity: 0,
+
+            duration: 0.2,
+
+            ease: "power1.in"
+        },
+        "-=0.1"
+    );
 
 }
 
 
 /* =========================================================
-   IMAGE ERROR HANDLING
+   GLOBAL IMAGE ERROR
    ========================================================= */
 
 document.addEventListener(
-
-    'error',
-
+    "error",
     event => {
 
         const element =
@@ -2652,56 +2633,42 @@ document.addEventListener(
         ) {
 
             element.classList.add(
-                'image-load-error'
+                "image-load-error"
             );
 
         }
 
     },
-
     true
-
 );
 
 
 /* =========================================================
-   SAFETY:
-   ESCAPE BODY LOCK IF PAGE IS RELOADED / RESTORED
+   PAGE SHOW SAFETY
    ========================================================= */
 
 window.addEventListener(
-
-    'pageshow',
-
+    "pageshow",
     () => {
 
+        /*
+         * Jangan meninggalkan body terkunci
+         * setelah browser melakukan back/forward cache.
+         */
+
         document.body.classList.remove(
-            'modal-open'
+            "modal-open"
         );
 
     }
-
 );
 
 
 /* =========================================================
    PROJECT SEARCH
-   ---------------------------------------------------------
-   Features:
-   - Realtime search
-   - Search title
-   - Search description
-   - Search technologies
-   - "/" shortcut to focus search
-   - ESC to clear search
-   - Clear button
-   - Result counter
-   - Automatically select matched project
-   - Automatically scroll GSAP animation to matched project
-   - Keep GSAP timeline stable
    ========================================================= */
 
-document.addEventListener("DOMContentLoaded", () => {
+function initProjectSearch() {
 
     const searchInput =
         document.getElementById(
@@ -2723,10 +2690,6 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
     }
 
-
-    /* =====================================================
-       FIND PROJECT ELEMENTS
-       ===================================================== */
 
     const projectCards =
         Array.from(
@@ -2750,10 +2713,6 @@ document.addEventListener("DOMContentLoaded", () => {
             infoCards.length
         );
 
-
-    /* =====================================================
-       CREATE SEARCH DATA
-       ===================================================== */
 
     const projects = [];
 
@@ -2814,46 +2773,47 @@ document.addEventListener("DOMContentLoaded", () => {
             tags:
                 tags.trim(),
 
-            searchText: `
+            searchText:
+                `
                 ${title}
                 ${description}
                 ${tags}
-            `.toLowerCase()
+                `.toLowerCase()
 
         });
 
     }
 
 
-    /* =====================================================
-       ACTIVE SEARCH PROJECT
-       ===================================================== */
-
     let selectedProjectIndex = -1;
 
 
     /* =====================================================
-       CLEAR SELECTED STATE
+       CLEAR SELECTED PROJECT
        ===================================================== */
 
     function clearSelectedProject() {
 
-        projectCards.forEach(card => {
+        projectCards.forEach(
+            card => {
 
-            card.classList.remove(
-                "project-search-selected"
-            );
+                card.classList.remove(
+                    "project-search-selected"
+                );
 
-        });
+            }
+        );
 
 
-        infoCards.forEach(card => {
+        infoCards.forEach(
+            card => {
 
-            card.classList.remove(
-                "project-search-selected"
-            );
+                card.classList.remove(
+                    "project-search-selected"
+                );
 
-        });
+            }
+        );
 
 
         selectedProjectIndex = -1;
@@ -2877,24 +2837,12 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
 
-        selectedProjectIndex =
-            index;
-
-
-        /* -------------------------------------------------
-           CLEAR PREVIOUS SELECTION
-           ------------------------------------------------- */
-
         clearSelectedProject();
 
 
         selectedProjectIndex =
             index;
 
-
-        /* -------------------------------------------------
-           SELECT CARD
-           ------------------------------------------------- */
 
         if (projectCards[index]) {
 
@@ -2906,10 +2854,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
 
-        /* -------------------------------------------------
-           SELECT INFO
-           ------------------------------------------------- */
-
         if (infoCards[index]) {
 
             infoCards[index]
@@ -2919,10 +2863,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
         }
 
-
-        /* -------------------------------------------------
-           GET GSAP TIMELINE
-           ------------------------------------------------- */
 
         const timeline =
             window.portfolioScrollTimeline;
@@ -2938,49 +2878,28 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
 
-        const scrollTrigger =
-            timeline.scrollTrigger;
-
-
-        /* -------------------------------------------------
-           CALCULATE PROJECT PROGRESS
-           
-           Project 0 = 0%
-           Project 1 = 1 / TOTAL
-           Project 2 = 2 / TOTAL
-           etc.
-           ------------------------------------------------- */
-
-        const totalProjects =
-            projectCount;
-
-
-        if (totalProjects <= 1) {
+        if (projectCount <= 1) {
             return;
         }
 
 
+        const st =
+            timeline.scrollTrigger;
+
+
         const targetProgress =
             index /
-            (totalProjects - 1);
+            (projectCount - 1);
 
-
-        /* -------------------------------------------------
-           CONVERT PROGRESS → PAGE SCROLL POSITION
-           ------------------------------------------------- */
 
         const targetScroll =
-            scrollTrigger.start +
+            st.start +
             targetProgress *
             (
-                scrollTrigger.end -
-                scrollTrigger.start
+                st.end -
+                st.start
             );
 
-
-        /* -------------------------------------------------
-           SCROLL TO PROJECT
-           ------------------------------------------------- */
 
         window.scrollTo({
 
@@ -2988,9 +2907,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 targetScroll,
 
             behavior:
-                window.matchMedia(
-                    "(prefers-reduced-motion: reduce)"
-                ).matches
+                portfolioReducedMotion
                     ? "auto"
                     : "smooth"
 
@@ -3092,21 +3009,13 @@ document.addEventListener("DOMContentLoaded", () => {
         );
 
 
-        /* -------------------------------------------------
-           OPTIONAL:
-           KEMBALI KE PROJECT PERTAMA
-           
-           Tidak dipaksa scroll.
-           Hanya selection yang dihapus.
-           ------------------------------------------------- */
-
         searchInput.focus();
 
     }
 
 
     /* =====================================================
-       SEARCH
+       PERFORM SEARCH
        ===================================================== */
 
     function performSearch() {
@@ -3116,10 +3025,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 .trim()
                 .toLowerCase();
 
-
-        /* =================================================
-           EMPTY QUERY
-           ================================================= */
 
         if (!query) {
 
@@ -3155,10 +3060,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
 
-        /* =================================================
-           FIND MATCHES
-           ================================================= */
-
         const matchedProjects =
             projects.filter(
                 project =>
@@ -3168,19 +3069,11 @@ document.addEventListener("DOMContentLoaded", () => {
             );
 
 
-        /* =================================================
-           RESULT MESSAGE
-           ================================================= */
-
         updateResultMessage(
             query,
             matchedProjects.length
         );
 
-
-        /* =================================================
-           NO RESULT
-           ================================================= */
 
         if (!matchedProjects.length) {
 
@@ -3191,28 +3084,15 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
 
-        /* =================================================
-           SELECT FIRST MATCH
-           ================================================= */
-
-        /*
-         * Jika query cocok beberapa project,
-         * project pertama langsung dipilih.
-         */
-
-        const firstMatch =
-            matchedProjects[0];
-
-
         selectProject(
-            firstMatch.index
+            matchedProjects[0].index
         );
 
     }
 
 
     /* =====================================================
-       INPUT EVENT
+       INPUT
        ===================================================== */
 
     searchInput.addEventListener(
@@ -3222,7 +3102,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-       CLEAR BUTTON
+       CLEAR
        ===================================================== */
 
     if (clearButton) {
@@ -3236,9 +3116,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-       KEYBOARD SHORTCUT
-       "/" = FOCUS SEARCH
-       ESC = CLEAR SEARCH
+       KEYBOARD
        ===================================================== */
 
     document.addEventListener(
@@ -3262,9 +3140,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 );
 
 
-            /* ---------------------------------------------
-               "/" → FOCUS SEARCH
-               --------------------------------------------- */
+            /* "/" */
 
             if (
                 event.key === "/" &&
@@ -3280,9 +3156,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
 
-            /* ---------------------------------------------
-               ESC → CLEAR SEARCH
-               --------------------------------------------- */
+            /* ESC */
 
             if (
                 event.key === "Escape" &&
@@ -3307,453 +3181,419 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     );
 
-});
+}
+
 
 /* =========================================================
    FLOATING NAVIGATION
    ========================================================= */
 
-document.addEventListener(
-    "DOMContentLoaded",
-    () => {
+function initFloatingNavigation() {
 
-        const floatingNav =
-            document.getElementById(
-                "floating-nav"
-            );
+    const floatingNav =
+        document.getElementById(
+            "floating-nav"
+        );
 
+    const trigger =
+        document.getElementById(
+            "floating-nav-trigger"
+        );
 
-        const trigger =
-            document.getElementById(
-                "floating-nav-trigger"
-            );
-
-
-        const menu =
-            document.getElementById(
-                "floating-nav-menu"
-            );
-
-
-        if (
-            !floatingNav ||
-            !trigger ||
-            !menu
-        ) {
-
-            return;
-
-        }
-
-
-        const items =
-            Array.from(
-                menu.querySelectorAll(
-                    ".floating-nav-item"
-                )
-            );
-
-
-        const prefersReducedMotion =
-            window.matchMedia(
-                "(prefers-reduced-motion: reduce)"
-            ).matches;
-
-
-        /* =================================================
-           DETECT CURRENT PAGE
-           ================================================= */
-
-        const currentPath =
-            window.location.pathname
-                .split("/")
-                .pop()
-                .toLowerCase();
-
-
-        let currentPage;
-
-
-        if (
-            currentPath === "" ||
-            currentPath === "index.html"
-        ) {
-
-            currentPage =
-                "home";
-
-        } else if (
-            currentPath === "project.html"
-        ) {
-
-            currentPage =
-                "projects";
-
-        }
-
-
-        /* =================================================
-           ACTIVE PAGE
-           ================================================= */
-
-        items.forEach(
-            item => {
-
-                const page =
-                    item.dataset.page;
-
-
-                if (
-                    page === currentPage
-                ) {
-
-                    item.classList.add(
-                        "is-active"
-                    );
-
-                    item.setAttribute(
-                        "aria-current",
-                        "page"
-                    );
-
-                }
-
-            }
+    const menu =
+        document.getElementById(
+            "floating-nav-menu"
         );
 
 
-        /* =================================================
-           GSAP AVAILABLE?
-           ================================================= */
-
-        const hasGSAP =
-            typeof gsap !== "undefined";
-
-
-        /* =================================================
-           OPEN MENU
-           ================================================= */
-
-        function openMenu() {
-
-            floatingNav.classList.add(
-                "is-open"
-            );
-
-
-            trigger.setAttribute(
-                "aria-expanded",
-                "true"
-            );
-
-
-            trigger.setAttribute(
-                "aria-label",
-                "Close navigation"
-            );
-
-
-            menu.setAttribute(
-                "aria-hidden",
-                "false"
-            );
-
-
-            /* ---------------------------------------------
-               ANIMATION
-               --------------------------------------------- */
-
-            if (
-                hasGSAP &&
-                !prefersReducedMotion
-            ) {
-
-                gsap.killTweensOf(
-                    items
-                );
-
-
-                gsap.to(
-                    items,
-                    {
-
-                        opacity: 1,
-
-                        y: 0,
-
-                        scale: 1,
-
-                        duration: 0.35,
-
-                        stagger: 0.055,
-
-                        ease:
-                            "power3.out"
-
-                    }
-                );
-
-            } else {
-
-                items.forEach(
-                    item => {
-
-                        item.style.opacity =
-                            "1";
-
-                        item.style.transform =
-                            "translateY(0) scale(1)";
-
-                    }
-                );
-
-            }
-
-        }
-
-
-        /* =================================================
-           CLOSE MENU
-           ================================================= */
-
-        function closeMenu() {
-
-            floatingNav.classList.remove(
-                "is-open"
-            );
-
-
-            trigger.setAttribute(
-                "aria-expanded",
-                "false"
-            );
-
-
-            trigger.setAttribute(
-                "aria-label",
-                "Open navigation"
-            );
-
-
-            menu.setAttribute(
-                "aria-hidden",
-                "true"
-            );
-
-
-            /* ---------------------------------------------
-               ANIMATION
-               --------------------------------------------- */
-
-            if (
-                hasGSAP &&
-                !prefersReducedMotion
-            ) {
-
-                gsap.killTweensOf(
-                    items
-                );
-
-
-                gsap.to(
-                    items,
-                    {
-
-                        opacity: 0,
-
-                        y: 12,
-
-                        scale: 0.96,
-
-                        duration: 0.22,
-
-                        stagger: 0.035,
-
-                        ease:
-                            "power2.in"
-
-                    }
-                );
-
-            } else {
-
-                items.forEach(
-                    item => {
-
-                        item.style.opacity =
-                            "0";
-
-                        item.style.transform =
-                            "translateY(12px) scale(0.96)";
-
-                    }
-                );
-
-            }
-
-        }
-
-
-        /* =================================================
-           TOGGLE
-           ================================================= */
-
-        trigger.addEventListener(
-            "click",
-            event => {
-
-                event.stopPropagation();
-
-
-                if (
-                    floatingNav.classList.contains(
-                        "is-open"
-                    )
-                ) {
-
-                    closeMenu();
-
-                } else {
-
-                    openMenu();
-
-                }
-
-            }
-        );
-
-
-        /* =================================================
-           NAVIGATION CLICK
-           ================================================= */
-
-        items.forEach(
-            item => {
-
-                item.addEventListener(
-                    "click",
-                    () => {
-
-                        /*
-                         * Jangan mencegah default link.
-                         *
-                         * Browser akan langsung menuju:
-                         *
-                         * ./index.html
-                         * ./project.html
-                         */
-
-                        closeMenu();
-
-                    }
-                );
-
-            }
-        );
-
-
-        /* =================================================
-           CLICK OUTSIDE
-           ================================================= */
-
-        document.addEventListener(
-            "click",
-            event => {
-
-                if (
-                    !floatingNav.contains(
-                        event.target
-                    )
-                ) {
-
-                    closeMenu();
-
-                }
-
-            }
-        );
-
-
-        /* =================================================
-           ESC
-           ================================================= */
-
-        document.addEventListener(
-            "keydown",
-            event => {
-
-                if (
-                    event.key === "Escape" &&
-                    floatingNav.classList.contains(
-                        "is-open"
-                    )
-                ) {
-
-                    event.preventDefault();
-
-                    closeMenu();
-
-                    trigger.focus();
-
-                }
-
-            }
-        );
-
-
-        /* =================================================
-           INITIAL STATE
-           ================================================= */
-
-        items.forEach(
-            item => {
-
-                item.style.opacity =
-                    "0";
-
-            }
-        );
+    if (
+        !floatingNav ||
+        !trigger ||
+        !menu
+    ) {
+
+        return;
 
     }
-);
 
-/* =========================================================
-   42. PROJECT RESPONSIVE / INFO CARD SAFETY PATCH
-   ---------------------------------------------------------
-   Fix:
-   - Project text kedua/ketiga tidak hilang
-   - Button View Details / Visit Website tetap muncul
-   - Info card mengikuti project aktif
-   - Recalculate layout saat resize/orientation
-   - Tidak mengambil alih sistem modal
-   - Tidak mengambil alih floating navigation
-   ========================================================= */
 
-document.addEventListener("DOMContentLoaded", function () {
-
-    const stage =
-        document.getElementById("stage");
-
-    const infoPanel =
-        document.querySelector(".info-panel");
-
-    const infoCards =
+    const items =
         Array.from(
-            document.querySelectorAll(".info-card")
+            menu.querySelectorAll(
+                ".floating-nav-item"
+            )
         );
 
-    const cardDeck =
-        document.querySelector(".card-deck");
+
+    const prefersReducedMotion =
+        portfolioReducedMotion;
 
 
-    if (!stage || !infoPanel || !infoCards.length) {
-        return;
+    /* =====================================================
+       CURRENT PAGE
+       ===================================================== */
+
+    const currentPath =
+        window.location.pathname
+            .split("/")
+            .pop()
+            .toLowerCase();
+
+
+    let currentPage = "";
+
+
+    if (
+        currentPath === "" ||
+        currentPath === "index.html"
+    ) {
+
+        currentPage =
+            "home";
+
+    } else if (
+        currentPath === "project.html"
+    ) {
+
+        currentPage =
+            "projects";
+
+    }
+
+
+    items.forEach(
+        item => {
+
+            if (
+                item.dataset.page ===
+                currentPage
+            ) {
+
+                item.classList.add(
+                    "is-active"
+                );
+
+                item.setAttribute(
+                    "aria-current",
+                    "page"
+                );
+
+            }
+
+        }
+    );
+
+
+    const hasGSAP =
+        typeof gsap !== "undefined";
+
+
+    /* =====================================================
+       OPEN
+       ===================================================== */
+
+    function openMenu() {
+
+        floatingNav.classList.add(
+            "is-open"
+        );
+
+
+        trigger.setAttribute(
+            "aria-expanded",
+            "true"
+        );
+
+
+        trigger.setAttribute(
+            "aria-label",
+            "Close navigation"
+        );
+
+
+        menu.setAttribute(
+            "aria-hidden",
+            "false"
+        );
+
+
+        if (
+            hasGSAP &&
+            !prefersReducedMotion
+        ) {
+
+            gsap.killTweensOf(
+                items
+            );
+
+
+            gsap.to(
+                items,
+                {
+                    opacity: 1,
+
+                    y: 0,
+
+                    scale: 1,
+
+                    duration: 0.35,
+
+                    stagger: 0.055,
+
+                    ease:
+                        "power3.out"
+                }
+            );
+
+        } else {
+
+            items.forEach(
+                item => {
+
+                    item.style.opacity =
+                        "1";
+
+                    item.style.transform =
+                        "translateY(0) scale(1)";
+
+                }
+            );
+
+        }
+
     }
 
 
     /* =====================================================
-       HELPER
+       CLOSE
        ===================================================== */
+
+    function closeMenu() {
+
+        floatingNav.classList.remove(
+            "is-open"
+        );
+
+
+        trigger.setAttribute(
+            "aria-expanded",
+            "false"
+        );
+
+
+        trigger.setAttribute(
+            "aria-label",
+            "Open navigation"
+        );
+
+
+        menu.setAttribute(
+            "aria-hidden",
+            "true"
+        );
+
+
+        if (
+            hasGSAP &&
+            !prefersReducedMotion
+        ) {
+
+            gsap.killTweensOf(
+                items
+            );
+
+
+            gsap.to(
+                items,
+                {
+                    opacity: 0,
+
+                    y: 12,
+
+                    scale: 0.96,
+
+                    duration: 0.22,
+
+                    stagger: 0.035,
+
+                    ease:
+                        "power2.in"
+                }
+            );
+
+        } else {
+
+            items.forEach(
+                item => {
+
+                    item.style.opacity =
+                        "0";
+
+                    item.style.transform =
+                        "translateY(12px) scale(0.96)";
+
+                }
+            );
+
+        }
+
+    }
+
+
+    /* =====================================================
+       TOGGLE
+       ===================================================== */
+
+    trigger.addEventListener(
+        "click",
+        event => {
+
+            event.stopPropagation();
+
+
+            if (
+                floatingNav.classList.contains(
+                    "is-open"
+                )
+            ) {
+
+                closeMenu();
+
+            } else {
+
+                openMenu();
+
+            }
+
+        }
+    );
+
+
+    /* =====================================================
+       NAV ITEMS
+       ===================================================== */
+
+    items.forEach(
+        item => {
+
+            item.addEventListener(
+                "click",
+                () => {
+
+                    closeMenu();
+
+                }
+            );
+
+        }
+    );
+
+
+    /* =====================================================
+       CLICK OUTSIDE
+       ===================================================== */
+
+    document.addEventListener(
+        "click",
+        event => {
+
+            if (
+                !floatingNav.contains(
+                    event.target
+                )
+            ) {
+
+                closeMenu();
+
+            }
+
+        }
+    );
+
+
+    /* =====================================================
+       ESC
+       ===================================================== */
+
+    document.addEventListener(
+        "keydown",
+        event => {
+
+            if (
+                event.key === "Escape" &&
+                floatingNav.classList.contains(
+                    "is-open"
+                )
+            ) {
+
+                event.preventDefault();
+
+                closeMenu();
+
+                trigger.focus();
+
+            }
+
+        }
+    );
+
+
+    /* =====================================================
+       INITIAL
+       ===================================================== */
+
+    items.forEach(
+        item => {
+
+            item.style.opacity =
+                "0";
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   RESPONSIVE INFO CARD SAFETY
+   =========================================================
+   
+   IMPORTANT FIX:
+   Tidak lagi membuat SEMUA button clickable.
+
+   Hanya .info-card.is-active yang menerima pointer.
+   ========================================================= */
+
+function initResponsiveInfoCards() {
+
+    const stage =
+        document.getElementById(
+            "stage"
+        );
+
+    const infoPanel =
+        document.querySelector(
+            ".info-panel"
+        );
+
+    const infoCards =
+        Array.from(
+            document.querySelectorAll(
+                ".info-card"
+            )
+        );
+
+
+    if (
+        !stage ||
+        !infoPanel ||
+        !infoCards.length
+    ) {
+
+        return;
+
+    }
+
 
     function isMobile() {
 
@@ -3783,39 +3623,84 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /* =====================================================
-       FIND ACTIVE INFO CARD
+       ACTIVE CARD
        ===================================================== */
 
     function getActiveInfoCard() {
 
-        let active =
+        return (
             infoCards.find(
                 card =>
                     card.classList.contains(
                         "is-active"
                     )
-            );
-
-
-        /*
-         * Kalau JS utama belum memberi is-active,
-         * gunakan card pertama sebagai fallback.
-         */
-        if (!active) {
-
-            active =
-                infoCards[0];
-
-        }
-
-
-        return active;
+            ) ||
+            infoCards[0]
+        );
 
     }
 
 
     /* =====================================================
-       NORMALIZE INFO PANEL
+       SYNC POINTERS
+       ===================================================== */
+
+    function syncButtons() {
+
+        const active =
+            getActiveInfoCard();
+
+
+        infoCards.forEach(
+            card => {
+
+                const isActive =
+                    card === active;
+
+
+                /*
+                 * CARD INACTIVE = TIDAK BOLEH CLICK
+                 */
+
+                card.style.pointerEvents =
+                    isActive
+                        ? "auto"
+                        : "none";
+
+
+                const buttons =
+                    card.querySelectorAll(
+                        ".info-link, .info-detail-button, button, a"
+                    );
+
+
+                buttons.forEach(
+                    button => {
+
+                        button.style.pointerEvents =
+                            isActive
+                                ? "auto"
+                                : "none";
+
+
+                        /*
+                         * Jangan paksa visibility.
+                         *
+                         * CSS / GSAP yang menentukan
+                         * apakah elemen terlihat.
+                         */
+
+                    }
+                );
+
+            }
+        );
+
+    }
+
+
+    /* =====================================================
+       PANEL
        ===================================================== */
 
     function normalizeInfoPanel() {
@@ -3824,11 +3709,13 @@ document.addEventListener("DOMContentLoaded", function () {
             getActiveInfoCard();
 
 
-        /*
-         * Pastikan panel tidak memotong konten.
-         */
         infoPanel.style.height =
             "auto";
+
+
+        infoPanel.style.overflow =
+            "visible";
+
 
         infoPanel.style.minHeight =
             isSmallMobile()
@@ -3838,17 +3725,6 @@ document.addEventListener("DOMContentLoaded", function () {
                     : "380px";
 
 
-        infoPanel.style.overflow =
-            "visible";
-
-
-        /*
-         * Jangan mengubah opacity / visibility
-         * seluruh card di sini.
-         *
-         * JS scrollytelling tetap bertanggung
-         * jawab terhadap card aktif.
-         */
         infoCards.forEach(
             card => {
 
@@ -3862,27 +3738,25 @@ document.addEventListener("DOMContentLoaded", function () {
         );
 
 
-        /*
-         * Berikan sedikit ruang tambahan setelah
-         * button terakhir agar tidak terpotong.
-         */
-        const actions =
-            active
-                ? active.querySelector(
+        if (active) {
+
+            const actions =
+                active.querySelector(
                     ".info-actions"
-                )
-                : null;
+                );
 
 
-        if (actions) {
+            if (actions) {
 
-            actions.style.overflow =
-                "visible";
+                actions.style.overflow =
+                    "visible";
 
-            actions.style.paddingBottom =
-                isMobile()
-                    ? "8px"
-                    : "5px";
+                actions.style.paddingBottom =
+                    isMobile()
+                        ? "8px"
+                        : "5px";
+
+            }
 
         }
 
@@ -3890,17 +3764,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /* =====================================================
-       MOBILE LAYOUT
+       STAGE
        ===================================================== */
 
     function normalizeStage() {
-
-        /*
-         * Jangan mengubah positioning utama yang
-         * kemungkinan dikontrol GSAP.
-         *
-         * Kita hanya memastikan clipping tidak terjadi.
-         */
 
         stage.style.overflow =
             "visible";
@@ -3917,11 +3784,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
 
-        /*
-         * Landscape membutuhkan sedikit ruang ekstra
-         * untuk info text + buttons.
-         */
-
         if (isLandscapeMobile()) {
 
             infoPanel.style.minHeight =
@@ -3933,62 +3795,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /* =====================================================
-       FORCE BUTTON VISIBILITY
-       ===================================================== */
-
-    function normalizeButtons() {
-
-        infoCards.forEach(
-            card => {
-
-                const actions =
-                    card.querySelector(
-                        ".info-actions"
-                    );
-
-
-                if (!actions) {
-                    return;
-                }
-
-
-                actions.style.overflow =
-                    "visible";
-
-
-                /*
-                 * Jangan hide button karena ukuran
-                 * container yang terlalu kecil.
-                 */
-                const buttons =
-                    actions.querySelectorAll(
-                        ".info-link"
-                    );
-
-
-                buttons.forEach(
-                    button => {
-
-                        button.style.flexShrink =
-                            "0";
-
-                        button.style.visibility =
-                            "visible";
-
-                        button.style.pointerEvents =
-                            "auto";
-
-                    }
-                );
-
-            }
-        );
-
-    }
-
-
-    /* =====================================================
-       DETECT CARD HEIGHT
+       PANEL HEIGHT
        ===================================================== */
 
     function updatePanelHeight() {
@@ -4002,9 +3809,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
 
-        /*
-         * Ambil tinggi konten sebenarnya.
-         */
         const contentHeight =
             active.scrollHeight;
 
@@ -4014,30 +3818,14 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
 
-        let minimumHeight;
+        const minimumHeight =
+            isSmallMobile()
+                ? 390
+                : isMobile()
+                    ? 360
+                    : 380;
 
 
-        if (isSmallMobile()) {
-
-            minimumHeight =
-                390;
-
-        } else if (isMobile()) {
-
-            minimumHeight =
-                360;
-
-        } else {
-
-            minimumHeight =
-                380;
-
-        }
-
-
-        /*
-         * Jangan memaksa panel menjadi terlalu kecil.
-         */
         infoPanel.style.minHeight =
             Math.max(
                 minimumHeight,
@@ -4048,7 +3836,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /* =====================================================
-       RUN FIX
+       APPLY
        ===================================================== */
 
     function applyResponsiveFix() {
@@ -4057,7 +3845,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         normalizeInfoPanel();
 
-        normalizeButtons();
+        syncButtons();
 
         updatePanelHeight();
 
@@ -4071,35 +3859,19 @@ document.addEventListener("DOMContentLoaded", function () {
     applyResponsiveFix();
 
 
-    /*
-     * Jalankan lagi setelah browser selesai
-     * melakukan layout.
-     */
     requestAnimationFrame(
-        function () {
-
-            applyResponsiveFix();
-
-        }
+        applyResponsiveFix
     );
 
 
     setTimeout(
-        function () {
-
-            applyResponsiveFix();
-
-        },
+        applyResponsiveFix,
         250
     );
 
 
     setTimeout(
-        function () {
-
-            applyResponsiveFix();
-
-        },
+        applyResponsiveFix,
         700
     );
 
@@ -4113,7 +3885,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     window.addEventListener(
         "resize",
-        function () {
+        () => {
 
             clearTimeout(
                 resizeTimer
@@ -4122,7 +3894,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             resizeTimer =
                 setTimeout(
-                    function () {
+                    () => {
 
                         applyResponsiveFix();
 
@@ -4135,19 +3907,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /* =====================================================
-       ORIENTATION CHANGE
+       ORIENTATION
        ===================================================== */
 
     window.addEventListener(
         "orientationchange",
-        function () {
+        () => {
 
             setTimeout(
-                function () {
-
-                    applyResponsiveFix();
-
-                },
+                applyResponsiveFix,
                 200
             );
 
@@ -4156,19 +3924,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /* =====================================================
-       OBSERVE ACTIVE CARD CHANGES
-       -----------------------------------------------------
-       Kalau JS utama mengubah:
-           .info-card.is-active
-       observer akan mendeteksi perubahan tersebut.
+       WATCH ACTIVE CARD
        ===================================================== */
 
     const observer =
         new MutationObserver(
-            function (mutations) {
+            mutations => {
 
-                let activeChanged =
-                    false;
+                let changed = false;
 
 
                 mutations.forEach(
@@ -4176,13 +3939,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
                         if (
                             mutation.type ===
-                            "attributes" &&
+                                "attributes" &&
                             mutation.attributeName ===
-                            "class"
+                                "class"
                         ) {
 
-                            activeChanged =
-                                true;
+                            changed = true;
 
                         }
 
@@ -4190,14 +3952,10 @@ document.addEventListener("DOMContentLoaded", function () {
                 );
 
 
-                if (activeChanged) {
+                if (changed) {
 
-                    /*
-                     * Beri waktu GSAP / JS utama
-                     * menyelesaikan perubahan.
-                     */
                     requestAnimationFrame(
-                        function () {
+                        () => {
 
                             applyResponsiveFix();
 
@@ -4229,9 +3987,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     /* =====================================================
        IMAGE LOAD
-       -----------------------------------------------------
-       Kalau gambar/font menyebabkan tinggi berubah,
-       hitung ulang setelah gambar selesai.
        ===================================================== */
 
     infoCards.forEach(
@@ -4257,11 +4012,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     image.addEventListener(
                         "load",
-                        function () {
-
-                            applyResponsiveFix();
-
-                        },
+                        applyResponsiveFix,
                         {
                             once: true
                         }
@@ -4284,68 +4035,62 @@ document.addEventListener("DOMContentLoaded", function () {
     ) {
 
         document.fonts.ready.then(
-            function () {
-
-                applyResponsiveFix();
-
-            }
+            applyResponsiveFix
         );
 
     }
 
-});
+}
+
 
 /* =========================================================
-   MOBILE PAGE SCROLL FIX
+   MOBILE PAGE SCROLL SAFETY
    ========================================================= */
 
-document.addEventListener("DOMContentLoaded", function () {
+function initMobileScrollSafety() {
 
     function unlockPageScroll() {
 
         /*
-         * Pastikan html dan body tidak terkunci.
+         * Jangan mengunci page secara global.
+         * Modal akan menambahkan .modal-open ketika aktif.
          */
-        document.documentElement.style.overflowX = "hidden";
-        document.documentElement.style.overflowY = "auto";
 
-        document.body.style.overflowX = "hidden";
-        document.body.style.overflowY = "auto";
-
-        document.documentElement.style.height = "auto";
-        document.body.style.height = "auto";
-
-
-        /*
-         * Beberapa modal/menu kadang meninggalkan
-         * overflow:hidden setelah ditutup.
-         */
         if (
-            !document.querySelector(
-                "#projectModal[style*='display: block']"
+            document.body.classList.contains(
+                "modal-open"
             )
         ) {
 
-            document.documentElement.style.overflowY =
-                "auto";
-
-            document.body.style.overflowY =
-                "auto";
+            return;
 
         }
+
+
+        document.documentElement.style.overflowX =
+            "hidden";
+
+        document.documentElement.style.overflowY =
+            "auto";
+
+        document.body.style.overflowX =
+            "hidden";
+
+        document.body.style.overflowY =
+            "auto";
+
+        document.documentElement.style.height =
+            "auto";
+
+        document.body.style.height =
+            "auto";
 
     }
 
 
-    /* Jalankan saat halaman pertama kali dibuka */
     unlockPageScroll();
 
 
-    /*
-     * Jalankan lagi ketika ukuran viewport berubah.
-     * Penting untuk mobile karena address bar browser
-     * mengubah tinggi viewport.
-     */
     window.addEventListener(
         "resize",
         unlockPageScroll
@@ -4354,7 +4099,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     window.addEventListener(
         "orientationchange",
-        function () {
+        () => {
 
             setTimeout(
                 unlockPageScroll,
@@ -4365,10 +4110,10 @@ document.addEventListener("DOMContentLoaded", function () {
     );
 
 
-    /*
-     * Setelah menu floating ditutup,
-     * pastikan halaman kembali bisa scroll.
-     */
+    /* =====================================================
+       FLOATING NAV
+       ===================================================== */
+
     const floatingNav =
         document.getElementById(
             "floating-nav"
@@ -4379,6 +4124,7 @@ document.addEventListener("DOMContentLoaded", function () {
             "floating-nav-trigger"
         );
 
+
     if (
         floatingNav &&
         trigger
@@ -4386,7 +4132,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         trigger.addEventListener(
             "click",
-            function () {
+            () => {
 
                 setTimeout(
                     unlockPageScroll,
@@ -4399,29 +4145,35 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    /*
-     * Setelah modal ditutup, unlock scroll.
-     */
-    const closeBtn =
-        document.querySelector(
-            ".modal-close"
-        );
+    /* =====================================================
+       MODAL CLOSE
+       ===================================================== */
 
-    if (closeBtn) {
+    document.addEventListener(
+        "click",
+        event => {
 
-        closeBtn.addEventListener(
-            "click",
-            function () {
+            const closeButton =
+                event.target.closest(
+                    "#modal-close, #modal-close-bottom"
+                );
+
+
+            if (closeButton) {
 
                 setTimeout(
                     unlockPageScroll,
-                    50
+                    350
                 );
 
             }
-        );
 
-    }
+        }
+    );
+
+}
 
 
-});
+/* =========================================================
+   END
+   ========================================================= */
