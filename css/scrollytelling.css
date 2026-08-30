@@ -932,56 +932,151 @@ img {
 .info-link i {
     font-size: 11px;
 }
+/* =========================================================
+   16. PROJECT COUNTER
+   ---------------------------------------------------------
+   COMPLETELY ISOLATED COUNTER SYSTEM
+
+   IMPORTANT:
+   - Counter has its own positioning namespace.
+   - No generic positioning.
+   - No interaction with Search.
+   - No interaction with Category Filter.
+   - No shared responsive positioning.
+   - Tailwind positioning utilities are NOT required.
+   ========================================================= */
 
 
 /* =========================================================
-   16. COUNTER
+   COUNTER WRAPPER
    ========================================================= */
 
 .project-counter-wrapper {
+    position: absolute;
+
+    top: 32px;
+    right: 24px;
+
+    z-index: 25;
+
+    display: block;
+
+    width: max-content;
+    max-width: calc(100% - 48px);
+
+    margin: 0;
+    padding: 0;
+
+    box-sizing: border-box;
+
     user-select: none;
+
+    isolation: isolate;
 }
 
 
-.project-counter-label {
+/* =========================================================
+   COUNTER LABEL
+   ========================================================= */
+
+.project-counter-wrapper .project-counter-label {
     display: flex;
 
-    justify-content: flex-end;
     align-items: baseline;
+    justify-content: flex-end;
+
+    width: max-content;
+
+    margin: 0;
+    padding: 0;
 
     gap: 3px;
+
+    box-sizing: border-box;
+
+    white-space: nowrap;
+
+    line-height: 1;
 }
 
 
-#project-counter {
+/* =========================================================
+   CURRENT PROJECT COUNT
+   ========================================================= */
+
+.project-counter-wrapper #project-counter {
+    display: inline-block;
+
+    width: auto;
+
+    margin: 0;
+    padding: 0;
+
     color: var(--c-text);
 
     font-weight: 500;
+
+    line-height: 1;
 }
 
 
-.project-counter-total {
+/* =========================================================
+   TOTAL PROJECT COUNT
+   ========================================================= */
+
+.project-counter-wrapper .project-counter-total {
+    display: inline-block;
+
+    width: auto;
+
+    margin: 0;
+    padding: 0;
+
     color: var(--c-muted-dark);
+
+    line-height: 1;
 }
 
 
-.stack-progress-track {
+/* =========================================================
+   PROGRESS TRACK
+   ========================================================= */
+
+.project-counter-wrapper .stack-progress-track {
+    display: block;
+
     width: 140px;
     height: 3px;
 
-    overflow: hidden;
+    margin: 7px 0 0 auto;
+    padding: 0;
 
-    margin-left: auto;
+    box-sizing: border-box;
+
+    overflow: hidden;
 
     background: var(--c-line);
 
     border-radius: 999px;
+
+    flex-shrink: 0;
 }
 
 
-.stack-progress-fill {
+/* =========================================================
+   PROGRESS FILL
+   ========================================================= */
+
+.project-counter-wrapper .stack-progress-fill {
+    display: block;
+
     width: 0%;
     height: 100%;
+
+    margin: 0;
+    padding: 0;
+
+    box-sizing: border-box;
 
     background:
         linear-gradient(
@@ -994,8 +1089,234 @@ img {
 
     box-shadow:
         0 0 12px rgba(99, 102, 241, 0.45);
+
+    transition:
+        width 0.3s ease;
 }
 
+
+/* =========================================================
+   COUNTER — TABLET
+   ========================================================= */
+
+@media (max-width: 1024px) {
+
+    .project-counter-wrapper {
+        top: 32px;
+        right: 24px;
+    }
+
+
+    .project-counter-wrapper .stack-progress-track {
+        width: 120px;
+    }
+
+}
+
+
+/* =========================================================
+   COUNTER — MOBILE
+   ---------------------------------------------------------
+   Counter stays in the top-right.
+   Search + Filter can occupy the center area.
+   ========================================================= */
+
+@media (max-width: 767px) {
+
+    .project-counter-wrapper {
+        top: 18px;
+        right: 18px;
+
+        max-width: calc(100% - 36px);
+    }
+
+
+    .project-counter-wrapper .project-counter-label {
+        gap: 3px;
+    }
+
+
+    .project-counter-wrapper #project-counter,
+    .project-counter-wrapper .project-counter-total {
+        font-size: 10px;
+    }
+
+
+    .project-counter-wrapper .stack-progress-track {
+        width: 105px;
+
+        height: 3px;
+
+        margin-top: 5px;
+    }
+
+}
+
+
+/* =========================================================
+   COUNTER — SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 480px) {
+
+    .project-counter-wrapper {
+        top: 14px;
+        right: 14px;
+
+        max-width: calc(100% - 28px);
+    }
+
+
+    .project-counter-wrapper #project-counter,
+    .project-counter-wrapper .project-counter-total {
+        font-size: 9px;
+    }
+
+
+    .project-counter-wrapper .stack-progress-track {
+        width: 90px;
+
+        height: 3px;
+
+        margin-top: 4px;
+    }
+
+}
+
+
+/* =========================================================
+   COUNTER — VERY SMALL DEVICES
+   ========================================================= */
+
+@media (max-width: 360px) {
+
+    .project-counter-wrapper {
+        top: 12px;
+        right: 12px;
+    }
+
+
+    .project-counter-wrapper .stack-progress-track {
+        width: 80px;
+    }
+
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .project-counter-wrapper .stack-progress-fill {
+        transition: none;
+    }
+
+}
+/* =========================================================
+   FINAL DESKTOP OVERRIDE
+   ---------------------------------------------------------
+   PROJECT COUNTER ↔ CATEGORY FILTER
+   ---------------------------------------------------------
+   DESKTOP ONLY
+   - Counter stays top-right
+   - Filter moves downward
+   - Creates clear vertical separation
+   - Does NOT affect mobile / tablet
+   ========================================================= */
+
+@media (min-width: 1025px) {
+
+    /* =====================================================
+       PROJECT COUNTER
+       ===================================================== */
+
+    .project-counter-wrapper {
+        top: 32px !important;
+        right: 24px !important;
+
+        margin: 0 !important;
+    }
+
+
+    /* =====================================================
+       PROJECT CATEGORY FILTER
+       -----------------------------------------------------
+       Push filter DOWN so it no longer occupies the
+       same vertical area as the counter.
+       ===================================================== */
+
+    .project-category-filter {
+        top: 70px !important;
+
+        right: 32px !important;
+
+        margin: 0 !important;
+    }
+
+}
+/* =========================================================
+   MOBILE FILTER — 70% INVISIBLE
+   ---------------------------------------------------------
+   Mobile only.
+   Filter remains functional and clickable.
+   Visual opacity reduced by 70%.
+   ========================================================= */
+
+@media (max-width: 767px) {
+
+    .project-category-filter {
+        opacity: 0.3 !important;
+
+        transition:
+            opacity 0.25s ease,
+            transform 0.25s ease;
+    }
+
+
+    /* Restore visibility when user interacts with filter */
+
+    .project-category-filter:hover,
+    .project-category-filter:focus-within,
+    .project-category-filter.is-active {
+        opacity: 1 !important;
+    }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 480px) {
+
+    .project-category-filter {
+        opacity: 0.3 !important;
+    }
+
+
+    .project-category-filter:hover,
+    .project-category-filter:focus-within,
+    .project-category-filter.is-active {
+        opacity: 1 !important;
+    }
+
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .project-category-filter {
+        transition: none;
+    }
+
+}
 
 /* =========================================================
    17. DOT NAVIGATION
@@ -2607,7 +2928,6 @@ img {
         overflow: visible !important;
     }
 }
-
 /* =========================================================
    40. PROJECT SEARCH
    ---------------------------------------------------------
@@ -2616,14 +2936,37 @@ img {
    - Project title
    - Description
    - Technology tags
+
+   IMPORTANT:
+   - Class names are kept unchanged for existing JS.
+   - Search and filter use isolated positioning.
+   - Mobile layout is stacked and collision-safe.
+   ========================================================= */
+
+
+/* =========================================================
+   SEARCH CONTAINER
    ========================================================= */
 
 .project-search {
-    width: min(300px, 32vw);
+    position: absolute;
+
+    top: 32px;
+    left: 50%;
+
+    z-index: 40;
+
+    width: min(360px, 42vw);
+
+    margin: 0;
+
+    transform: translateX(-50%);
 }
 
 
-/* ---------- Search Box ---------- */
+/* =========================================================
+   SEARCH BOX
+   ========================================================= */
 
 .project-search-box {
     position: relative;
@@ -2633,6 +2976,8 @@ img {
 
     width: 100%;
     height: 42px;
+
+    box-sizing: border-box;
 
     padding: 0 10px;
 
@@ -2656,7 +3001,9 @@ img {
 }
 
 
-/* ---------- Focus State ---------- */
+/* =========================================================
+   SEARCH FOCUS
+   ========================================================= */
 
 .project-search-box:focus-within {
     background:
@@ -2671,7 +3018,9 @@ img {
 }
 
 
-/* ---------- Search Icon ---------- */
+/* =========================================================
+   SEARCH ICON
+   ========================================================= */
 
 .project-search-icon {
     flex: 0 0 auto;
@@ -2695,14 +3044,19 @@ img {
 }
 
 
-/* ---------- Input ---------- */
+/* =========================================================
+   SEARCH INPUT
+   ========================================================= */
 
 .project-search-input {
     min-width: 0;
 
     flex: 1;
 
+    width: 100%;
     height: 100%;
+
+    box-sizing: border-box;
 
     padding: 0;
 
@@ -2733,7 +3087,9 @@ img {
 }
 
 
-/* ---------- Clear Button ---------- */
+/* =========================================================
+   SEARCH CLEAR
+   ========================================================= */
 
 .project-search-clear {
     display: none;
@@ -2786,7 +3142,9 @@ img {
 }
 
 
-/* ---------- Keyboard Shortcut ---------- */
+/* =========================================================
+   KEYBOARD SHORTCUT
+   ========================================================= */
 
 .project-search-key {
     display: inline-flex;
@@ -2823,8 +3181,6 @@ img {
 }
 
 
-/* Hide shortcut while typing */
-
 .project-search-box:focus-within .project-search-key {
     opacity: 0;
 }
@@ -2839,7 +3195,9 @@ img {
 
     margin-top: 7px;
 
-    padding-right: 4px;
+    padding: 0 4px;
+
+    box-sizing: border-box;
 
     color: var(--c-muted-dark);
 
@@ -2876,13 +3234,8 @@ img {
 
 
 /* =========================================================
-   SEARCH FILTERED PROJECT STATE
+   SEARCH HIDDEN PROJECT
    ========================================================= */
-
-/*
-   JS akan menambahkan class ini
-   pada project/card yang tidak cocok.
-*/
 
 .project-search-hidden {
     opacity: 0 !important;
@@ -2900,12 +3253,14 @@ img {
 .project-search-no-results {
     position: absolute;
 
-    left: 50%;
     top: 50%;
+    left: 50%;
 
     z-index: 20;
 
     width: min(360px, 80vw);
+
+    box-sizing: border-box;
 
     padding: 22px;
 
@@ -2953,167 +3308,6 @@ img {
 
 
 /* =========================================================
-   RESPONSIVE — TABLET
-   ========================================================= */
-
-@media (max-width: 1024px) {
-
-    .project-search {
-        width: 250px;
-    }
-
-}
-
-
-/* =========================================================
-   RESPONSIVE — MOBILE
-   ========================================================= */
-
-@media (max-width: 767px) {
-
-    .project-search {
-        top: 58px !important;
-
-        right: 20px !important;
-        left: 20px !important;
-
-        width: auto;
-    }
-
-
-    .project-search-box {
-        height: 38px;
-    }
-
-
-    .project-search-input {
-        font-size: 10px;
-    }
-
-
-    .project-search-result {
-        text-align: left;
-
-        padding-left: 4px;
-    }
-
-
-    .project-search-key {
-        display: none;
-    }
-
-}
-
-
-/* =========================================================
-   RESPONSIVE — SMALL MOBILE
-   ========================================================= */
-
-@media (max-width: 480px) {
-
-    .project-search {
-        top: 55px !important;
-
-        right: 18px !important;
-        left: 18px !important;
-    }
-
-
-    .project-search-box {
-        height: 36px;
-    }
-
-
-    .project-search-icon {
-        font-size: 10px;
-    }
-
-
-    .project-search-input {
-        font-size: 10px;
-    }
-
-}
-
-
-/* =========================================================
-   REDUCED MOTION
-   ========================================================= */
-
-@media (prefers-reduced-motion: reduce) {
-
-    .project-search-box,
-    .project-search-result,
-    .project-search-clear {
-        transition: none;
-    }
-
-}
-
-/* =========================================================
-   41. PROJECT SEARCH — CENTER TOP
-   ========================================================= */
-
-.project-search {
-    position: absolute;
-
-    top: 32px;
-    left: 50%;
-
-    right: auto;
-
-    width: min(360px, 42vw);
-
-    transform: translateX(-50%);
-}
-
-
-/* ---------- Tablet ---------- */
-
-@media (max-width: 1024px) {
-
-    .project-search {
-        top: 32px;
-
-        width: min(320px, 40vw);
-    }
-
-}
-
-
-/* ---------- Mobile ---------- */
-
-@media (max-width: 767px) {
-
-    .project-search {
-        top: 62px !important;
-
-        left: 50% !important;
-        right: auto !important;
-
-        width: calc(100vw - 40px);
-
-        transform: translateX(-50%);
-    }
-
-}
-
-
-/* ---------- Small Mobile ---------- */
-
-@media (max-width: 480px) {
-
-    .project-search {
-        top: 58px !important;
-
-        width: calc(100vw - 36px);
-
-        transform: translateX(-50%);
-    }
-
-}
-
-/* =========================================================
    SEARCH SELECTED PROJECT
    ========================================================= */
 
@@ -3148,6 +3342,636 @@ img {
         0 0 30px
         rgba(255, 255, 255, 0.08);
 }
+
+
+/* =========================================================
+   41. PROJECT CATEGORY FILTER
+   ---------------------------------------------------------
+   IMPORTANT:
+   Filter has its own independent positioning.
+   It does NOT share positioning rules with Search.
+   ========================================================= */
+
+.project-category-filter {
+    position: absolute;
+
+    top: 32px;
+    right: 32px;
+
+    z-index: 40;
+
+    width: min(230px, 26vw);
+
+    margin: 0;
+}
+
+
+/* =========================================================
+   FILTER LABEL
+   ========================================================= */
+
+.project-category-filter-label {
+    display: block;
+
+    margin: 0 0 6px;
+
+    padding-left: 3px;
+
+    color: var(--c-muted-dark);
+
+    font-family: var(--font-mono);
+
+    font-size: 8px;
+
+    font-weight: 500;
+
+    line-height: 1;
+
+    letter-spacing: 0.12em;
+
+    text-transform: uppercase;
+
+    user-select: none;
+
+    transition:
+        color var(--transition-fast);
+}
+
+
+/* =========================================================
+   FILTER BOX
+   ========================================================= */
+
+.project-category-filter-box {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+
+    width: 100%;
+    height: 42px;
+
+    box-sizing: border-box;
+
+    padding: 0 10px;
+
+    background:
+        rgba(7, 16, 31, 0.78);
+
+    border: 1px solid rgba(148, 163, 184, 0.16);
+
+    border-radius: var(--radius-md);
+
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+
+    box-shadow:
+        0 12px 35px rgba(0, 0, 0, 0.22);
+
+    transition:
+        border-color var(--transition-fast),
+        background var(--transition-fast),
+        box-shadow var(--transition-fast);
+}
+
+
+/* =========================================================
+   FILTER FOCUS
+   ========================================================= */
+
+.project-category-filter-box:focus-within {
+    background:
+        rgba(11, 18, 32, 0.92);
+
+    border-color:
+        rgba(129, 140, 248, 0.5);
+
+    box-shadow:
+        0 0 0 3px rgba(99, 102, 241, 0.08),
+        0 14px 40px rgba(0, 0, 0, 0.3);
+}
+
+
+.project-category-filter:focus-within
+.project-category-filter-label {
+    color: var(--c-accent-light);
+}
+
+
+/* =========================================================
+   FILTER ICON
+   ========================================================= */
+
+.project-category-filter-icon {
+    flex: 0 0 auto;
+
+    margin-left: 2px;
+    margin-right: 9px;
+
+    color: var(--c-muted-dark);
+
+    font-size: 11px;
+
+    pointer-events: none;
+
+    transition:
+        color var(--transition-fast);
+}
+
+
+.project-category-filter-box:focus-within
+.project-category-filter-icon {
+    color: var(--c-accent-light);
+}
+
+
+/* =========================================================
+   FILTER SELECT
+   ========================================================= */
+
+.project-category-filter-select {
+    min-width: 0;
+
+    flex: 1;
+
+    width: 100%;
+    height: 100%;
+
+    box-sizing: border-box;
+
+    padding: 0 24px 0 0;
+
+    color: var(--c-text);
+
+    background: transparent;
+
+    border: 0;
+    outline: 0;
+
+    font-family: var(--font-body);
+
+    font-size: 11px;
+
+    line-height: 1;
+
+    cursor: pointer;
+
+    appearance: none;
+    -webkit-appearance: none;
+}
+
+
+.project-category-filter-select option {
+    color: #e5e7eb;
+
+    background: #0b1220;
+
+    font-family: var(--font-body);
+
+    font-size: 11px;
+}
+
+
+.project-category-filter-select:hover {
+    color: #ffffff;
+}
+
+
+.project-category-filter-select:focus-visible {
+    outline: none;
+}
+
+
+/* =========================================================
+   FILTER ARROW
+   ========================================================= */
+
+.project-category-filter-arrow {
+    position: absolute;
+
+    top: 50%;
+    right: 11px;
+
+    color: var(--c-muted-dark);
+
+    font-size: 8px;
+
+    pointer-events: none;
+
+    transform: translateY(-50%);
+
+    transition:
+        color var(--transition-fast),
+        transform var(--transition-fast);
+}
+
+
+.project-category-filter-box:focus-within
+.project-category-filter-arrow {
+    color: var(--c-accent-light);
+
+    transform:
+        translateY(-50%)
+        rotate(180deg);
+}
+
+
+/* =========================================================
+   ACTIVE FILTER
+   ========================================================= */
+
+.project-category-filter.is-active
+.project-category-filter-box {
+    background:
+        rgba(11, 18, 32, 0.88);
+
+    border-color:
+        rgba(129, 140, 248, 0.38);
+
+    box-shadow:
+        0 0 0 2px rgba(99, 102, 241, 0.05),
+        0 12px 35px rgba(0, 0, 0, 0.25);
+}
+
+
+.project-category-filter.is-active
+.project-category-filter-icon {
+    color:
+        var(--c-accent-light);
+}
+
+
+.project-category-filter.is-active
+.project-category-filter-arrow {
+    color:
+        var(--c-accent-light);
+}
+
+
+/* =========================================================
+   FILTER HIDDEN PROJECT
+   ========================================================= */
+
+.project-category-hidden {
+    opacity: 0 !important;
+
+    visibility: hidden !important;
+
+    pointer-events: none !important;
+}
+
+
+/* =========================================================
+   FILTER SELECTED PROJECT
+   ========================================================= */
+
+.project-category-selected {
+    position: relative;
+}
+
+
+.project-card-frame.project-category-selected {
+    filter:
+        drop-shadow(
+            0 0 20px
+            rgba(129, 140, 248, 0.14)
+        );
+}
+
+
+.info-card.project-category-selected {
+    border-color:
+        rgba(129, 140, 248, 0.28);
+
+    box-shadow:
+        0 0 25px
+        rgba(99, 102, 241, 0.06);
+}
+
+
+/* =========================================================
+   FILTER EMPTY STATE
+   ========================================================= */
+
+.project-category-no-results {
+    position: absolute;
+
+    top: 50%;
+    left: 50%;
+
+    z-index: 20;
+
+    width: min(360px, 80vw);
+
+    box-sizing: border-box;
+
+    padding: 22px;
+
+    text-align: center;
+
+    transform: translate(-50%, -50%);
+
+    pointer-events: none;
+}
+
+
+.project-category-no-results-icon {
+    display: block;
+
+    margin-bottom: 10px;
+
+    color: var(--c-muted-dark);
+
+    font-size: 22px;
+}
+
+
+.project-category-no-results-title {
+    margin: 0;
+
+    color: var(--c-text-soft);
+
+    font-family: var(--font-display);
+
+    font-size: 18px;
+
+    font-weight: 600;
+}
+
+
+.project-category-no-results-text {
+    margin: 7px 0 0;
+
+    color: var(--c-muted-dark);
+
+    font-size: 11px;
+
+    line-height: 1.6;
+}
+
+
+/* =========================================================
+   RESPONSIVE — TABLET
+   ========================================================= */
+
+@media (max-width: 1024px) {
+
+    .project-search {
+        top: 30px;
+
+        width: min(320px, 40vw);
+    }
+
+
+    .project-category-filter {
+        top: 30px;
+        right: 24px;
+
+        width: 210px;
+    }
+
+}
+
+
+/* =========================================================
+   RESPONSIVE — MOBILE
+   ---------------------------------------------------------
+   Layout:
+   SEARCH
+      ↓
+   RESULT INFO
+      ↓
+   FILTER
+
+   Search and filter are centered independently.
+   No negative offsets or shared positioning.
+   ========================================================= */
+
+@media (max-width: 767px) {
+
+    .project-search {
+        position: absolute;
+
+        top: 58px;
+        left: 50%;
+
+        right: auto;
+
+        z-index: 40;
+
+        width: calc(100vw - 40px);
+        max-width: 520px;
+
+        transform: translateX(-50%);
+    }
+
+
+    .project-search-box {
+        height: 40px;
+    }
+
+
+    .project-search-input {
+        font-size: 10px;
+    }
+
+
+    .project-search-result {
+        min-height: 17px;
+
+        margin-top: 5px;
+
+        padding-left: 4px;
+
+        text-align: left;
+    }
+
+
+    .project-search-key {
+        display: none;
+    }
+
+
+    /* ---------------------------------------------
+       FILTER
+       --------------------------------------------- */
+
+    .project-category-filter {
+        position: absolute;
+
+        top: 113px;
+        left: 50%;
+
+        right: auto;
+
+        z-index: 40;
+
+        width: calc(100vw - 40px);
+        max-width: 520px;
+
+        transform: translateX(-50%);
+    }
+
+
+    .project-category-filter-label {
+        margin-bottom: 5px;
+
+        padding-left: 3px;
+
+        font-size: 8px;
+    }
+
+
+    .project-category-filter-box {
+        height: 40px;
+    }
+
+
+    .project-category-filter-select {
+        font-size: 10px;
+    }
+
+
+    .project-category-filter-select option {
+        font-size: 10px;
+    }
+
+}
+
+
+/* =========================================================
+   RESPONSIVE — SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 480px) {
+
+    .project-search {
+        top: 54px;
+
+        width: calc(100vw - 32px);
+    }
+
+
+    .project-search-box {
+        height: 38px;
+
+        padding-left: 9px;
+        padding-right: 9px;
+    }
+
+
+    .project-search-icon {
+        margin-right: 8px;
+
+        font-size: 10px;
+    }
+
+
+    .project-search-input {
+        font-size: 10px;
+    }
+
+
+    .project-search-result {
+        margin-top: 4px;
+
+        font-size: 8px;
+    }
+
+
+    /* ---------------------------------------------
+       FILTER
+       --------------------------------------------- */
+
+    .project-category-filter {
+        top: 108px;
+
+        width: calc(100vw - 32px);
+    }
+
+
+    .project-category-filter-box {
+        height: 38px;
+
+        padding-left: 9px;
+        padding-right: 9px;
+    }
+
+
+    .project-category-filter-icon {
+        margin-right: 8px;
+
+        font-size: 10px;
+    }
+
+
+    .project-category-filter-select {
+        font-size: 10px;
+    }
+
+
+    .project-category-filter-select option {
+        font-size: 10px;
+    }
+
+
+    .project-category-filter-arrow {
+        right: 10px;
+
+        font-size: 7px;
+    }
+
+}
+
+
+/* =========================================================
+   VERY SMALL MOBILE
+   ---------------------------------------------------------
+   Prevent overlap on narrow screens.
+   ========================================================= */
+
+@media (max-width: 360px) {
+
+    .project-search {
+        top: 50px;
+
+        width: calc(100vw - 24px);
+    }
+
+
+    .project-category-filter {
+        top: 103px;
+
+        width: calc(100vw - 24px);
+    }
+
+
+    .project-search-box,
+    .project-category-filter-box {
+        height: 36px;
+    }
+
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .project-search-box,
+    .project-search-result,
+    .project-search-clear,
+    .project-category-filter-box,
+    .project-category-filter-icon,
+    .project-category-filter-arrow,
+    .project-category-filter-label {
+        transition: none;
+    }
+
+}
+
 
 /* =========================================================
    FLOATING NAVIGATION
