@@ -1464,7 +1464,6 @@ img {
 /* =========================================================
    19. PROJECT MODAL
    ========================================================= */
-
 .project-modal {
     position: fixed;
 
@@ -1486,9 +1485,9 @@ img {
     pointer-events: none;
 
     transition:
-        opacity 300ms ease,
         visibility 300ms ease;
 }
+
 
 
 .project-modal.is-open {
@@ -1519,7 +1518,6 @@ img {
 /* =========================================================
    20. MODAL CONTENT
    ========================================================= */
-
 .project-modal-content {
     position: relative;
 
@@ -1545,17 +1543,13 @@ img {
     transform:
         translateY(24px)
         scale(0.97);
-
-    transition:
-        transform 400ms cubic-bezier(.22, 1, .36, 1);
 }
-
-
 .project-modal.is-open .project-modal-content {
     transform:
-        translateY(0)
-        scale(1);
+        translateY(24px)
+        scale(0.97);
 }
+
 
 
 /* =========================================================
