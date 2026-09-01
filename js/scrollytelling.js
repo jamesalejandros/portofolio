@@ -1195,7 +1195,13 @@ function moveToProject(
     });
 
 }
+/* =========================================================
+   PROJECT MODAL GALLERY STATE
+   ========================================================= */
 
+let currentImages = [];
+
+let currentImageIndex = 0;
 
 /* =========================================================
    PROJECT MODAL
@@ -1295,9 +1301,6 @@ function initProjectModal(
        MODAL STATE
        ===================================================== */
 
-    let currentImages = [];
-
-    let currentImageIndex = 0;
 
     let isModalOpen = false;
 
