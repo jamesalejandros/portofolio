@@ -1,0 +1,4445 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Project Gacha — Portfolio
+    </title>
+
+    <meta
+        name="description"
+        content="Open a random project from the portfolio archive."
+    >
+
+    <meta
+        name="theme-color"
+        content="#05070b"
+    >
+
+
+    <!-- ========================================================
+         FONTS
+         ======================================================== -->
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet"
+    >
+
+
+    <!-- ========================================================
+         FONT AWESOME
+         ======================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+
+
+    <!-- ========================================================
+         PROJECT CSS
+         ======================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="css/projects.css"
+    >
+
+</head>
+
+
+<body>
+
+
+<div
+    class="gacha-page"
+    id="gacha-page"
+>
+
+
+    <!-- ========================================================
+         HEADER
+         ======================================================== -->
+
+    <header class="gacha-header">
+
+        <div class="gacha-header-left">
+
+            <span class="gacha-overline">
+                PROJECT ARCHIVE / RANDOM ACCESS
+            </span>
+
+            <h1 class="gacha-title">
+                Project Gacha
+            </h1>
+
+            <p class="gacha-subtitle">
+                Open the archive and discover a random project.
+                Every project has its own rarity.
+            </p>
+
+        </div>
+
+
+        <div class="gacha-header-status">
+
+            <span class="gacha-status-dot"></span>
+
+            <span>
+                ARCHIVE ONLINE
+            </span>
+
+        </div>
+
+    </header>
+
+
+    <!-- ========================================================
+         MAIN GACHA STAGE
+         ======================================================== -->
+
+    <main class="gacha-stage">
+
+
+        <div class="gacha-case-label">
+
+            <span>
+                RANDOM PROJECT DROP
+            </span>
+
+        </div>
+
+
+        <!-- ====================================================
+             REEL
+             ==================================================== -->
+
+        <div
+            class="gacha-reel-wrapper"
+            id="gacha-reel-wrapper"
+        >
+
+
+            <div
+                class="gacha-reel"
+                id="gacha-reel"
+            >
+
+
+                <!-- ============================================
+                     LEFT SHADOW
+                     ============================================ -->
+
+                <div
+                    class="gacha-reel-shadow-left">
+                </div>
+
+
+                <!-- ============================================
+                     RIGHT SHADOW
+                     ============================================ -->
+
+                <div
+                    class="gacha-reel-shadow-right">
+                </div>
+
+
+                <!-- ============================================
+                     ITEM TRACK
+                     ============================================ -->
+
+                <div
+                    class="gacha-reel-track"
+                    id="gacha-reel-track"
+                >
+                </div>
+
+
+                <!-- ============================================
+                     CENTER SELECTOR
+                     ============================================ -->
+
+                <div
+                    class="gacha-selector"
+                    id="gacha-selector"
+                ></div>
+
+
+            </div>
+
+        </div>
+
+
+        <!-- ====================================================
+             RESULT
+             ==================================================== -->
+
+        <div
+            class="gacha-result"
+            id="gacha-result"
+        >
+
+            <span
+                class="gacha-result-rarity"
+                id="gacha-result-rarity"
+            >
+                —
+            </span>
+
+            <h2
+                class="gacha-result-title"
+                id="gacha-result-title"
+            >
+                Ready?
+            </h2>
+
+            <span
+                class="gacha-result-category"
+                id="gacha-result-category"
+            >
+                Open the archive
+            </span>
+
+        </div>
+
+
+        <!-- ====================================================
+             CONTROLS
+             ==================================================== -->
+
+        <div class="gacha-controls">
+
+            <button
+                type="button"
+                class="gacha-open-button"
+                id="gacha-open-button"
+            >
+
+                <i
+                    class="fa-solid fa-box-open gacha-open-button-icon"
+                ></i>
+
+                Open Case
+
+            </button>
+
+        </div>
+
+
+    </main>
+
+
+    <!-- ========================================================
+         RARITY LEGEND
+         ======================================================== -->
+
+    <section class="gacha-rarity-panel">
+
+        <div
+            class="gacha-rarity-list"
+            id="gacha-rarity-list"
+        >
+        </div>
+
+    </section>
+
+
+    <!-- ========================================================
+         FOOTER
+         ======================================================== -->
+
+    <footer class="gacha-footer">
+
+        <span>
+            PROJECT ARCHIVE
+        </span>
+
+        <span>
+            RANDOMIZED EXPERIENCE
+        </span>
+
+    </footer>
+
+
+    <!-- ========================================================
+         PARTICLES
+         ======================================================== -->
+
+    <div
+        class="gacha-particles"
+        id="gacha-particles"
+    ></div>
+
+
+</div>
+
+<!-- ============================================================
+     PROJECT DETAIL MODAL
+     ============================================================ -->
+
+<div
+    class="project-modal"
+    id="project-modal"
+    aria-hidden="true"
+>
+
+
+    <!-- ========================================================
+         MODAL BACKDROP
+         ======================================================== -->
+
+    <div
+        class="project-modal-backdrop"
+        id="project-modal-backdrop"
+    ></div>
+
+
+    <!-- ========================================================
+         MODAL DIALOG
+         ======================================================== -->
+
+    <section
+        class="project-modal-dialog"
+        id="project-modal-dialog"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="project-modal-title"
+    >
+
+
+        <!-- ====================================================
+             MODAL HEADER
+             ==================================================== -->
+
+        <header class="project-modal-header">
+
+
+            <div class="project-modal-header-info">
+
+                <span
+                    class="project-modal-overline"
+                    id="project-modal-overline"
+                >
+                    PROJECT ARCHIVE
+                </span>
+
+                <span
+                    class="project-modal-rarity"
+                    id="project-modal-rarity"
+                >
+                    —
+                </span>
+
+            </div>
+
+
+            <button
+                type="button"
+                class="project-modal-close"
+                id="project-modal-close"
+                aria-label="Close project details"
+                title="Close"
+            >
+
+                <i class="fa-solid fa-xmark"></i>
+
+            </button>
+
+        </header>
+
+
+        <!-- ====================================================
+             MODAL BODY
+             ==================================================== -->
+
+        <div class="project-modal-body">
+
+
+            <!-- ==================================================
+                 GALLERY
+                 ================================================== -->
+
+            <section class="project-modal-gallery">
+
+
+                <!-- ==============================================
+                     MAIN IMAGE VIEWER
+                     ============================================== -->
+
+                <div
+                    class="project-modal-viewer"
+                    id="project-modal-viewer"
+                >
+
+
+                    <div
+                        class="project-modal-image-stage"
+                        id="project-modal-image-stage"
+                    >
+
+                        <img
+                            class="project-modal-main-image"
+                            id="project-modal-main-image"
+                            src=""
+                            alt=""
+                            draggable="false"
+                        >
+
+                    </div>
+
+
+                    <!-- ==========================================
+                         IMAGE PREVIOUS
+                         ========================================== -->
+
+                    <button
+                        type="button"
+                        class="project-modal-gallery-button project-modal-gallery-prev"
+                        id="project-modal-gallery-prev"
+                        aria-label="Previous image"
+                        title="Previous image"
+                    >
+
+                        <i class="fa-solid fa-chevron-left"></i>
+
+                    </button>
+
+
+                    <!-- ==========================================
+                         IMAGE NEXT
+                         ========================================== -->
+
+                    <button
+                        type="button"
+                        class="project-modal-gallery-button project-modal-gallery-next"
+                        id="project-modal-gallery-next"
+                        aria-label="Next image"
+                        title="Next image"
+                    >
+
+                        <i class="fa-solid fa-chevron-right"></i>
+
+                    </button>
+
+
+                    <!-- ==========================================
+                         IMAGE COUNTER
+                         ========================================== -->
+
+                    <div
+                        class="project-modal-image-counter"
+                        id="project-modal-image-counter"
+                    >
+                        1 / 1
+                    </div>
+
+
+                    <!-- ==========================================
+                         ZOOM INDICATOR
+                         ========================================== -->
+
+                    <div
+                        class="project-modal-zoom-indicator"
+                        id="project-modal-zoom-indicator"
+                    >
+                        100%
+                    </div>
+
+
+                </div>
+
+
+                <!-- ==============================================
+                     GALLERY TOOLBAR
+                     ============================================== -->
+
+                <div class="project-modal-gallery-toolbar">
+
+
+                    <button
+                        type="button"
+                        class="project-modal-tool"
+                        id="project-modal-zoom-out"
+                        title="Zoom out"
+                        aria-label="Zoom out"
+                    >
+
+                        <i class="fa-solid fa-minus"></i>
+
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="project-modal-tool"
+                        id="project-modal-zoom-reset"
+                        title="Reset zoom"
+                        aria-label="Reset zoom"
+                    >
+
+                        <i class="fa-solid fa-arrows-to-circle"></i>
+
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="project-modal-tool"
+                        id="project-modal-zoom-in"
+                        title="Zoom in"
+                        aria-label="Zoom in"
+                    >
+
+                        <i class="fa-solid fa-plus"></i>
+
+                    </button>
+
+
+                    <span class="project-modal-toolbar-divider"></span>
+
+
+                    <button
+                        type="button"
+                        class="project-modal-tool"
+                        id="project-modal-fullscreen"
+                        title="Fullscreen"
+                        aria-label="Fullscreen"
+                    >
+
+                        <i class="fa-solid fa-expand"></i>
+
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="project-modal-tool"
+                        id="project-modal-download"
+                        title="Download current image"
+                        aria-label="Download current image"
+                    >
+
+                        <i class="fa-solid fa-download"></i>
+
+                    </button>
+
+                </div>
+
+
+                <!-- ==============================================
+                     THUMBNAILS
+                     ============================================== -->
+
+                <div
+                    class="project-modal-thumbnails"
+                    id="project-modal-thumbnails"
+                    aria-label="Project gallery thumbnails"
+                >
+                </div>
+
+
+            </section>
+
+
+            <!-- ==================================================
+                 PROJECT INFORMATION
+                 ================================================== -->
+
+            <section class="project-modal-content">
+
+
+                <!-- =================================================
+                     TITLE
+                     ================================================= -->
+
+                <div class="project-modal-title-block">
+
+                    <span
+                        class="project-modal-label"
+                        id="project-modal-label"
+                    >
+                        PROJECT
+                    </span>
+
+                    <h2
+                        class="project-modal-title"
+                        id="project-modal-title"
+                    >
+                        Project Title
+                    </h2>
+
+                    <p
+                        class="project-modal-short-title"
+                        id="project-modal-short-title"
+                    >
+                        —
+                    </p>
+
+                </div>
+
+
+                <!-- =================================================
+                     META GRID
+                     ================================================= -->
+
+                <div
+                    class="project-modal-meta-grid"
+                    id="project-modal-meta-grid"
+                >
+
+
+                    <div class="project-modal-meta-item">
+
+                        <span class="project-modal-meta-label">
+                            CATEGORY
+                        </span>
+
+                        <span
+                            class="project-modal-meta-value"
+                            id="project-modal-category"
+                        >
+                            —
+                        </span>
+
+                    </div>
+
+
+                    <div class="project-modal-meta-item">
+
+                        <span class="project-modal-meta-label">
+                            TYPE
+                        </span>
+
+                        <span
+                            class="project-modal-meta-value"
+                            id="project-modal-type"
+                        >
+                            —
+                        </span>
+
+                    </div>
+
+
+                    <div class="project-modal-meta-item">
+
+                        <span class="project-modal-meta-label">
+                            STATUS
+                        </span>
+
+                        <span
+                            class="project-modal-meta-value"
+                            id="project-modal-status"
+                        >
+                            —
+                        </span>
+
+                    </div>
+
+
+                    <div class="project-modal-meta-item">
+
+                        <span class="project-modal-meta-label">
+                            RARITY
+                        </span>
+
+                        <span
+                            class="project-modal-meta-value"
+                            id="project-modal-meta-rarity"
+                        >
+                            —
+                        </span>
+
+                    </div>
+
+
+                </div>
+
+
+                <!-- =================================================
+                     DESCRIPTION
+                     ================================================= -->
+
+                <div class="project-modal-section">
+
+                    <div class="project-modal-section-heading">
+
+                        <i class="fa-solid fa-align-left"></i>
+
+                        <span>
+                            DESCRIPTION
+                        </span>
+
+                    </div>
+
+                    <p
+                        class="project-modal-description"
+                        id="project-modal-description"
+                    >
+                        —
+                    </p>
+
+                </div>
+
+
+                <!-- =================================================
+                     FULL DESCRIPTION
+                     ================================================= -->
+
+                <div class="project-modal-section">
+
+                    <div class="project-modal-section-heading">
+
+                        <i class="fa-solid fa-file-lines"></i>
+
+                        <span>
+                            PROJECT DETAILS
+                        </span>
+
+                    </div>
+
+                    <p
+                        class="project-modal-full-description"
+                        id="project-modal-full-description"
+                    >
+                        —
+                    </p>
+
+                </div>
+
+
+                <!-- =================================================
+                     TECHNOLOGIES
+                     ================================================= -->
+
+                <div class="project-modal-section">
+
+                    <div class="project-modal-section-heading">
+
+                        <i class="fa-solid fa-code"></i>
+
+                        <span>
+                            TECHNOLOGIES
+                        </span>
+
+                    </div>
+
+                    <div
+                        class="project-modal-chip-list"
+                        id="project-modal-technologies"
+                    >
+                    </div>
+
+                </div>
+
+
+                <!-- =================================================
+                     FEATURES
+                     ================================================= -->
+
+                <div class="project-modal-section">
+
+                    <div class="project-modal-section-heading">
+
+                        <i class="fa-solid fa-layer-group"></i>
+
+                        <span>
+                            FEATURES
+                        </span>
+
+                    </div>
+
+                    <div
+                        class="project-modal-feature-list"
+                        id="project-modal-features"
+                    >
+                    </div>
+
+                </div>
+
+
+                <!-- =================================================
+                     ARCHITECTURE
+                     ================================================= -->
+
+                <div class="project-modal-section">
+
+                    <div class="project-modal-section-heading">
+
+                        <i class="fa-solid fa-diagram-project"></i>
+
+                        <span>
+                            ARCHITECTURE
+                        </span>
+
+                    </div>
+
+                    <div
+                        class="project-modal-architecture-list"
+                        id="project-modal-architecture"
+                    >
+                    </div>
+
+                </div>
+
+
+                <!-- =================================================
+                     TAGS
+                     ================================================= -->
+
+                <div class="project-modal-section">
+
+                    <div class="project-modal-section-heading">
+
+                        <i class="fa-solid fa-tags"></i>
+
+                        <span>
+                            TAGS
+                        </span>
+
+                    </div>
+
+                    <div
+                        class="project-modal-chip-list project-modal-tags"
+                        id="project-modal-tags"
+                    >
+                    </div>
+
+                </div>
+
+
+                <!-- =================================================
+                     PROJECT LINK
+                     ================================================= -->
+
+                <div
+                    class="project-modal-actions"
+                    id="project-modal-actions"
+                >
+
+                    <a
+                        class="project-modal-action project-modal-action-primary"
+                        id="project-modal-demo"
+                        href="#"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+
+                        <i class="fa-solid fa-arrow-up-right-from-square"></i>
+
+                        <span>
+                            Open Project
+                        </span>
+
+                    </a>
+
+                </div>
+
+
+            </section>
+
+
+        </div>
+
+
+        <!-- ====================================================
+             MODAL FOOTER
+             ==================================================== -->
+
+        <footer class="project-modal-footer">
+
+            <span>
+                PROJECT ARCHIVE
+            </span>
+
+            <span
+                id="project-modal-footer-id"
+            >
+                —
+            </span>
+
+        </footer>
+
+
+    </section>
+
+</div>
+
+<!-- =====================================================
+     FLOATING NAVIGATION
+     ===================================================== -->
+
+<div
+    class="floating-nav"
+    id="floating-nav"
+>
+
+    <div
+        class="floating-nav-menu"
+        id="floating-nav-menu"
+        aria-hidden="true"
+    >
+
+        <a
+            href="./index.html"
+            class="floating-nav-item"
+            data-page="home"
+        >
+
+            <span class="floating-nav-item-icon">
+                <svg
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                >
+                    <path
+                        d="M3 10.5L12 3l9 7.5"
+                    />
+
+                    <path
+                        d="M5.5 9.5V21h13V9.5"
+                    />
+                </svg>
+            </span>
+
+            <span class="floating-nav-item-label">
+                HOME
+            </span>
+
+        </a>
+
+
+        <a
+            href="./project.html"
+            class="floating-nav-item"
+            data-page="projects"
+        >
+
+            <span class="floating-nav-item-icon">
+                <svg
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                >
+                    <rect
+                        x="3"
+                        y="4"
+                        width="18"
+                        height="16"
+                        rx="2"
+                    />
+
+                    <path
+                        d="M3 9h18"
+                    />
+
+                    <path
+                        d="M8 13h8"
+                    />
+
+                    <path
+                        d="M8 16h5"
+                    />
+
+                </svg>
+            </span>
+
+            <span class="floating-nav-item-label">
+                PROJECTS
+            </span>
+
+        </a>
+
+    </div>
+
+
+    <button
+        class="floating-nav-trigger"
+        id="floating-nav-trigger"
+        type="button"
+        aria-label="Open navigation"
+        aria-expanded="false"
+        aria-controls="floating-nav-menu"
+    >
+
+        <span class="floating-nav-trigger-icon">
+
+            <span></span>
+            <span></span>
+
+        </span>
+
+    </button>
+
+</div>
+<!-- ============================================================
+     PROJECT DATA
+     ============================================================ -->
+
+<script src="js/projects.js"></script>
+
+
+<!-- ============================================================
+     GACHA ENGINE
+     ============================================================ -->
+
+<script>
+
+document.addEventListener(
+    "DOMContentLoaded",
+    () => {
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | ELEMENTS
+        |--------------------------------------------------------------------------
+        */
+
+        const page =
+            document.getElementById(
+                "gacha-page"
+            );
+
+        const reel =
+            document.getElementById(
+                "gacha-reel"
+            );
+
+        const track =
+            document.getElementById(
+                "gacha-reel-track"
+            );
+
+        const button =
+            document.getElementById(
+                "gacha-open-button"
+            );
+
+        const result =
+            document.getElementById(
+                "gacha-result"
+            );
+
+        const resultRarity =
+            document.getElementById(
+                "gacha-result-rarity"
+            );
+
+        const resultTitle =
+            document.getElementById(
+                "gacha-result-title"
+            );
+
+        const resultCategory =
+            document.getElementById(
+                "gacha-result-category"
+            );
+
+        const rarityList =
+            document.getElementById(
+                "gacha-rarity-list"
+            );
+
+        const particles =
+            document.getElementById(
+                "gacha-particles"
+            );
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | SAFETY CHECK
+        |--------------------------------------------------------------------------
+        */
+
+        if (
+            typeof ProjectGacha === "undefined"
+        ) {
+
+            console.error(
+                "ProjectGacha is not available."
+            );
+
+            button.disabled = true;
+
+            button.textContent =
+                "Project Data Missing";
+
+            return;
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | CONFIGURATION
+        |--------------------------------------------------------------------------
+        */
+
+        const ITEM_COUNT = 45;
+
+        const MIN_SPIN_TIME = 5200;
+
+        const MAX_SPIN_TIME = 6800;
+
+        let isSpinning = false;
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | HELPERS
+        |--------------------------------------------------------------------------
+        */
+
+        function randomInt(
+            min,
+            max
+        ) {
+
+            return Math.floor(
+                Math.random() *
+                (max - min + 1)
+            ) + min;
+
+        }
+
+
+        function getRandomProject() {
+
+            return ProjectGacha.projects[
+                Math.floor(
+                    Math.random() *
+                    ProjectGacha.projects.length
+                )
+            ];
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | CREATE ITEM CARD
+        |--------------------------------------------------------------------------
+        */
+
+        function createItemCard(
+            project
+        ) {
+
+            const item =
+                document.createElement(
+                    "div"
+                );
+
+            item.className =
+                "gacha-item";
+
+            item.dataset.rarity =
+                project.rarity.id;
+
+            item.dataset.projectId =
+                project.id;
+
+
+            item.innerHTML = `
+
+                <div
+                    class="gacha-item-image"
+                >
+
+                    <img
+                        src="${project.thumbnail}"
+                        alt="${project.alt}"
+                        draggable="false"
+                    >
+
+                    <span
+                        class="gacha-item-badge"
+                    >
+                        ${project.rarity.name}
+                    </span>
+
+                </div>
+
+
+                <div
+                    class="gacha-item-content"
+                >
+
+                    <div>
+
+                        <div
+                            class="gacha-item-rarity"
+                        >
+                            ${project.rarity.name}
+                        </div>
+
+                        <div
+                            class="gacha-item-title"
+                        >
+                            ${project.shortTitle}
+                        </div>
+
+                    </div>
+
+
+                    <div
+                        class="gacha-item-category"
+                    >
+                        ${project.categoryLabel}
+                    </div>
+
+                </div>
+
+            `;
+
+
+            return item;
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | BUILD RARITY LEGEND
+        |--------------------------------------------------------------------------
+        */
+
+        function buildRarityLegend() {
+
+            rarityList.innerHTML = "";
+
+
+            ProjectGacha.rarities.forEach(
+                rarity => {
+
+                    const element =
+                        document.createElement(
+                            "div"
+                        );
+
+                    element.className =
+                        "gacha-rarity";
+
+                    element.style.setProperty(
+                        "--rarity-color",
+                        rarity.hex
+                    );
+
+
+                    element.innerHTML = `
+
+                        <span
+                            class="gacha-rarity-color"
+                        ></span>
+
+                        <div
+                            class="gacha-rarity-info"
+                        >
+
+                            <span
+                                class="gacha-rarity-name"
+                            >
+                                ${rarity.name}
+                            </span>
+
+                            <span
+                                class="gacha-rarity-chance"
+                            >
+                                ${rarity.displayChance}
+                            </span>
+
+                        </div>
+
+                    `;
+
+
+                    rarityList.appendChild(
+                        element
+                    );
+
+                }
+            );
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | BUILD REEL
+        |--------------------------------------------------------------------------
+        */
+
+        function buildReel(
+            winningProject
+        ) {
+
+            track.innerHTML = "";
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Create random filler items
+            |--------------------------------------------------------------------------
+            */
+
+            const items = [];
+
+
+            for (
+                let i = 0;
+                i < ITEM_COUNT;
+                i++
+            ) {
+
+                items.push(
+                    getRandomProject()
+                );
+
+            }
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Pick final position
+            |--------------------------------------------------------------------------
+            */
+
+            const winningIndex =
+                randomInt(
+                    32,
+                    38
+                );
+
+
+            items[
+                winningIndex
+            ] = winningProject;
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Render
+            |--------------------------------------------------------------------------
+            */
+
+            items.forEach(
+                project => {
+
+                    track.appendChild(
+                        createItemCard(
+                            project
+                        )
+                    );
+
+                }
+            );
+
+
+            return winningIndex;
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | GET ITEM CENTER POSITION
+        |--------------------------------------------------------------------------
+        */
+
+        function getItemCenterX(
+            item
+        ) {
+
+            const reelRect =
+                reel.getBoundingClientRect();
+
+            const itemRect =
+                item.getBoundingClientRect();
+
+
+            return (
+                itemRect.left +
+                itemRect.width / 2
+            ) -
+            (
+                reelRect.left +
+                reelRect.width / 2
+            );
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | CENTER ITEM
+        |--------------------------------------------------------------------------
+        */
+
+        function centerItem(
+            item,
+            animated = true,
+            duration = 600
+        ) {
+
+            const currentTransform =
+                getComputedStyle(
+                    track
+                ).transform;
+
+
+            const matrix =
+                new DOMMatrix(
+                    currentTransform
+                );
+
+
+            const currentX =
+                matrix.m41 || 0;
+
+
+            const offset =
+                getItemCenterX(
+                    item
+                );
+
+
+            const targetX =
+                currentX - offset;
+
+
+            track.style.transition =
+                animated
+                    ? `transform ${duration}ms cubic-bezier(0.12, 0.72, 0.11, 1)`
+                    : "none";
+
+
+            track.style.transform =
+                `translate3d(${targetX}px, -50%, 0)`;
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | RESET TRACK
+        |--------------------------------------------------------------------------
+        */
+
+        function resetTrack() {
+
+            track.style.transition =
+                "none";
+
+            track.style.transform =
+                "translate3d(0px, -50%, 0)";
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | HIGHLIGHT SELECTED
+        |--------------------------------------------------------------------------
+        */
+
+        function highlightSelected(
+            winningItem
+        ) {
+
+            document
+                .querySelectorAll(
+                    ".gacha-item.is-selected"
+                )
+                .forEach(
+                    item => {
+
+                        item.classList.remove(
+                            "is-selected"
+                        );
+
+                    }
+                );
+
+
+            winningItem.classList.add(
+                "is-selected"
+            );
+
+
+            const rarity =
+                ProjectGacha.rarities.find(
+                    item =>
+                        item.id ===
+                        winningItem.dataset.rarity
+                );
+
+
+            if (rarity) {
+
+                page.style.setProperty(
+                    "--gacha-accent",
+                    rarity.hex
+                );
+
+            }
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | SHOW RESULT
+        |--------------------------------------------------------------------------
+        */
+
+        function showResult(
+    project
+) {
+
+    if (!project) {
+
+        return;
+
+    }
+
+
+    const rarity =
+        project.rarity;
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | UPDATE GACHA RESULT
+    |--------------------------------------------------------------------------
+    */
+
+    page.style.setProperty(
+        "--gacha-accent",
+        rarity.hex
+    );
+
+
+    resultRarity.textContent =
+        `${rarity.name}`;
+
+
+    resultTitle.textContent =
+        project.title;
+
+
+    resultCategory.textContent =
+        project.categoryLabel;
+
+
+    result.classList.add(
+        "is-visible"
+    );
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | RESULT FLASH
+    |--------------------------------------------------------------------------
+    */
+
+    page.classList.add(
+        "result-flash"
+    );
+
+
+    if (
+        rarity.id ===
+        "legendary"
+    ) {
+
+        page.classList.add(
+            "legendary-result"
+        );
+
+
+        createParticles(
+            rarity.hex,
+            70
+        );
+
+    }
+    else if (
+        rarity.id ===
+        "elite"
+    ) {
+
+        createParticles(
+            rarity.hex,
+            35
+        );
+
+    }
+    else {
+
+        createParticles(
+            rarity.hex,
+            15
+        );
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | REMOVE FLASH
+    |--------------------------------------------------------------------------
+    */
+
+    setTimeout(
+        () => {
+
+            page.classList.remove(
+                "result-flash"
+            );
+
+        },
+        600
+    );
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | OPEN PROJECT DETAIL MODAL
+    |--------------------------------------------------------------------------
+    |
+    | Wait a little so the result animation can appear first.
+    |
+    */
+
+    setTimeout(
+        () => {
+
+            if (
+                window.ProjectModal &&
+                typeof window.ProjectModal.open ===
+                "function"
+            ) {
+
+                window.ProjectModal.open(
+                    project
+                );
+
+            }
+            else {
+
+                console.warn(
+                    "ProjectModal is not available."
+                );
+
+            }
+
+        },
+        350
+    );
+
+}
+
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | PARTICLES
+        |--------------------------------------------------------------------------
+        */
+
+        function createParticles(
+            color,
+            count
+        ) {
+
+            particles.innerHTML = "";
+
+
+            for (
+                let i = 0;
+                i < count;
+                i++
+            ) {
+
+                const particle =
+                    document.createElement(
+                        "span"
+                    );
+
+
+                particle.className =
+                    "gacha-particle";
+
+
+                const x =
+                    (
+                        Math.random() *
+                        100
+                    ) - 50;
+
+
+                const y =
+                    -(
+                        80 +
+                        Math.random() *
+                        70
+                    );
+
+
+                const duration =
+                    700 +
+                    Math.random() *
+                    1000;
+
+
+                particle.style.setProperty(
+                    "--particle-color",
+                    color
+                );
+
+
+                particle.style.setProperty(
+                    "--particle-x",
+                    `${x}vw`
+                );
+
+
+                particle.style.setProperty(
+                    "--particle-y",
+                    `${y}vh`
+                );
+
+
+                particle.style.setProperty(
+                    "--particle-duration",
+                    `${duration}ms`
+                );
+
+
+                particle.style.left =
+                    `${50 + (Math.random() * 20 - 10)}%`;
+
+
+                particle.style.top =
+                    `${50 + (Math.random() * 15 - 7.5)}%`;
+
+
+                particles.appendChild(
+                    particle
+                );
+
+            }
+
+
+            setTimeout(
+                () => {
+
+                    particles.innerHTML =
+                        "";
+
+                },
+                2200
+            );
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | SPIN
+        |--------------------------------------------------------------------------
+        */
+
+        async function openCase() {
+
+            if (isSpinning) {
+                return;
+            }
+
+
+            isSpinning = true;
+
+
+            page.classList.add(
+                "is-spinning"
+            );
+
+
+            page.classList.remove(
+                "legendary-result"
+            );
+
+
+            result.classList.remove(
+                "is-visible"
+            );
+
+
+            button.disabled = true;
+
+
+            button.innerHTML = `
+
+                <i
+                    class="fa-solid fa-circle-notch fa-spin gacha-open-button-icon"
+                ></i>
+
+                Opening...
+
+            `;
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Determine actual result FIRST
+            |--------------------------------------------------------------------------
+            |
+            | Important:
+            | The animation is visual.
+            | The actual winning item is determined by
+            | ProjectGacha.play().
+            |
+            */
+
+            const gachaResult =
+                ProjectGacha.play();
+
+
+            if (!gachaResult) {
+
+                console.error(
+                    "Gacha returned no result."
+                );
+
+                finishSpin();
+
+                return;
+
+            }
+
+
+            const winningProject =
+                gachaResult.project;
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Build reel
+            |--------------------------------------------------------------------------
+            */
+
+            const winningIndex =
+                buildReel(
+                    winningProject
+                );
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Reset position
+            |--------------------------------------------------------------------------
+            */
+
+            resetTrack();
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Force browser layout
+            |--------------------------------------------------------------------------
+            */
+
+            void track.offsetWidth;
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Get winning element
+            |--------------------------------------------------------------------------
+            */
+
+            const items =
+                track.querySelectorAll(
+                    ".gacha-item"
+                );
+
+
+            const winningItem =
+                items[winningIndex];
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Start spinning
+            |--------------------------------------------------------------------------
+            */
+
+            reel.classList.add(
+                "is-spinning"
+            );
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Small random initial movement
+            |--------------------------------------------------------------------------
+            */
+
+            const startOffset =
+                -(40 + Math.random() * 60);
+
+
+            track.style.transform =
+                `translate3d(${startOffset}px, -50%, 0)`;
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Force another layout
+            |--------------------------------------------------------------------------
+            */
+
+            void track.offsetWidth;
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Calculate exact target
+            |--------------------------------------------------------------------------
+            */
+
+            const reelRect =
+                reel.getBoundingClientRect();
+
+
+            const itemRect =
+                winningItem.getBoundingClientRect();
+
+
+            const currentMatrix =
+                new DOMMatrix(
+                    getComputedStyle(
+                        track
+                    ).transform
+                );
+
+
+            const currentX =
+                currentMatrix.m41 || 0;
+
+
+            const itemCenter =
+                itemRect.left +
+                itemRect.width / 2;
+
+
+            const reelCenter =
+                reelRect.left +
+                reelRect.width / 2;
+
+
+            const correction =
+                reelCenter -
+                itemCenter;
+
+
+            const targetX =
+                currentX +
+                correction;
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Spin duration
+            |--------------------------------------------------------------------------
+            */
+
+            const duration =
+                randomInt(
+                    MIN_SPIN_TIME,
+                    MAX_SPIN_TIME
+                );
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Animate
+            |--------------------------------------------------------------------------
+            */
+
+            track.style.transition =
+                `transform ${duration}ms cubic-bezier(0.08, 0.82, 0.12, 1)`;
+
+
+            track.style.transform =
+                `translate3d(${targetX}px, -50%, 0)`;
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Wait
+            |--------------------------------------------------------------------------
+            */
+
+            setTimeout(
+                () => {
+
+                    finishSpin(
+                        winningItem,
+                        winningProject
+                    );
+
+                },
+                duration + 150
+            );
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | FINISH SPIN
+        |--------------------------------------------------------------------------
+        */
+
+        function finishSpin(
+            winningItem = null,
+            winningProject = null
+        ) {
+
+            isSpinning = false;
+
+
+            page.classList.remove(
+                "is-spinning"
+            );
+
+
+            reel.classList.remove(
+                "is-spinning"
+            );
+
+
+            if (
+                winningItem &&
+                winningProject
+            ) {
+
+                highlightSelected(
+                    winningItem
+                );
+
+
+                showResult(
+                    winningProject
+                );
+
+            }
+
+
+            button.disabled =
+                false;
+
+
+            button.innerHTML = `
+
+                <i
+                    class="fa-solid fa-box-open gacha-open-button-icon"
+                ></i>
+
+                Open Again
+
+            `;
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | INITIAL REEL
+        |--------------------------------------------------------------------------
+        */
+
+        function initialize() {
+
+            buildRarityLegend();
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Initial preview reel
+            |--------------------------------------------------------------------------
+            */
+
+            const previewProject =
+                getRandomProject();
+
+
+            const winningIndex =
+                buildReel(
+                    previewProject
+                );
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Center approximately around middle
+            |--------------------------------------------------------------------------
+            */
+
+            requestAnimationFrame(
+                () => {
+
+                    const items =
+                        track.querySelectorAll(
+                            ".gacha-item"
+                        );
+
+
+                    if (
+                        items[winningIndex]
+                    ) {
+
+                        centerItem(
+                            items[winningIndex],
+                            false
+                        );
+
+                    }
+
+                }
+            );
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | BUTTON EVENT
+        |--------------------------------------------------------------------------
+        */
+
+        button.addEventListener(
+            "click",
+            openCase
+        );
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | KEYBOARD SUPPORT
+        |--------------------------------------------------------------------------
+        */
+
+        document.addEventListener(
+            "keydown",
+            event => {
+
+                if (
+                    event.code ===
+                    "Space"
+                ) {
+
+                    if (
+                        document.activeElement ===
+                        button
+                    ) {
+
+                        return;
+
+                    }
+
+
+                    event.preventDefault();
+
+
+                    if (!isSpinning) {
+
+                        openCase();
+
+                    }
+
+                }
+
+            }
+        );
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | START
+        |--------------------------------------------------------------------------
+        */
+
+        initialize();
+
+    }
+
+);
+
+</script>
+
+<script>
+
+document.addEventListener(
+    "DOMContentLoaded",
+    () => {
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | PROJECT DETAIL MODAL
+        |--------------------------------------------------------------------------
+        */
+
+
+        const modal =
+            document.getElementById(
+                "project-modal"
+            );
+
+        const backdrop =
+            document.getElementById(
+                "project-modal-backdrop"
+            );
+
+        const dialog =
+            document.getElementById(
+                "project-modal-dialog"
+            );
+
+        const closeButton =
+            document.getElementById(
+                "project-modal-close"
+            );
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | PROJECT INFORMATION
+        |--------------------------------------------------------------------------
+        */
+
+        const modalOverline =
+            document.getElementById(
+                "project-modal-overline"
+            );
+
+        const modalRarity =
+            document.getElementById(
+                "project-modal-rarity"
+            );
+
+        const modalLabel =
+            document.getElementById(
+                "project-modal-label"
+            );
+
+        const modalTitle =
+            document.getElementById(
+                "project-modal-title"
+            );
+
+        const modalShortTitle =
+            document.getElementById(
+                "project-modal-short-title"
+            );
+
+        const modalCategory =
+            document.getElementById(
+                "project-modal-category"
+            );
+
+        const modalType =
+            document.getElementById(
+                "project-modal-type"
+            );
+
+        const modalStatus =
+            document.getElementById(
+                "project-modal-status"
+            );
+
+        const modalMetaRarity =
+            document.getElementById(
+                "project-modal-meta-rarity"
+            );
+
+        const modalDescription =
+            document.getElementById(
+                "project-modal-description"
+            );
+
+        const modalFullDescription =
+            document.getElementById(
+                "project-modal-full-description"
+            );
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | LISTS
+        |--------------------------------------------------------------------------
+        */
+
+        const modalTechnologies =
+            document.getElementById(
+                "project-modal-technologies"
+            );
+
+        const modalFeatures =
+            document.getElementById(
+                "project-modal-features"
+            );
+
+        const modalArchitecture =
+            document.getElementById(
+                "project-modal-architecture"
+            );
+
+        const modalTags =
+            document.getElementById(
+                "project-modal-tags"
+            );
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | ACTIONS
+        |--------------------------------------------------------------------------
+        */
+
+        const modalActions =
+            document.getElementById(
+                "project-modal-actions"
+            );
+
+        const modalDemo =
+            document.getElementById(
+                "project-modal-demo"
+            );
+
+        const modalFooterId =
+            document.getElementById(
+                "project-modal-footer-id"
+            );
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | GALLERY
+        |--------------------------------------------------------------------------
+        */
+
+        const imageStage =
+            document.getElementById(
+                "project-modal-image-stage"
+            );
+
+        const mainImage =
+            document.getElementById(
+                "project-modal-main-image"
+            );
+
+        const thumbnails =
+            document.getElementById(
+                "project-modal-thumbnails"
+            );
+
+        const imageCounter =
+            document.getElementById(
+                "project-modal-image-counter"
+            );
+
+        const zoomIndicator =
+            document.getElementById(
+                "project-modal-zoom-indicator"
+            );
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | GALLERY CONTROLS
+        |--------------------------------------------------------------------------
+        */
+
+        const previousButton =
+            document.getElementById(
+                "project-modal-gallery-prev"
+            );
+
+        const nextButton =
+            document.getElementById(
+                "project-modal-gallery-next"
+            );
+
+        const zoomOutButton =
+            document.getElementById(
+                "project-modal-zoom-out"
+            );
+
+        const zoomResetButton =
+            document.getElementById(
+                "project-modal-zoom-reset"
+            );
+
+        const zoomInButton =
+            document.getElementById(
+                "project-modal-zoom-in"
+            );
+
+        const fullscreenButton =
+            document.getElementById(
+                "project-modal-fullscreen"
+            );
+
+        const downloadButton =
+            document.getElementById(
+                "project-modal-download"
+            );
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | STATE
+        |--------------------------------------------------------------------------
+        */
+
+        let currentProject = null;
+
+        let currentImages = [];
+
+        let currentImageIndex = 0;
+
+        let currentZoom = 1;
+
+        let translateX = 0;
+
+        let translateY = 0;
+
+        let isDragging = false;
+
+        let dragStartX = 0;
+
+        let dragStartY = 0;
+
+        let startTranslateX = 0;
+
+        let startTranslateY = 0;
+
+        let touchStartX = 0;
+
+        let touchStartY = 0;
+
+        let lastFocusedElement = null;
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | CONSTANTS
+        |--------------------------------------------------------------------------
+        */
+
+        const MIN_ZOOM = 1;
+
+        const MAX_ZOOM = 4;
+
+        const ZOOM_STEP = 0.25;
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | ESCAPE HTML
+        |--------------------------------------------------------------------------
+        |
+        | Project data is trusted locally, but this prevents accidental
+        | HTML injection when data is later edited or loaded externally.
+        |
+        */
+
+        function escapeHTML(value) {
+
+            if (
+                value === null ||
+                value === undefined
+            ) {
+
+                return "";
+
+            }
+
+            return String(value)
+                .replace(
+                    /&/g,
+                    "&amp;"
+                )
+                .replace(
+                    /</g,
+                    "&lt;"
+                )
+                .replace(
+                    />/g,
+                    "&gt;"
+                )
+                .replace(
+                    /"/g,
+                    "&quot;"
+                )
+                .replace(
+                    /'/g,
+                    "&#039;"
+                );
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | ARRAY NORMALIZER
+        |--------------------------------------------------------------------------
+        */
+
+        function normalizeArray(value) {
+
+            if (
+                !Array.isArray(value)
+            ) {
+
+                return [];
+
+            }
+
+            return value.filter(
+                item =>
+                    item !== null &&
+                    item !== undefined &&
+                    String(item).trim() !== ""
+            );
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | GET PROJECT RARITY
+        |--------------------------------------------------------------------------
+        |
+        | Supports your current project structure:
+        |
+        | rarity: {
+        |     id: "advanced",
+        |     name: "Advanced",
+        |     ...
+        | }
+        |
+        | And also the cleaner structure:
+        |
+        | rarity: {
+        |     id: "advanced"
+        | }
+        |
+        */
+
+        function getProjectRarity(project) {
+
+            if (
+                !project ||
+                !project.rarity
+            ) {
+
+                return null;
+
+            }
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | If complete rarity object already exists
+            |--------------------------------------------------------------------------
+            */
+
+            if (
+                project.rarity.name &&
+                project.rarity.hex
+            ) {
+
+                return project.rarity;
+
+            }
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Resolve rarity from global configuration
+            |--------------------------------------------------------------------------
+            */
+
+            if (
+                typeof ProjectGacha !==
+                "undefined" &&
+                Array.isArray(
+                    ProjectGacha.rarities
+                )
+            ) {
+
+                return ProjectGacha.rarities.find(
+                    rarity =>
+                        rarity.id ===
+                        project.rarity.id
+                ) || null;
+
+            }
+
+
+            return null;
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | RESET GALLERY TRANSFORM
+        |--------------------------------------------------------------------------
+        */
+
+        function resetZoom() {
+
+            currentZoom = 1;
+
+            translateX = 0;
+
+            translateY = 0;
+
+            applyImageTransform();
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | APPLY IMAGE TRANSFORM
+        |--------------------------------------------------------------------------
+        */
+
+        function applyImageTransform(
+            animated = true
+        ) {
+
+            mainImage.style.transition =
+                animated
+                    ? "transform 180ms ease"
+                    : "none";
+
+
+            mainImage.style.transform =
+                `
+                translate3d(
+                    ${translateX}px,
+                    ${translateY}px,
+                    0
+                )
+                scale(${currentZoom})
+                `;
+
+
+            zoomIndicator.textContent =
+                `${Math.round(currentZoom * 100)}%`;
+
+
+            if (
+                currentZoom > 1
+            ) {
+
+                imageStage.classList.add(
+                    "is-zoomed"
+                );
+
+            }
+            else {
+
+                imageStage.classList.remove(
+                    "is-zoomed"
+                );
+
+            }
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | CHANGE ZOOM
+        |--------------------------------------------------------------------------
+        */
+
+        function changeZoom(
+            amount
+        ) {
+
+            const nextZoom =
+                Math.min(
+                    MAX_ZOOM,
+                    Math.max(
+                        MIN_ZOOM,
+                        currentZoom + amount
+                    )
+                );
+
+
+            currentZoom =
+                Math.round(
+                    nextZoom * 100
+                ) / 100;
+
+
+            if (
+                currentZoom === 1
+            ) {
+
+                translateX = 0;
+
+                translateY = 0;
+
+            }
+
+
+            applyImageTransform();
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | SHOW IMAGE
+        |--------------------------------------------------------------------------
+        */
+
+        function showImage(
+            index,
+            animated = true
+        ) {
+
+            if (
+                currentImages.length === 0
+            ) {
+
+                return;
+
+            }
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Wrap index
+            |--------------------------------------------------------------------------
+            */
+
+            if (
+                index < 0
+            ) {
+
+                index =
+                    currentImages.length - 1;
+
+            }
+
+
+            if (
+                index >= currentImages.length
+            ) {
+
+                index = 0;
+
+            }
+
+
+            currentImageIndex =
+                index;
+
+
+            const image =
+                currentImages[
+                    currentImageIndex
+                ];
+
+
+            resetZoom();
+
+
+            mainImage.style.opacity =
+                "0";
+
+
+            setTimeout(
+                () => {
+
+                    mainImage.src =
+                        image;
+
+                    mainImage.alt =
+                        currentProject?.alt ||
+                        currentProject?.title ||
+                        "Project image";
+
+
+                    mainImage.style.opacity =
+                        "1";
+
+                },
+                animated ? 80 : 0
+            );
+
+
+            imageCounter.textContent =
+                `${currentImageIndex + 1} / ${currentImages.length}`;
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Update thumbnails
+            |--------------------------------------------------------------------------
+            */
+
+            thumbnails
+                .querySelectorAll(
+                    ".project-modal-thumbnail"
+                )
+                .forEach(
+                    (thumbnail, thumbnailIndex) => {
+
+                        thumbnail.classList.toggle(
+                            "is-active",
+                            thumbnailIndex ===
+                            currentImageIndex
+                        );
+
+                    }
+                );
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | BUILD THUMBNAILS
+        |--------------------------------------------------------------------------
+        */
+
+        function buildThumbnails() {
+
+            thumbnails.innerHTML = "";
+
+
+            currentImages.forEach(
+                (
+                    image,
+                    index
+                ) => {
+
+                    const button =
+                        document.createElement(
+                            "button"
+                        );
+
+
+                    button.type =
+                        "button";
+
+
+                    button.className =
+                        "project-modal-thumbnail";
+
+
+                    if (
+                        index ===
+                        currentImageIndex
+                    ) {
+
+                        button.classList.add(
+                            "is-active"
+                        );
+
+                    }
+
+
+                    button.setAttribute(
+                        "aria-label",
+                        `Open image ${index + 1}`
+                    );
+
+
+                    button.innerHTML = `
+
+                        <img
+                            src="${escapeHTML(image)}"
+                            alt=""
+                            draggable="false"
+                        >
+
+                        <span>
+                            ${index + 1}
+                        </span>
+
+                    `;
+
+
+                    button.addEventListener(
+                        "click",
+                        () => {
+
+                            showImage(
+                                index
+                            );
+
+                        }
+                    );
+
+
+                    thumbnails.appendChild(
+                        button
+                    );
+
+                }
+            );
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | BUILD CHIP LIST
+        |--------------------------------------------------------------------------
+        */
+
+        function buildChips(
+            container,
+            items,
+            className = ""
+        ) {
+
+            container.innerHTML = "";
+
+
+            const normalized =
+                normalizeArray(
+                    items
+                );
+
+
+            if (
+                normalized.length === 0
+            ) {
+
+                container.innerHTML = `
+
+                    <span class="project-modal-empty">
+                        No data available
+                    </span>
+
+                `;
+
+                return;
+
+            }
+
+
+            normalized.forEach(
+                item => {
+
+                    const chip =
+                        document.createElement(
+                            "span"
+                        );
+
+
+                    chip.className =
+                        `project-modal-chip ${className}`;
+
+
+                    chip.textContent =
+                        item;
+
+
+                    container.appendChild(
+                        chip
+                    );
+
+                }
+            );
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | BUILD FEATURE LIST
+        |--------------------------------------------------------------------------
+        */
+
+        function buildFeatures(
+            items
+        ) {
+
+            modalFeatures.innerHTML = "";
+
+
+            const normalized =
+                normalizeArray(
+                    items
+                );
+
+
+            if (
+                normalized.length === 0
+            ) {
+
+                modalFeatures.innerHTML = `
+
+                    <span class="project-modal-empty">
+                        No features listed
+                    </span>
+
+                `;
+
+                return;
+
+            }
+
+
+            normalized.forEach(
+                item => {
+
+                    const element =
+                        document.createElement(
+                            "div"
+                        );
+
+
+                    element.className =
+                        "project-modal-feature";
+
+
+                    element.innerHTML = `
+
+                        <span class="project-modal-feature-icon">
+
+                            <i class="fa-solid fa-check"></i>
+
+                        </span>
+
+                        <span class="project-modal-feature-text">
+                            ${escapeHTML(item)}
+                        </span>
+
+                    `;
+
+
+                    modalFeatures.appendChild(
+                        element
+                    );
+
+                }
+            );
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | BUILD ARCHITECTURE
+        |--------------------------------------------------------------------------
+        */
+
+        function buildArchitecture(
+            items
+        ) {
+
+            modalArchitecture.innerHTML = "";
+
+
+            const normalized =
+                normalizeArray(
+                    items
+                );
+
+
+            if (
+                normalized.length === 0
+            ) {
+
+                modalArchitecture.innerHTML = `
+
+                    <span class="project-modal-empty">
+                        No architecture information
+                    </span>
+
+                `;
+
+                return;
+
+            }
+
+
+            normalized.forEach(
+                (
+                    item,
+                    index
+                ) => {
+
+                    const element =
+                        document.createElement(
+                            "div"
+                        );
+
+
+                    element.className =
+                        "project-modal-architecture-item";
+
+
+                    element.innerHTML = `
+
+                        <span class="project-modal-architecture-number">
+                            ${String(index + 1).padStart(2, "0")}
+                        </span>
+
+                        <span class="project-modal-architecture-name">
+                            ${escapeHTML(item)}
+                        </span>
+
+                    `;
+
+
+                    modalArchitecture.appendChild(
+                        element
+                    );
+
+                }
+            );
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | FORMAT STATUS
+        |--------------------------------------------------------------------------
+        */
+
+        function formatStatus(
+            status
+        ) {
+
+            if (!status) {
+
+                return "—";
+
+            }
+
+
+            return String(status)
+                .replace(
+                    /-/g,
+                    " "
+                )
+                .replace(
+                    /\b\w/g,
+                    letter =>
+                        letter.toUpperCase()
+                );
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | OPEN MODAL
+        |--------------------------------------------------------------------------
+        */
+
+        function openProjectModal(
+            project
+        ) {
+
+            if (!project) {
+
+                return;
+
+            }
+
+
+            currentProject =
+                project;
+
+
+            lastFocusedElement =
+                document.activeElement;
+
+
+            const rarity =
+                getProjectRarity(
+                    project
+                );
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | RARITY
+            |--------------------------------------------------------------------------
+            */
+
+            if (rarity) {
+
+                modal.style.setProperty(
+                    "--project-modal-accent",
+                    rarity.hex
+                );
+
+
+                modal.style.setProperty(
+                    "--project-modal-accent-rgb",
+                    hexToRGB(
+                        rarity.hex
+                    )
+                );
+
+
+                modalRarity.textContent =
+                    rarity.name;
+
+
+                modalMetaRarity.textContent =
+                    rarity.name;
+
+            }
+            else {
+
+                modal.style.setProperty(
+                    "--project-modal-accent",
+                    "#3b82f6"
+                );
+
+
+                modal.style.setProperty(
+                    "--project-modal-accent-rgb",
+                    "59, 130, 246"
+                );
+
+
+                modalRarity.textContent =
+                    "Unknown";
+
+
+                modalMetaRarity.textContent =
+                    "Unknown";
+
+            }
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | BASIC INFORMATION
+            |--------------------------------------------------------------------------
+            */
+
+            modalOverline.textContent =
+                project.label ||
+                "PROJECT ARCHIVE";
+
+
+            modalLabel.textContent =
+                project.label ||
+                "PROJECT";
+
+
+            modalTitle.textContent =
+                project.title ||
+                "Untitled Project";
+
+
+            modalShortTitle.textContent =
+                project.shortTitle ||
+                "";
+
+
+            modalCategory.textContent =
+                project.categoryLabel ||
+                project.category ||
+                "—";
+
+
+            modalType.textContent =
+                project.type ||
+                "—";
+
+
+            modalStatus.textContent =
+                formatStatus(
+                    project.status
+                );
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | DESCRIPTIONS
+            |--------------------------------------------------------------------------
+            */
+
+            modalDescription.textContent =
+                project.description ||
+                "No description available.";
+
+
+            modalFullDescription.textContent =
+                project.fullDescription ||
+                project.description ||
+                "No detailed description available.";
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | LISTS
+            |--------------------------------------------------------------------------
+            */
+
+            buildChips(
+                modalTechnologies,
+                project.technologies
+            );
+
+
+            buildFeatures(
+                project.features
+            );
+
+
+            buildArchitecture(
+                project.architecture
+            );
+
+
+            buildChips(
+                modalTags,
+                project.tags,
+                "project-modal-tag"
+            );
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | PROJECT URL
+            |--------------------------------------------------------------------------
+            */
+
+            modalActions.classList.remove(
+                "is-hidden"
+            );
+
+
+            if (
+                project.url
+            ) {
+
+                modalDemo.href =
+                    project.url;
+
+
+                modalDemo.classList.remove(
+                    "is-disabled"
+                );
+
+
+                modalDemo.innerHTML = `
+
+                    <i class="fa-solid fa-arrow-up-right-from-square"></i>
+
+                    <span>
+                        Open Project
+                    </span>
+
+                `;
+
+            }
+            else {
+
+                modalDemo.removeAttribute(
+                    "href"
+                );
+
+
+                modalDemo.classList.add(
+                    "is-disabled"
+                );
+
+
+                modalDemo.innerHTML = `
+
+                    <i class="fa-solid fa-lock"></i>
+
+                    <span>
+                        No Public Demo
+                    </span>
+
+                `;
+
+            }
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | GALLERY
+            |--------------------------------------------------------------------------
+            */
+
+            currentImages =
+                normalizeArray(
+                    project.images
+                );
+
+
+            if (
+                currentImages.length === 0 &&
+                project.thumbnail
+            ) {
+
+                currentImages = [
+                    project.thumbnail
+                ];
+
+            }
+
+
+            currentImageIndex = 0;
+
+
+            if (
+                currentImages.length > 0
+            ) {
+
+                mainImage.style.display =
+                    "block";
+
+
+                previousButton.style.display =
+                    currentImages.length > 1
+                        ? "flex"
+                        : "none";
+
+
+                nextButton.style.display =
+                    currentImages.length > 1
+                        ? "flex"
+                        : "none";
+
+
+                imageCounter.style.display =
+                    "flex";
+
+
+                buildThumbnails();
+
+
+                showImage(
+                    0,
+                    false
+                );
+
+            }
+            else {
+
+                mainImage.style.display =
+                    "none";
+
+
+                previousButton.style.display =
+                    "none";
+
+
+                nextButton.style.display =
+                    "none";
+
+
+                imageCounter.style.display =
+                    "none";
+
+
+                thumbnails.innerHTML = `
+
+                    <div class="project-modal-no-images">
+
+                        <i class="fa-regular fa-image"></i>
+
+                        <span>
+                            No project images available
+                        </span>
+
+                    </div>
+
+                `;
+
+            }
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | FOOTER
+            |--------------------------------------------------------------------------
+            */
+
+            modalFooterId.textContent =
+                project.id
+                    ? `ID: ${project.id}`
+                    : "PROJECT ARCHIVE";
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | SHOW MODAL
+            |--------------------------------------------------------------------------
+            */
+
+            document.body.classList.add(
+                "project-modal-open"
+            );
+
+
+            modal.classList.add(
+                "is-open"
+            );
+
+
+            modal.setAttribute(
+                "aria-hidden",
+                "false"
+            );
+
+
+            requestAnimationFrame(
+                () => {
+
+                    modal.classList.add(
+                        "is-visible"
+                    );
+
+                }
+            );
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Focus
+            |--------------------------------------------------------------------------
+            */
+
+            setTimeout(
+                () => {
+
+                    closeButton.focus();
+
+                },
+                100
+            );
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | CLOSE MODAL
+        |--------------------------------------------------------------------------
+        */
+
+        function closeProjectModal() {
+
+            if (
+                !modal.classList.contains(
+                    "is-open"
+                )
+            ) {
+
+                return;
+
+            }
+
+
+            modal.classList.remove(
+                "is-visible"
+            );
+
+
+            modal.setAttribute(
+                "aria-hidden",
+                "true"
+            );
+
+
+            setTimeout(
+                () => {
+
+                    modal.classList.remove(
+                        "is-open"
+                    );
+
+                    document.body.classList.remove(
+                        "project-modal-open"
+                    );
+
+
+                    currentProject =
+                        null;
+
+                    currentImages =
+                        [];
+
+                    resetZoom();
+
+
+                    if (
+                        lastFocusedElement &&
+                        typeof lastFocusedElement.focus ===
+                        "function"
+                    ) {
+
+                        lastFocusedElement.focus();
+
+                    }
+
+                },
+                300
+            );
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | HEX → RGB
+        |--------------------------------------------------------------------------
+        */
+
+        function hexToRGB(
+            hex
+        ) {
+
+            if (
+                !hex
+            ) {
+
+                return "59, 130, 246";
+
+            }
+
+
+            const clean =
+                hex.replace(
+                    "#",
+                    ""
+                );
+
+
+            if (
+                clean.length !== 6
+            ) {
+
+                return "59, 130, 246";
+
+            }
+
+
+            const r =
+                parseInt(
+                    clean.substring(
+                        0,
+                        2
+                    ),
+                    16
+                );
+
+
+            const g =
+                parseInt(
+                    clean.substring(
+                        2,
+                        4
+                    ),
+                    16
+                );
+
+
+            const b =
+                parseInt(
+                    clean.substring(
+                        4,
+                        6
+                    ),
+                    16
+                );
+
+
+            return `${r}, ${g}, ${b}`;
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | NEXT IMAGE
+        |--------------------------------------------------------------------------
+        */
+
+        function nextImage() {
+
+            if (
+                currentImages.length <= 1
+            ) {
+
+                return;
+
+            }
+
+
+            showImage(
+                currentImageIndex + 1
+            );
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | PREVIOUS IMAGE
+        |--------------------------------------------------------------------------
+        */
+
+        function previousImage() {
+
+            if (
+                currentImages.length <= 1
+            ) {
+
+                return;
+
+            }
+
+
+            showImage(
+                currentImageIndex - 1
+            );
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | FULLSCREEN
+        |--------------------------------------------------------------------------
+        */
+
+        async function toggleFullscreen() {
+
+            try {
+
+                if (
+                    !document.fullscreenElement
+                ) {
+
+                    await dialog.requestFullscreen();
+
+                    modal.classList.add(
+                        "is-fullscreen"
+                    );
+
+                }
+                else {
+
+                    await document.exitFullscreen();
+
+                    modal.classList.remove(
+                        "is-fullscreen"
+                    );
+
+                }
+
+            }
+            catch (error) {
+
+                console.warn(
+                    "Fullscreen is not available:",
+                    error
+                );
+
+            }
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | DOWNLOAD IMAGE
+        |--------------------------------------------------------------------------
+        */
+
+        function downloadCurrentImage() {
+
+            if (
+                !currentImages[
+                    currentImageIndex
+                ]
+            ) {
+
+                return;
+
+            }
+
+
+            const imageUrl =
+                currentImages[
+                    currentImageIndex
+                ];
+
+
+            const anchor =
+                document.createElement(
+                    "a"
+                );
+
+
+            anchor.href =
+                imageUrl;
+
+
+            anchor.download =
+                `${currentProject?.id || "project"}-${currentImageIndex + 1}`;
+
+
+            document.body.appendChild(
+                anchor
+            );
+
+
+            anchor.click();
+
+
+            anchor.remove();
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | MOUSE DRAG
+        |--------------------------------------------------------------------------
+        */
+
+        imageStage.addEventListener(
+            "mousedown",
+            event => {
+
+                if (
+                    currentZoom <= 1
+                ) {
+
+                    return;
+
+                }
+
+
+                isDragging = true;
+
+
+                dragStartX =
+                    event.clientX;
+
+
+                dragStartY =
+                    event.clientY;
+
+
+                startTranslateX =
+                    translateX;
+
+
+                startTranslateY =
+                    translateY;
+
+
+                imageStage.classList.add(
+                    "is-dragging"
+                );
+
+
+                event.preventDefault();
+
+            }
+        );
+
+
+        window.addEventListener(
+            "mousemove",
+            event => {
+
+                if (
+                    !isDragging
+                ) {
+
+                    return;
+
+                }
+
+
+                translateX =
+                    startTranslateX +
+                    (
+                        event.clientX -
+                        dragStartX
+                    );
+
+
+                translateY =
+                    startTranslateY +
+                    (
+                        event.clientY -
+                        dragStartY
+                    );
+
+
+                applyImageTransform(
+                    false
+                );
+
+            }
+        );
+
+
+        window.addEventListener(
+            "mouseup",
+            () => {
+
+                if (
+                    !isDragging
+                ) {
+
+                    return;
+
+                }
+
+
+                isDragging = false;
+
+
+                imageStage.classList.remove(
+                    "is-dragging"
+                );
+
+            }
+        );
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | MOUSE WHEEL ZOOM
+        |--------------------------------------------------------------------------
+        */
+
+        imageStage.addEventListener(
+            "wheel",
+            event => {
+
+                if (
+                    !modal.classList.contains(
+                        "is-visible"
+                    )
+                ) {
+
+                    return;
+
+                }
+
+
+                event.preventDefault();
+
+
+                if (
+                    event.deltaY < 0
+                ) {
+
+                    changeZoom(
+                        ZOOM_STEP
+                    );
+
+                }
+                else {
+
+                    changeZoom(
+                        -ZOOM_STEP
+                    );
+
+                }
+
+            },
+            {
+                passive: false
+            }
+        );
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | TOUCH SWIPE
+        |--------------------------------------------------------------------------
+        */
+
+        imageStage.addEventListener(
+            "touchstart",
+            event => {
+
+                if (
+                    event.touches.length !== 1
+                ) {
+
+                    return;
+
+                }
+
+
+                touchStartX =
+                    event.touches[0].clientX;
+
+
+                touchStartY =
+                    event.touches[0].clientY;
+
+            },
+            {
+                passive: true
+            }
+        );
+
+
+        imageStage.addEventListener(
+            "touchend",
+            event => {
+
+                if (
+                    event.changedTouches.length !== 1
+                ) {
+
+                    return;
+
+                }
+
+
+                const touch =
+                    event.changedTouches[0];
+
+
+                const deltaX =
+                    touch.clientX -
+                    touchStartX;
+
+
+                const deltaY =
+                    touch.clientY -
+                    touchStartY;
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | Only treat as swipe when not zoomed
+                |--------------------------------------------------------------------------
+                */
+
+                if (
+                    currentZoom <= 1 &&
+                    Math.abs(deltaX) > 60 &&
+                    Math.abs(deltaX) > Math.abs(deltaY)
+                ) {
+
+                    if (
+                        deltaX < 0
+                    ) {
+
+                        nextImage();
+
+                    }
+                    else {
+
+                        previousImage();
+
+                    }
+
+                }
+
+            },
+            {
+                passive: true
+            }
+        );
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | DOUBLE CLICK ZOOM
+        |--------------------------------------------------------------------------
+        */
+
+        imageStage.addEventListener(
+            "dblclick",
+            event => {
+
+                event.preventDefault();
+
+
+                if (
+                    currentZoom > 1
+                ) {
+
+                    resetZoom();
+
+                }
+                else {
+
+                    currentZoom = 2;
+
+                    applyImageTransform();
+
+                }
+
+            }
+        );
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | BUTTON EVENTS
+        |--------------------------------------------------------------------------
+        */
+
+        closeButton.addEventListener(
+            "click",
+            closeProjectModal
+        );
+
+
+        backdrop.addEventListener(
+            "click",
+            closeProjectModal
+        );
+
+
+        previousButton.addEventListener(
+            "click",
+            previousImage
+        );
+
+
+        nextButton.addEventListener(
+            "click",
+            nextImage
+        );
+
+
+        zoomOutButton.addEventListener(
+            "click",
+            () => {
+
+                changeZoom(
+                    -ZOOM_STEP
+                );
+
+            }
+        );
+
+
+        zoomResetButton.addEventListener(
+            "click",
+            resetZoom
+        );
+
+
+        zoomInButton.addEventListener(
+            "click",
+            () => {
+
+                changeZoom(
+                    ZOOM_STEP
+                );
+
+            }
+        );
+
+
+        fullscreenButton.addEventListener(
+            "click",
+            toggleFullscreen
+        );
+
+
+        downloadButton.addEventListener(
+            "click",
+            downloadCurrentImage
+        );
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | FULLSCREEN CHANGE
+        |--------------------------------------------------------------------------
+        */
+
+        document.addEventListener(
+            "fullscreenchange",
+            () => {
+
+                if (
+                    !document.fullscreenElement
+                ) {
+
+                    modal.classList.remove(
+                        "is-fullscreen"
+                    );
+
+                }
+
+            }
+        );
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | KEYBOARD CONTROL
+        |--------------------------------------------------------------------------
+        */
+
+        document.addEventListener(
+            "keydown",
+            event => {
+
+                if (
+                    !modal.classList.contains(
+                        "is-visible"
+                    )
+                ) {
+
+                    return;
+
+                }
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | ESC
+                |--------------------------------------------------------------------------
+                */
+
+                if (
+                    event.key ===
+                    "Escape"
+                ) {
+
+                    event.preventDefault();
+
+                    closeProjectModal();
+
+                    return;
+
+                }
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | Gallery navigation
+                |--------------------------------------------------------------------------
+                */
+
+                if (
+                    event.key ===
+                    "ArrowLeft"
+                ) {
+
+                    event.preventDefault();
+
+                    previousImage();
+
+                    return;
+
+                }
+
+
+                if (
+                    event.key ===
+                    "ArrowRight"
+                ) {
+
+                    event.preventDefault();
+
+                    nextImage();
+
+                    return;
+
+                }
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | Zoom
+                |--------------------------------------------------------------------------
+                */
+
+                if (
+                    event.key ===
+                    "+"
+                    ||
+                    event.key ===
+                    "="
+                ) {
+
+                    event.preventDefault();
+
+                    changeZoom(
+                        ZOOM_STEP
+                    );
+
+                    return;
+
+                }
+
+
+                if (
+                    event.key ===
+                    "-"
+                ) {
+
+                    event.preventDefault();
+
+                    changeZoom(
+                        -ZOOM_STEP
+                    );
+
+                    return;
+
+                }
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | Reset zoom
+                |--------------------------------------------------------------------------
+                */
+
+                if (
+                    event.key ===
+                    "0"
+                ) {
+
+                    event.preventDefault();
+
+                    resetZoom();
+
+                }
+
+            }
+        );
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | PREVENT BODY SCROLL
+        |--------------------------------------------------------------------------
+        */
+
+        modal.addEventListener(
+            "wheel",
+            event => {
+
+                if (
+                    event.target ===
+                    imageStage ||
+                    imageStage.contains(
+                        event.target
+                    )
+                ) {
+
+                    return;
+
+                }
+
+
+                event.stopPropagation();
+
+            },
+            {
+                passive: true
+            }
+        );
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | GLOBAL API
+        |--------------------------------------------------------------------------
+        |
+        | This allows the existing Gacha engine to call:
+        |
+        | ProjectModal.open(project)
+        |
+        */
+
+        window.ProjectModal = {
+
+            open:
+                openProjectModal,
+
+            close:
+                closeProjectModal,
+
+            next:
+                nextImage,
+
+            previous:
+                previousImage,
+
+            zoomIn:
+                () => changeZoom(
+                    ZOOM_STEP
+                ),
+
+            zoomOut:
+                () => changeZoom(
+                    -ZOOM_STEP
+                ),
+
+            resetZoom,
+
+            getCurrentProject:
+                () => currentProject
+
+        };
+
+    }
+
+);
+
+</script>
+
+</body>
+
+</html>
