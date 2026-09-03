@@ -995,6 +995,11 @@
 
 <script src="js/projects.js"></script>
 
+<audio
+    id="case-open-sound"
+    src="assets/caseopen.mp3"
+    preload="auto"
+></audio>
 
 <!-- ============================================================
      GACHA ENGINE
@@ -1032,6 +1037,12 @@ document.addEventListener(
             document.getElementById(
                 "gacha-open-button"
             );
+        
+        const caseOpenSound =
+    document.getElementById(
+        "case-open-sound"
+    );
+
 
         const result =
             document.getElementById(
@@ -1774,6 +1785,30 @@ document.addEventListener(
             if (isSpinning) {
                 return;
             }
+
+            // Play case opening sound
+    if (caseOpenSound) {
+
+        caseOpenSound.currentTime = 0;
+
+        caseOpenSound.play().catch(
+            error => {
+                console.warn(
+                    "Case open sound could not be played:",
+                    error
+                );
+            }
+        );
+
+    }
+
+    // Wait 2 seconds before rolling
+    await new Promise(
+        resolve => setTimeout(
+            resolve,
+            2000
+        )
+    );
 
 
             isSpinning = true;
